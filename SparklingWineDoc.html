@@ -4,13 +4,15 @@
 <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="description" content="Complete technical guide to Italian sparkling wine production methods: technical differences, organoleptic characteristics and styles">
-<title>Technical Guide - Italian Sparkling Wines: Production Methods</title>
+<title>Italian Sparkling Wine Guide — Gran Caffè L'Aquila</title>
+<link rel="icon" type="image/png" href="./image/icon-96x96.png">
 
 <!-- Font Awesome (HTTPS CDN) -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
 
 <!-- Google Fonts (HTTPS) -->
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant:wght@300;400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./css/luxury-polish.css">
 
 <!-- Chart.js for data visualization -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -18,18 +20,18 @@
 <!-- Custom CSS -->
 <style>
 :root {
-  --bg: #0E0E0E;
-  --card: #1A1A1A;
-  --text: #F5F5F0;
-  --muted: rgba(245, 245, 240, 0.7);
-  --accent: #7a1f2b;
+  --bg: #0B0A09;
+  --card: #141210;
+  --text: #F5F0E6;
+  --muted: #B6ADA0;
+  --accent: #7A2331;
   --gold: #D4AF37;
-  --success: #2e7d32;
-  --info: #0288d1;
-  --warning: #ed6c02;
-  --charmat: #0288d1;
-  --ancestrale: #ed6c02;
-  --classico: #2e7d32;
+  --success: #C9B27C;
+  --info: #C9B27C;
+  --warning: #C28C5C;
+  --charmat: rgba(212, 175, 55, 0.32);
+  --ancestrale: rgba(194, 140, 92, 0.36);
+  --classico: rgba(230, 203, 120, 0.42);
 }
 
 * { 
@@ -45,24 +47,25 @@ html {
 }
 
 body {
-  font-family: 'Cormorant', serif;
-  background: var(--bg);
+  font-family: 'Cormorant', Georgia, serif;
+  background: radial-gradient(ellipse at 50% 0%, #1C1712 0%, #0B0A09 48%, #080706 100%);
   color: var(--text);
   line-height: 1.7;
   min-height: 100vh;
   overflow-x: hidden;
   width: 100%;
   max-width: 100vw;
-  padding-top: 70px;
+  padding-top: 72px;
   position: relative;
 }
 
 /* Improved fixed header */
 .doc-header {
-  background: rgba(10, 10, 10, 0.98);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(212, 175, 55, 0.3);
-  padding: 1rem 1rem;
+  background: rgba(12, 11, 9, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.22);
+  padding: 0.75rem clamp(1rem, 3vw, 2rem);
   position: fixed;
   top: 0;
   left: 0;
@@ -73,13 +76,14 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+  gap: 1rem;
+  box-shadow: 0 4px 26px rgba(0, 0, 0, 0.48);
   overflow-x: hidden;
 }
 
 .header-nav {
   display: flex;
-  gap: 0.75rem;
+  gap: 0.45rem;
   align-items: center;
   flex-wrap: wrap;
   overflow-x: auto;
@@ -89,11 +93,14 @@ body {
 .nav-link {
   color: var(--muted);
   text-decoration: none;
-  font-family: 'Cormorant', serif;
-  font-size: 1.1rem;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  transition: all 0.3s ease;
+  font-family: var(--gca-font-ui);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.48rem 0.85rem;
+  border-radius: 999px;
+  transition: color 0.2s ease, background-color 0.2s ease;
   position: relative;
 }
 
@@ -104,33 +111,37 @@ body {
 
 .nav-link.active {
   color: var(--gold);
-  border-bottom: 2px solid var(--gold);
+  background: rgba(212, 175, 55, 0.14);
 }
 
 .btn-back {
-  background: rgba(212, 175, 55, 0.1);
-  border: 1px solid var(--gold);
-  color: var(--gold);
-  padding: 0.75rem 1.5rem;
-  border-radius: 8px;
+  background: rgba(28, 25, 22, 0.88);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  color: var(--gca-gold-soft);
+  padding: 0.52rem 1rem;
+  border-radius: 999px;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  font-family: 'Cormorant', serif;
-  transition: all 0.3s ease;
+  font-family: var(--gca-font-ui);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
 }
 
 .btn-back:hover {
-  background: rgba(212, 175, 55, 0.2);
-  transform: translateX(-3px);
-  box-shadow: 0 5px 15px rgba(212, 175, 55, 0.2);
+  background: rgba(212, 175, 55, 0.16);
+  border-color: var(--gold);
+  transform: translateX(-2px);
 }
 
 /* Main Container */
 .main-container {
   width: 100%;
-  max-width: 100vw;
+  max-width: 1220px;
+  margin: 0 auto;
   overflow-x: hidden;
   position: relative;
 }
@@ -138,36 +149,79 @@ body {
 /* Hero Section */
 .hero {
   text-align: center;
-  padding: 4rem 1rem 3rem;
-  background: linear-gradient(135deg, rgba(26, 26, 26, 0.9), rgba(10, 10, 10, 0.95));
-  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-  margin-bottom: 3rem;
+  padding: 3.5rem 1.5rem 2.75rem;
+  background: transparent;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.18);
+  margin-bottom: 2.75rem;
   width: 100%;
   max-width: 100%;
 }
 
 .hero h1 {
-  font-family: 'Cinzel', serif;
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  background: linear-gradient(135deg, var(--gold), #F4CF67);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  font-family: 'Cinzel', Georgia, serif;
+  font-size: clamp(1.9rem, 4.2vw, 3.1rem);
+  font-weight: 600;
+  color: var(--text);
   margin-bottom: 1rem;
-  letter-spacing: 1px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   word-wrap: break-word;
   overflow-wrap: break-word;
 }
 
 .hero-subtitle {
-  font-size: 1.3rem;
+  font-size: 1.22rem;
   color: var(--muted);
-  max-width: 800px;
+  max-width: 760px;
   margin: 0 auto;
   line-height: 1.6;
   padding: 0 1rem;
   width: 100%;
   box-sizing: border-box;
+}
+
+/* Offline Chart Fallback Bars */
+.gca-fallback-chart {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.9rem;
+  height: 100%;
+  padding: 0.5rem 0.25rem;
+}
+
+.gca-bar-row {
+  display: grid;
+  grid-template-columns: 115px 1fr 72px;
+  align-items: center;
+  gap: 0.85rem;
+  font-family: var(--gca-font-ui);
+  font-size: 0.82rem;
+}
+
+.gca-bar-label {
+  color: var(--text);
+  font-weight: 500;
+  text-align: right;
+}
+
+.gca-bar-track {
+  height: 12px;
+  border-radius: 999px;
+  background: rgba(245, 240, 230, 0.08);
+  overflow: hidden;
+}
+
+.gca-bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #9C7A26, #D4AF37, #E6CB78);
+}
+
+.gca-bar-val {
+  color: var(--gold);
+  font-weight: 600;
+  font-size: 0.78rem;
 }
 
 /* Navigation Cards */
@@ -466,22 +520,23 @@ body {
 
 /* Method Detail Sections */
 .method-section {
-  padding: 4rem 2rem;
+  padding: 3.5rem 2rem;
   margin: 2rem 0;
-  border-top: 1px solid rgba(212, 175, 55, 0.1);
-  border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+  border-top: 1px solid rgba(212, 175, 55, 0.14);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.14);
+  border-radius: 16px;
 }
 
 .method-section.charmat {
-  background: linear-gradient(135deg, rgba(2, 136, 209, 0.05), transparent);
+  background: linear-gradient(135deg, rgba(200, 176, 122, 0.06), rgba(20, 18, 16, 0.45));
 }
 
 .method-section.ancestrale {
-  background: linear-gradient(135deg, rgba(237, 108, 2, 0.05), transparent);
+  background: linear-gradient(135deg, rgba(196, 149, 98, 0.06), rgba(20, 18, 16, 0.45));
 }
 
 .method-section.classico {
-  background: linear-gradient(135deg, rgba(46, 125, 50, 0.05), transparent);
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.07), rgba(20, 18, 16, 0.45));
 }
 
 .method-detail-grid {
@@ -494,46 +549,50 @@ body {
 }
 
 .detail-card {
-  background: rgba(26, 26, 26, 0.9);
-  border-radius: 12px;
+  background: rgba(20, 18, 16, 0.9);
+  border-radius: 14px;
   padding: 1.5rem;
-  border: 1px solid;
-  transition: all 0.3s ease;
+  border: 1px solid rgba(212, 175, 55, 0.22);
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
 .detail-card.charmat {
-  border-color: var(--charmat);
+  border-color: rgba(200, 176, 122, 0.32);
 }
 
 .detail-card.ancestrale {
-  border-color: var(--ancestrale);
+  border-color: rgba(196, 149, 98, 0.34);
 }
 
 .detail-card.classico {
-  border-color: var(--classico);
+  border-color: rgba(212, 175, 55, 0.38);
 }
 
 .detail-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+  transform: translateY(-4px);
+  border-color: rgba(212, 175, 55, 0.55);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.38);
 }
 
 /* Method View Wines Button */
 .method-view-wines-btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.75rem;
-  padding: 1rem 2rem;
+  justify-content: center;
+  gap: 0.7rem;
+  padding: 0.9rem 1.85rem;
   margin: 2rem auto;
-  background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(212, 175, 55, 0.2));
-  border: 2px solid var(--gold);
-  border-radius: 10px;
+  background: rgba(212, 175, 55, 0.1);
+  border: 1px solid rgba(212, 175, 55, 0.55);
+  border-radius: 999px;
   color: var(--gold);
   text-decoration: none;
-  font-family: 'Cinzel', serif;
-  font-size: 1.1rem;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   font-weight: 600;
-  transition: all 0.3s ease;
+  transition: all 0.25s ease;
   cursor: pointer;
   text-align: center;
   width: fit-content;
@@ -541,53 +600,58 @@ body {
 }
 
 .method-view-wines-btn.charmat {
-  border-color: var(--charmat);
-  color: var(--charmat);
-  background: linear-gradient(135deg, rgba(2, 136, 209, 0.1), rgba(2, 136, 209, 0.2));
+  border-color: rgba(200, 176, 122, 0.58);
+  color: #E3CE9E;
+  background: rgba(200, 176, 122, 0.1);
 }
 
 .method-view-wines-btn.charmat:hover {
-  background: linear-gradient(135deg, rgba(2, 136, 209, 0.2), rgba(2, 136, 209, 0.3));
-  transform: translateY(-3px);
-  box-shadow: 0 10px 25px rgba(2, 136, 209, 0.3);
+  background: rgba(200, 176, 122, 0.2);
+  border-color: #E3CE9E;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
 }
 
 .method-view-wines-btn.ancestrale {
-  border-color: var(--ancestrale);
-  color: var(--ancestrale);
-  background: linear-gradient(135deg, rgba(237, 108, 2, 0.1), rgba(237, 108, 2, 0.2));
+  border-color: rgba(196, 149, 98, 0.6);
+  color: #E2B887;
+  background: rgba(196, 149, 98, 0.1);
 }
 
 .method-view-wines-btn.ancestrale:hover {
-  background: linear-gradient(135deg, rgba(237, 108, 2, 0.2), rgba(237, 108, 2, 0.3));
-  transform: translateY(-3px);
-  box-shadow: 0 10px 25px rgba(237, 108, 2, 0.3);
+  background: rgba(196, 149, 98, 0.2);
+  border-color: #E2B887;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
 }
 
 .method-view-wines-btn.classico {
-  border-color: var(--classico);
-  color: var(--classico);
-  background: linear-gradient(135deg, rgba(46, 125, 50, 0.1), rgba(46, 125, 50, 0.2));
+  border-color: rgba(212, 175, 55, 0.65);
+  color: var(--gold);
+  background: rgba(212, 175, 55, 0.12);
 }
 
 .method-view-wines-btn.classico:hover {
-  background: linear-gradient(135deg, rgba(46, 125, 50, 0.2), rgba(46, 125, 50, 0.3));
-  transform: translateY(-3px);
-  box-shadow: 0 10px 25px rgba(46, 125, 50, 0.3);
+  background: rgba(212, 175, 55, 0.22);
+  border-color: var(--gold);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(212, 175, 55, 0.22);
 }
 
 .method-view-wines-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(212, 175, 55, 0.22);
 }
 
-.method-view-wines-btn i {
-  font-size: 1.2rem;
-  transition: transform 0.3s ease;
+.method-view-wines-btn i,
+.method-view-wines-btn svg {
+  font-size: 1rem;
+  transition: transform 0.25s ease;
 }
 
-.method-view-wines-btn:hover i {
-  transform: translateX(5px);
+.method-view-wines-btn:hover i,
+.method-view-wines-btn:hover svg {
+  transform: translateX(4px);
 }
 
 .method-button-container {
@@ -1106,19 +1170,18 @@ body {
 </style>
 </head>
 <body>
-<!-- Fixed Home Button -->
-<a href="./index.html" class="fixed-home-btn" aria-label="Back to Home">
-    <i class="fas fa-home"></i>
-</a>
-
 <div class="main-container">
 
 <!-- Navigation Header -->
 <header class="doc-header">
-  <div class="header-brand">
+  <div class="header-brand" style="display:flex;align-items:center;gap:0.6rem;">
+    <a href="./index.html" class="btn-back" aria-label="Home">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.5"/></svg>
+      Home
+    </a>
     <a href="./wine-map.html" class="btn-back">
-      <i class="fas fa-arrow-left"></i>
-      Back to Wine Map
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+      Wine Map
     </a>
   </div>
   
@@ -1141,26 +1204,26 @@ body {
 <div class="method-nav">
   <div class="method-card charmat" onclick="scrollToSection('charmat-section')">
     <div class="method-icon">
-      <i class="fas fa-industry"></i>
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 19V8a6 6 0 0 1 12 0v11"/><path d="M4 19h16"/><path d="M9 12h6"/><path d="M12 2v2"/><circle cx="10" cy="15.5" r="0.8" fill="currentColor"/><circle cx="14" cy="14.5" r="0.8" fill="currentColor"/></svg>
     </div>
     <h3>Martinotti-Charmat Method</h3>
-    <p>Second fermentation in autoclave - Prosecco, modern Lambrusco</p>
+    <p>Second fermentation in autoclave — Prosecco, modern Lambrusco</p>
     </div>
   
   <div class="method-card ancestrale" onclick="scrollToSection('ancestrale-section')">
     <div class="method-icon">
-      <i class="fas fa-wine-bottle"></i>
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 2h4"/><path d="M10 2v4.5L7.5 10v10a2 2 0 0 0 2 2h5a2 2 0 0 0 2-2V10L14 6.5V2"/><path d="M7.5 14h9"/><path d="M9 18h6"/></svg>
     </div>
     <h3>Ancestral/Rural Method</h3>
-    <p>Single fermentation in bottle - Pet Nat, "col fondo" wines</p>
+    <p>Single fermentation in bottle — Pet Nat, "col fondo" wines</p>
     </div>
   
   <div class="method-card classico" onclick="scrollToSection('classico-section')">
     <div class="method-icon">
-      <i class="fas fa-gem"></i>
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2h8l-1 9a3 3 0 0 1-3 3 3 3 0 0 1-3-3L8 2z"/><path d="M12 14v7"/><path d="M8 21h8"/><circle cx="11" cy="6" r="0.8" fill="currentColor"/><circle cx="13.5" cy="8.5" r="0.8" fill="currentColor"/></svg>
   </div>
     <h3>Classic Method (Traditional)</h3>
-    <p>Second fermentation in bottle - Franciacorta, Trento DOC</p>
+    <p>Second fermentation in bottle — Franciacorta, Trento DOC</p>
   </div>
 </div>
 
@@ -1483,193 +1546,158 @@ body {
 </footer>
 
 <script>
+// Offline fallback bar renderer when Chart.js CDN is unavailable
+function renderFallbackBarChart(canvasId, rows, unit) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas || !canvas.parentElement) return;
+  const maxVal = Math.max(...rows.map(r => r.value), 1);
+  const wrap = document.createElement('div');
+  wrap.className = 'gca-fallback-chart';
+  wrap.setAttribute('role', 'img');
+  wrap.setAttribute('aria-label', rows.map(r => `${r.label}: ${r.display || (r.value + ' ' + unit)}`).join(', '));
+  wrap.innerHTML = rows.map(r => {
+    const pct = Math.max(4, Math.round((r.value / maxVal) * 100));
+    return `
+      <div class="gca-bar-row">
+        <span class="gca-bar-label">${r.label}</span>
+        <div class="gca-bar-track"><div class="gca-bar-fill" style="width:${pct}%"></div></div>
+        <span class="gca-bar-val">${r.display || (r.value + ' ' + unit)}</span>
+      </div>`;
+  }).join('');
+  canvas.replaceWith(wrap);
+}
+
 // Pressure Chart
-const pressureCtx = document.getElementById('pressureChart').getContext('2d');
-const pressureChart = new Chart(pressureCtx, {
-  type: 'bar',
-  data: {
-    labels: ['Still Wine', 'Frizzante', 'Sparkling'],
-    datasets: [{
-      label: 'Pressure (atm)',
-      data: [0.5, 1.75, 4],
-      backgroundColor: [
-        'rgba(122, 31, 43, 0.7)',
-        'rgba(237, 108, 2, 0.7)',
-        'rgba(212, 175, 55, 0.7)'
-      ],
-      borderColor: [
-        'rgba(122, 31, 43, 1)',
-        'rgba(237, 108, 2, 1)',
-        'rgba(212, 175, 55, 1)'
-      ],
-      borderWidth: 2
-    }]
-  },
-  options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    scales: {
-      y: {
-        beginAtZero: true,
-        title: {
-          display: true,
-          text: 'Atmospheres (atm)',
-          color: '#F5F5F0',
-          font: {
-            family: 'Cormorant',
-            size: 14,
-            weight: 500
-          }
-        },
-        ticks: { 
-          color: '#F5F5F0',
-          font: {
-            family: 'Cormorant',
-            size: 12
-          }
-        },
-        grid: { 
-          color: 'rgba(245, 245, 240, 0.1)',
-          lineWidth: 1
-        }
-      },
-      x: {
-        ticks: { 
-          color: '#F5F5F0',
-          font: {
-            family: 'Cormorant',
-            size: 12
-          }
-        },
-        grid: { 
-          color: 'rgba(245, 245, 240, 0.1)',
-          lineWidth: 1
-        }
-      }
+const pressureCanvas = document.getElementById('pressureChart');
+if (typeof Chart !== 'undefined' && pressureCanvas) {
+  const pressureCtx = pressureCanvas.getContext('2d');
+  new Chart(pressureCtx, {
+    type: 'bar',
+    data: {
+      labels: ['Still Wine', 'Frizzante', 'Sparkling'],
+      datasets: [{
+        label: 'Pressure (atm)',
+        data: [0.5, 1.75, 4],
+        backgroundColor: [
+          'rgba(138, 60, 72, 0.72)',
+          'rgba(196, 149, 98, 0.72)',
+          'rgba(212, 175, 55, 0.78)'
+        ],
+        borderColor: [
+          'rgba(168, 86, 98, 1)',
+          'rgba(196, 149, 98, 1)',
+          'rgba(212, 175, 55, 1)'
+        ],
+        borderWidth: 1.5
+      }]
     },
-    plugins: {
-      legend: {
-        labels: { 
-          color: '#F5F5F0',
-          font: {
-            family: 'Cormorant',
-            size: 13
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        y: {
+          beginAtZero: true,
+          title: {
+            display: true,
+            text: 'Atmospheres (atm)',
+            color: '#F5F0E6',
+            font: { family: 'Inter', size: 12, weight: 500 }
           },
-          padding: 15
+          ticks: { color: '#F5F0E6', font: { family: 'Inter', size: 11 } },
+          grid: { color: 'rgba(245, 240, 230, 0.1)', lineWidth: 1 }
+        },
+        x: {
+          ticks: { color: '#F5F0E6', font: { family: 'Inter', size: 12 } },
+          grid: { color: 'rgba(245, 240, 230, 0.08)', lineWidth: 1 }
         }
       },
-      tooltip: {
-        backgroundColor: 'rgba(26, 26, 26, 0.95)',
-        titleColor: '#D4AF37',
-        bodyColor: '#F5F5F0',
-        borderColor: 'rgba(212, 175, 55, 0.3)',
-        borderWidth: 1,
-        padding: 12,
-        titleFont: {
-          family: 'Cinzel',
-          size: 14,
-          weight: 600
+      plugins: {
+        legend: {
+          labels: { color: '#F5F0E6', font: { family: 'Inter', size: 12 }, padding: 15 }
         },
-        bodyFont: {
-          family: 'Cormorant',
-          size: 13
+        tooltip: {
+          backgroundColor: 'rgba(20, 18, 16, 0.96)',
+          titleColor: '#D4AF37',
+          bodyColor: '#F5F0E6',
+          borderColor: 'rgba(212, 175, 55, 0.35)',
+          borderWidth: 1,
+          padding: 12
         }
       }
     }
-  }
-});
+  });
+} else {
+  renderFallbackBarChart('pressureChart', [
+    { label: 'Still Wine', value: 0.5, display: '< 1 atm' },
+    { label: 'Frizzante', value: 2.0, display: '1–2.5 atm' },
+    { label: 'Spumante', value: 5.5, display: '3–6 atm' }
+  ], 'atm');
+}
 
 // Sweetness Chart
-const sweetnessCtx = document.getElementById('sweetnessChart').getContext('2d');
-const sweetnessChart = new Chart(sweetnessCtx, {
-  type: 'line',
-  data: {
-    labels: ['Brut Nature', 'Extra Brut', 'Brut', 'Extra Dry', 'Dry', 'Demi-Sec', 'Doux'],
-    datasets: [{
-      label: 'Residual Sugar (g/L)',
-      data: [1.5, 3, 6, 14.5, 24.5, 41, 60],
-      borderColor: 'rgba(212, 175, 55, 1)',
-      backgroundColor: 'rgba(212, 175, 55, 0.1)',
-      borderWidth: 3,
-      fill: true,
-      tension: 0.4
-    }]
-  },
-  options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    scales: {
-      y: {
-        beginAtZero: true,
-        title: {
-          display: true,
-          text: 'Grams per liter (g/L)',
-          color: '#F5F5F0',
-          font: {
-            family: 'Cormorant',
-            size: 14,
-            weight: 500
-          }
-        },
-        ticks: { 
-          color: '#F5F5F0',
-          font: {
-            family: 'Cormorant',
-            size: 12
-          }
-        },
-        grid: { 
-          color: 'rgba(245, 245, 240, 0.1)',
-          lineWidth: 1
-        }
-      },
-      x: {
-        ticks: { 
-          color: '#F5F5F0',
-          font: {
-            family: 'Cormorant',
-            size: 11
-          },
-          maxRotation: 45,
-          minRotation: 0
-        },
-        grid: { 
-          color: 'rgba(245, 245, 240, 0.1)',
-          lineWidth: 1
-        }
-      }
+const sweetnessCanvas = document.getElementById('sweetnessChart');
+if (typeof Chart !== 'undefined' && sweetnessCanvas) {
+  const sweetnessCtx = sweetnessCanvas.getContext('2d');
+  new Chart(sweetnessCtx, {
+    type: 'line',
+    data: {
+      labels: ['Brut Nature', 'Extra Brut', 'Brut', 'Extra Dry', 'Dry', 'Demi-Sec', 'Doux'],
+      datasets: [{
+        label: 'Residual Sugar (g/L)',
+        data: [1.5, 3, 6, 14.5, 24.5, 41, 60],
+        borderColor: 'rgba(212, 175, 55, 1)',
+        backgroundColor: 'rgba(212, 175, 55, 0.12)',
+        borderWidth: 2.5,
+        fill: true,
+        tension: 0.35
+      }]
     },
-    plugins: {
-      legend: {
-        labels: { 
-          color: '#F5F5F0',
-          font: {
-            family: 'Cormorant',
-            size: 13
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        y: {
+          beginAtZero: true,
+          title: {
+            display: true,
+            text: 'Grams per liter (g/L)',
+            color: '#F5F0E6',
+            font: { family: 'Inter', size: 12, weight: 500 }
           },
-          padding: 15
+          ticks: { color: '#F5F0E6', font: { family: 'Inter', size: 11 } },
+          grid: { color: 'rgba(245, 240, 230, 0.1)', lineWidth: 1 }
+        },
+        x: {
+          ticks: { color: '#F5F0E6', font: { family: 'Inter', size: 11 }, maxRotation: 40, minRotation: 0 },
+          grid: { color: 'rgba(245, 240, 230, 0.08)', lineWidth: 1 }
         }
       },
-      tooltip: {
-        backgroundColor: 'rgba(26, 26, 26, 0.95)',
-        titleColor: '#D4AF37',
-        bodyColor: '#F5F5F0',
-        borderColor: 'rgba(212, 175, 55, 0.3)',
-        borderWidth: 1,
-        padding: 12,
-        titleFont: {
-          family: 'Cinzel',
-          size: 14,
-          weight: 600
+      plugins: {
+        legend: {
+          labels: { color: '#F5F0E6', font: { family: 'Inter', size: 12 }, padding: 15 }
         },
-        bodyFont: {
-          family: 'Cormorant',
-          size: 13
+        tooltip: {
+          backgroundColor: 'rgba(20, 18, 16, 0.96)',
+          titleColor: '#D4AF37',
+          bodyColor: '#F5F0E6',
+          borderColor: 'rgba(212, 175, 55, 0.35)',
+          borderWidth: 1,
+          padding: 12
         }
       }
     }
-  }
-});
+  });
+} else {
+  renderFallbackBarChart('sweetnessChart', [
+    { label: 'Brut Nature', value: 2, display: '0–3 g/L' },
+    { label: 'Extra Brut', value: 5, display: '0–6 g/L' },
+    { label: 'Brut', value: 11, display: '0–12 g/L' },
+    { label: 'Extra Dry', value: 17, display: '12–17 g/L' },
+    { label: 'Dry', value: 28, display: '17–32 g/L' },
+    { label: 'Demi-Sec', value: 44, display: '32–50 g/L' },
+    { label: 'Doux', value: 60, display: '> 50 g/L' }
+  ], 'g/L');
+}
 
 // Navigation Functions
 function scrollToSection(sectionId) {
@@ -1773,14 +1801,18 @@ document.querySelectorAll('.process-steps').forEach(steps => {
 // Add hover effects to method cards
 document.querySelectorAll('.method-card').forEach(card => {
   card.addEventListener('mouseenter', function() {
-    const icon = this.querySelector('.method-icon i');
-    icon.style.transform = 'scale(1.2)';
-    icon.style.transition = 'transform 0.3s ease';
+    const icon = this.querySelector('.method-icon svg, .method-icon i');
+    if (icon) {
+      icon.style.transform = 'scale(1.15)';
+      icon.style.transition = 'transform 0.25s ease';
+    }
   });
   
   card.addEventListener('mouseleave', function() {
-    const icon = this.querySelector('.method-icon i');
-    icon.style.transform = 'scale(1)';
+    const icon = this.querySelector('.method-icon svg, .method-icon i');
+    if (icon) {
+      icon.style.transform = 'scale(1)';
+    }
   });
 });
 
@@ -1856,7 +1888,6 @@ function showWinesInPopup(subcategory, methodName) {
   if (filteredWines.length === 0) {
     winesPopupList.innerHTML = `
       <div class="wines-popup-empty">
-        <i class="fas fa-wine-glass" style="font-size: 3rem; color: var(--muted); margin-bottom: 1rem;"></i>
         <p>No wines found for this method.</p>
       </div>
     `;
@@ -1877,7 +1908,9 @@ function createWineCard(wine) {
   card.className = 'wine-popup-card';
   card.dataset.wineId = wine.wine_number;
   
-  const price = wine.wine_price || wine.wine_price_bottle || wine.wine_price_glass || 'N/A';
+  const rawPrice = wine.wine_price || wine.wine_price_bottle || wine.wine_price_glass || '';
+  const cleanPrice = String(rawPrice).replace(/^\$/, '').trim();
+  const formattedPrice = cleanPrice ? `$${cleanPrice}` : 'Market';
   const producer = wine.wine_producer || 'Unknown Producer';
   const vintage = wine.wine_vintage || 'N/A';
   const region = wine.region || 'N/A';
@@ -1892,7 +1925,7 @@ function createWineCard(wine) {
           ${region !== 'N/A' ? `<span class="wine-popup-card-region">${region}</span>` : ''}
         </div>
       </div>
-      <div class="wine-popup-card-price">$${price}</div>
+      <div class="wine-popup-card-price">${formattedPrice}</div>
     </div>
   `;
   
@@ -1979,13 +2012,12 @@ document.addEventListener('DOMContentLoaded', () => {
     <div class="wines-popup-header">
       <h2 id="winesPopupTitle" class="wines-popup-title">Wines</h2>
       <button id="winesPopupClose" class="wines-popup-close" aria-label="Close">
-        <i class="fas fa-times"></i>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
       </button>
     </div>
     <div id="winesPopupContent" class="wines-popup-content">
       <div id="winesPopupList" class="wines-popup-list">
         <div class="wines-popup-loading">
-          <i class="fas fa-spinner fa-spin"></i>
           <p>Loading wines...</p>
         </div>
       </div>

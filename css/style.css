@@ -745,10 +745,10 @@ body:not(.home-page) {
     position: relative;
     transition: background 0.3s ease;
     /* Sfondo con immagine gcaLogoWall */
-    background-image: url('./image/gcaLogoWall.jpeg');
+    background-image: url('../image/gcaLogoWall.jpeg');
     background-image: image-set(
-        url('./image/gcaLogoWall.webp') type('image/webp'),
-        url('./image/gcaLogoWall.jpeg') type('image/jpeg')
+        url('../image/gcaLogoWall.webp') type('image/webp'),
+        url('../image/gcaLogoWall.jpeg') type('image/jpeg')
     );
     background-size: cover;
     background-position: center;
@@ -795,10 +795,10 @@ body:not(.home-page) {
 :root[data-theme="day"] .luxury-container {
     background: var(--bg-primary);
     /* Mantieni immagine di sfondo anche in day mode ma con overlay più chiaro */
-    background-image: url('./image/gcaLogoWall.jpeg');
+    background-image: url('../image/gcaLogoWall.jpeg');
     background-image: image-set(
-        url('./image/gcaLogoWall.webp') type('image/webp'),
-        url('./image/gcaLogoWall.jpeg') type('image/jpeg')
+        url('../image/gcaLogoWall.webp') type('image/webp'),
+        url('../image/gcaLogoWall.jpeg') type('image/jpeg')
     );
     background-size: cover;
     background-position: center;

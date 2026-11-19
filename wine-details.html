@@ -3,9 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Wine Details - Gran Caffè L'Aquila</title>
+    <title>Wine Details — Gran Caffè L'Aquila</title>
+    <meta name="description" content="Detailed tasting notes, grape varietals, producer, and regional provenance from Gran Caffè L'Aquila's wine cellar.">
+    <link rel="icon" type="image/png" href="./image/icon-96x96.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant:wght@300;400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/luxury-polish.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
@@ -2318,53 +2321,388 @@
             box-shadow: 0 0 0 2px rgba(139, 0, 0, 0.2) !important;
         }
 
+        /* Editorial Sommelier Dossier Polish */
+        .luxury-container {
+            background: radial-gradient(ellipse at 25% 15%, #1A1511 0%, #0C0B0A 55%, #080706 100%) !important;
+        }
+
+        .wine-details-top-bar {
+            background: rgba(14, 12, 10, 0.94) !important;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.22) !important;
+            padding: 0.9rem clamp(1.1rem, 3vw, 2.25rem) !important;
+        }
+
+        .wine-details-brand-title {
+            font-family: var(--gca-font-display) !important;
+            color: var(--gca-gold) !important;
+            letter-spacing: 0.14em !important;
+        }
+
+        .wine-details-brand-subtitle {
+            font-family: var(--gca-font-ui) !important;
+            font-size: 0.72rem !important;
+            letter-spacing: 0.2em !important;
+            text-transform: uppercase !important;
+            color: var(--gca-muted) !important;
+        }
+
+        .wine-details-home-btn {
+            width: 42px !important;
+            height: 42px !important;
+            border-radius: 50% !important;
+            border: 1px solid rgba(212, 175, 55, 0.35) !important;
+            background: rgba(24, 21, 18, 0.85) !important;
+            color: var(--gca-gold) !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            text-decoration: none !important;
+            transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease !important;
+        }
+
+        .wine-details-home-btn:hover {
+            background: var(--gca-gold) !important;
+            color: #0B0A09 !important;
+            transform: translateY(-1px) !important;
+        }
+
+        .wine-details-home-btn svg {
+            width: 19px;
+            height: 19px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 1.85;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .wine-details-back-bar {
+            max-width: 1120px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 1.1rem clamp(1.1rem, 3vw, 2rem) 0.25rem !important;
+            background: transparent !important;
+            border-bottom: none !important;
+        }
+
+        .wine-details-back-btn {
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 0.45rem !important;
+            padding: 0.5rem 1rem !important;
+            border-radius: 999px !important;
+            border: 1px solid rgba(212, 175, 55, 0.3) !important;
+            background: rgba(24, 21, 18, 0.8) !important;
+            color: var(--gca-gold-soft) !important;
+            font-family: var(--gca-font-ui) !important;
+            font-size: 0.78rem !important;
+            font-weight: 500 !important;
+            letter-spacing: 0.1em !important;
+            text-decoration: none !important;
+            transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.2s ease !important;
+        }
+
+        .wine-details-back-btn:hover {
+            border-color: var(--gca-gold) !important;
+            background: rgba(212, 175, 55, 0.14) !important;
+            transform: translateX(-2px) !important;
+        }
+
+        .wine-details-container {
+            max-width: 1120px !important;
+            width: 100% !important;
+            margin: 0 auto !important;
+            padding: 1rem clamp(1.1rem, 3vw, 2rem) 3.5rem !important;
+        }
+
+        .wine-details-content {
+            width: 100% !important;
+            max-width: 100% !important;
+        }
+
+        .wine-details-left.wine-info-section {
+            display: grid !important;
+            grid-template-columns: 1fr !important;
+            gap: 1.75rem !important;
+            width: 100% !important;
+            max-width: 100% !important;
+            padding: 0 !important;
+        }
+
+        @media (min-width: 900px) {
+            .wine-details-left.wine-info-section {
+                grid-template-columns: 330px minmax(0, 1fr) !important;
+                grid-template-areas:
+                    "bottle header"
+                    "bottle description"
+                    "bottle tasting";
+                align-items: start !important;
+                gap: 1.75rem 3rem !important;
+            }
+
+            .wine-image-section {
+                grid-area: bottle;
+                position: sticky;
+                top: 96px;
+            }
+
+            .wine-name-block {
+                grid-area: header;
+                text-align: left !important;
+            }
+
+            .detail-section-desc {
+                grid-area: description;
+            }
+
+            .detail-section-tasting {
+                grid-area: tasting;
+            }
+        }
+
+        .wine-name-block {
+            padding-bottom: 1.25rem;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .wine-name {
+            font-family: var(--gca-font-display) !important;
+            font-size: clamp(1.65rem, 3vw, 2.45rem) !important;
+            color: var(--gca-ivory) !important;
+            letter-spacing: 0.06em !important;
+            line-height: 1.2 !important;
+            text-shadow: none !important;
+        }
+
+        .wine-format-line {
+            font-family: var(--gca-font-ui) !important;
+            font-size: 0.92rem !important;
+            color: var(--gca-gold-soft) !important;
+            letter-spacing: 0.08em !important;
+            margin-top: 0.65rem !important;
+        }
+
+        /* Pedestal card for bottle photo or bespoke SVG silhouette */
+        .wine-image-section {
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        .wine-image {
+            position: relative !important;
+            width: 100% !important;
+            min-height: 360px !important;
+            max-height: 480px !important;
+            border-radius: 18px !important;
+            background: linear-gradient(165deg, rgba(30, 26, 22, 0.92) 0%, rgba(16, 14, 12, 0.98) 100%) !important;
+            border: 1px solid rgba(212, 175, 55, 0.24) !important;
+            box-shadow: 0 18px 44px rgba(0, 0, 0, 0.52) !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            padding: 2rem 1.5rem !important;
+            overflow: hidden !important;
+        }
+
+        .wine-image::before,
+        .wine-image::after {
+            display: none !important;
+        }
+
+        .wine-image[data-wine-family="ROSSO"] {
+            background: radial-gradient(circle at 50% 42%, rgba(122, 35, 49, 0.34), rgba(16, 14, 12, 0.98) 72%) !important;
+        }
+
+        .wine-image[data-wine-family="BIANCO"] {
+            background: radial-gradient(circle at 50% 42%, rgba(197, 169, 82, 0.22), rgba(16, 14, 12, 0.98) 72%) !important;
+        }
+
+        .wine-image[data-wine-family="ROSATO"] {
+            background: radial-gradient(circle at 50% 42%, rgba(183, 110, 121, 0.28), rgba(16, 14, 12, 0.98) 72%) !important;
+        }
+
+        .wine-image[data-wine-family="ARANCIONE"] {
+            background: radial-gradient(circle at 50% 42%, rgba(200, 125, 59, 0.28), rgba(16, 14, 12, 0.98) 72%) !important;
+        }
+
+        .wine-image[data-wine-family="BOLLICINE"] {
+            background: radial-gradient(circle at 50% 42%, rgba(212, 175, 55, 0.25), rgba(16, 14, 12, 0.98) 72%) !important;
+        }
+
+        .wine-image[data-wine-family="NON ALCOLICO"] {
+            background: radial-gradient(circle at 50% 42%, rgba(91, 140, 103, 0.25), rgba(16, 14, 12, 0.98) 72%) !important;
+        }
+
+        #wineBottleImage {
+            max-height: 390px !important;
+            max-width: 100% !important;
+            width: auto !important;
+            object-fit: contain !important;
+            filter: drop-shadow(0 16px 28px rgba(0, 0, 0, 0.65));
+        }
+
+        .gca-bottle-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            color: var(--gca-gold);
+            text-align: center;
+        }
+
+        .gca-bottle-svg {
+            width: 112px;
+            height: 250px;
+            filter: drop-shadow(0 14px 26px rgba(0, 0, 0, 0.55));
+        }
+
+        .gca-bottle-caption {
+            font-family: var(--gca-font-ui);
+            font-size: 0.72rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gca-muted);
+        }
+
+        .detail-section-block {
+            background: linear-gradient(155deg, rgba(24, 21, 18, 0.88), rgba(16, 14, 12, 0.94)) !important;
+            border: 1px solid rgba(212, 175, 55, 0.18) !important;
+            border-radius: 16px !important;
+            padding: 1.5rem 1.75rem !important;
+            margin: 0 !important;
+        }
+
+        .detail-section-title {
+            font-family: var(--gca-font-display) !important;
+            font-size: 0.95rem !important;
+            letter-spacing: 0.18em !important;
+            text-transform: uppercase !important;
+            color: var(--gca-gold) !important;
+            margin-bottom: 1rem !important;
+            padding-bottom: 0.6rem !important;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.16) !important;
+            text-align: left !important;
+        }
+
+        .wine-description {
+            font-family: var(--gca-font-editorial) !important;
+            font-size: 1.15rem !important;
+            line-height: 1.7 !important;
+            color: rgba(245, 240, 230, 0.92) !important;
+            text-align: left !important;
+        }
+
+        .wine-meta {
+            display: grid !important;
+            grid-template-columns: repeat(auto-fit, minmax(175px, 1fr)) !important;
+            gap: 0.85rem !important;
+            margin-bottom: 1.25rem !important;
+        }
+
+        .wine-meta .meta-item {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: flex-start !important;
+            justify-content: flex-start !important;
+            gap: 0.3rem !important;
+            background: rgba(12, 11, 9, 0.65) !important;
+            border: 1px solid rgba(212, 175, 55, 0.14) !important;
+            border-radius: 10px !important;
+            padding: 0.8rem 1rem !important;
+            text-align: left !important;
+            min-width: 0 !important;
+        }
+
+        .wine-meta .meta-label {
+            font-family: var(--gca-font-ui) !important;
+            font-size: 0.68rem !important;
+            letter-spacing: 0.14em !important;
+            text-transform: uppercase !important;
+            color: var(--gca-gold-soft) !important;
+            display: block !important;
+            margin: 0 !important;
+        }
+
+        .wine-meta .meta-value {
+            font-family: var(--gca-font-editorial) !important;
+            font-size: 1.08rem !important;
+            line-height: 1.35 !important;
+            color: var(--gca-ivory) !important;
+            text-align: left !important;
+            word-break: break-word !important;
+        }
+
+        .wine-tasting-notes-inline {
+            text-align: left !important;
+            line-height: 1.65 !important;
+        }
+
+        .luxury-footer {
+            background: #090807 !important;
+            border-top: 1px solid rgba(212, 175, 55, 0.16) !important;
+            padding: 1.5rem 1rem !important;
+        }
     </style>
 </head>
 <body class="hero-enhanced">
     <div class="luxury-container">
-        <!-- Top Bar: hamburger | brand | home -->
+        <!-- Top Bar: brand | home -->
         <div class="wine-details-top-bar">
             <div class="wine-details-brand">
                 <span class="wine-details-brand-title">GRAN CAFFÈ L'AQUILA</span>
                 <span class="wine-details-brand-subtitle">Fine Wine Collection</span>
             </div>
-            <a href="./index.html" class="wine-details-home-btn" aria-label="Home">
-                <i class="fas fa-home"></i>
+            <a href="./index.html" class="wine-details-home-btn" aria-label="Back to Home" title="Back to Home">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5L12 3l9 7.5"></path><path d="M5 9.5V20a1 1 0 0 0 1 1h4.5v-6h3v6H18a1 1 0 0 0 1-1V9.5"></path></svg>
             </a>
         </div>
 
         <!-- Back to map bar -->
         <div class="wine-details-back-bar">
-            <a href="#" class="wine-details-back-btn" id="backButton">
-                <i class="fas fa-chevron-left"></i>
-                BACK TO MAP
+            <a href="./wine-map.html" class="wine-details-back-btn" id="backButton">
+                <svg class="gca-ico" viewBox="0 0 24 24" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                BACK TO WINE ATLAS
             </a>
         </div>
 
         <!-- Main Content -->
         <main class="wine-details-container">
             <div class="wine-details-content">
-                <!-- Left column: title, format, DESCRIPTION, TASTING NOTES -->
+                <!-- Editorial Sommelier Dossier -->
                 <div class="wine-details-left wine-info-section">
                     <div class="wine-name-block">
                         <h1 class="wine-name" id="wineName">Loading...</h1>
                         <div id="wineFormatLine" class="wine-format-line" aria-live="polite"></div>
                     </div>
-                    <!-- Bottle image: subito sotto H1 -->
+                    <!-- Bottle image / silhouette pedestal -->
                     <div class="wine-image-section">
                         <div class="wine-image" id="wineImageContainer">
-                            <i class="fas fa-wine-bottle wine-bottle" id="wineBottleIcon"></i>
-                            <img id="wineBottleImage" src="" alt="Wine bottle" style="display: none;" loading="lazy" decoding="async">
+                            <div class="gca-bottle-placeholder wine-bottle" id="wineBottleIcon" aria-hidden="true">
+                                <svg class="gca-bottle-svg" viewBox="0 0 120 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="48" y="10" width="24" height="14" rx="2" stroke="#D4AF37" stroke-width="2" fill="rgba(212,175,55,0.16)"/>
+                                    <path d="M50 24 L50 76 C50 92 28 106 28 134 L28 256 C28 264 34 268 44 268 L76 268 C86 268 92 264 92 256 L92 134 C92 106 70 92 70 76 L70 24 Z" stroke="#D4AF37" stroke-width="2" fill="rgba(20,18,16,0.72)"/>
+                                    <rect x="35" y="148" width="50" height="72" rx="3" stroke="rgba(212,175,55,0.55)" stroke-width="1.2" fill="rgba(212,175,55,0.08)"/>
+                                    <line x1="44" y1="168" x2="76" y2="168" stroke="#D4AF37" stroke-width="1.4"/>
+                                    <line x1="48" y1="180" x2="72" y2="180" stroke="rgba(245,240,230,0.55)" stroke-width="1.2"/>
+                                    <line x1="46" y1="192" x2="74" y2="192" stroke="rgba(245,240,230,0.4)" stroke-width="1"/>
+                                    <circle cx="60" cy="206" r="4" stroke="#D4AF37" stroke-width="1.2"/>
+                                </svg>
+                                <span class="gca-bottle-caption">Gran Caffè L'Aquila Cellar</span>
+                            </div>
+                            <img id="wineBottleImage" alt="Wine bottle" style="display: none;" loading="lazy" decoding="async">
                         </div>
                     </div>
-                    <div class="detail-section-block">
-                        <h2 class="detail-section-title">Description</h2>
+                    <div class="detail-section-block detail-section-desc">
+                        <h2 class="detail-section-title">Sommelier Notes</h2>
                         <div class="wine-description" id="wineDescription" style="display: none;">
                             Loading wine description...
                         </div>
                     </div>
                     <div class="detail-section-block detail-section-tasting">
-                        <h2 class="detail-section-title">Tasting Notes</h2>
+                        <h2 class="detail-section-title">Provenance &amp; Tasting Profile</h2>
                         <div class="wine-meta" id="wineMeta">
                             <!-- Populated by main.js: Producer, Region, Grape, etc. -->
                         </div>
@@ -2381,8 +2719,8 @@
             <div class="tasting-notes-popup-content">
                 <div class="tasting-notes-popup-header">
                     <h2 class="tasting-notes-popup-title" id="tastingNotesPopupTitle">Tasting Notes</h2>
-                    <button type="button" class="tasting-notes-popup-close" id="tastingNotesPopupClose" aria-label="Chiudi">
-                        <i class="fas fa-times"></i>
+                    <button type="button" class="tasting-notes-popup-close" id="tastingNotesPopupClose" aria-label="Close">
+                        <svg class="gca-ico" viewBox="0 0 24 24" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                     </button>
                 </div>
                 <div class="tasting-notes-popup-body" id="tastingNotesPopupBody">
@@ -2396,8 +2734,8 @@
             <div class="info-popup-content">
                 <div class="info-popup-header">
                     <h2 class="info-popup-title" id="infoPopupTitle">Information</h2>
-                    <button class="info-popup-close" id="infoPopupClose">
-                        <i class="fas fa-times"></i>
+                    <button class="info-popup-close" id="infoPopupClose" aria-label="Close">
+                        <svg class="gca-ico" viewBox="0 0 24 24" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                     </button>
                 </div>
                 <div class="info-popup-body" id="infoPopupBody">
@@ -2411,16 +2749,11 @@
             <div class="footer-content">
                 <div class="footer-logo">GRAN CAFFÈ L'AQUILA</div>
                 <div class="footer-info">
-                    <p><i class="fas fa-map-marker-alt"></i> 1716 Chestnut St</p>
-                    <p><i class="fas fa-phone"></i> +1 (215) 568-5600</p>
-                </div>
-                <div class="social-icons">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <p>1716 Chestnut St, Philadelphia, PA 19103</p>
+                    <p>+1 (215) 568-5600</p>
                 </div>
                 <div class="copyright">
-                    <p>&copy; 2023 Gran Caffè L'Aquila</p>
+                    <p>&copy; 2025 Gran Caffè L'Aquila</p>
                 </div>
             </div>
         </footer>
@@ -2431,8 +2764,8 @@
         <div class="share-modal-content">
             <div class="share-modal-header">
                 <h3>Share this Wine</h3>
-                <button class="close-share-modal" id="closeShareModal">
-                    <i class="fas fa-times"></i>
+                <button class="close-share-modal" id="closeShareModal" aria-label="Close">
+                    <svg class="gca-ico" viewBox="0 0 24 24" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                 </button>
             </div>
             <div class="share-options">
@@ -2465,7 +2798,7 @@
                 <label for="shareUrl">Share Link:</label>
                 <div class="url-copy-container">
                     <input type="text" id="shareUrl" readonly>
-                    <button class="copy-url-btn" id="copyUrlBtn">
+                    <button class="copy-url-btn" id="copyUrlBtn" aria-label="Copy link">
                         <i class="fas fa-copy"></i>
                     </button>
                 </div>
@@ -2565,7 +2898,7 @@
                         const urlParams = new URLSearchParams(window.location.search);
                         const type = urlParams.get('type');
                         
-                        let backUrl = 'index.html';
+                        let backUrl = 'wine-map.html';
                         const params = new URLSearchParams();
                         
                         // Try to get region from wine data if available

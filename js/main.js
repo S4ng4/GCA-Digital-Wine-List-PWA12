@@ -99,7 +99,8 @@ class WineListApp {
             const validRegions = [
                 'SICILIA', 'PIEMONTE', 'TOSCANA', 'VENETO', 'LOMBARDIA', 'EMILIA-ROMAGNA',
                 'LAZIO', 'CAMPANIA', 'PUGLIA', 'CALABRIA', 'BASILICATA', 'MOLISE',
-                'ABRUZZO', 'UMBRIA', 'LE MARCHE', 'FRIULI-VENEZIA GIULIA', 'FRIULI', 'TRENTINO ALTO-ADIGE',
+                'ABRUZZO', 'UMBRIA', 'LE MARCHE', 'MARCHE', 'FRIULI-VENEZIA GIULIA', 'FRIULI',
+                'TRENTINO ALTO-ADIGE', 'TRENTINO-ALTO ADIGE',
                 'VALLE D\'AOSTA', 'LIGURIA', 'SARDEGNA', 'TOSCANA (BOLGHERI)', 'LUGANA DOC (VENETO)',
                 'TARANTO IGT (PUGLIA)', 'MATERA DOC (BASILICATA)'
             ];
@@ -497,9 +498,22 @@ class WineListApp {
         const wineCards = document.querySelectorAll('.luxury-wine-card');
         
         wineCards.forEach((card, index) => {
-            if (wineTypes[index]) {
-                const count = this.wines.filter(wine => this.wineMatchesFamily(wine, wineTypes[index])).length;
+            const type = card.dataset.type || wineTypes[index];
+            if (type) {
+                const count = this.wines.filter(wine => this.wineMatchesFamily(wine, type)).length;
                 const countElement = card.querySelector('.wine-count');
+                if (countElement) {
+                    countElement.textContent = `${count} wines`;
+                }
+            }
+        });
+
+        // Also update wine-map sidebar category cards immediately
+        document.querySelectorAll('.wine-card-sidebar').forEach(card => {
+            const type = card.dataset.type;
+            if (type) {
+                const count = this.wines.filter(wine => this.wineMatchesFamily(wine, type)).length;
+                const countElement = card.querySelector('.wine-card-count');
                 if (countElement) {
                     countElement.textContent = `${count} wines`;
                 }
@@ -655,8 +669,7 @@ class WineListApp {
             const normalizedRegion = this.normalizeRegionName(region);
             
             // Add type parameter to URL if filtering by wine type
-            // Navigate to index.html with region and type filters
-            let url = `index.html?region=${encodeURIComponent(normalizedRegion)}`;
+            let url = `wines.html?region=${encodeURIComponent(normalizedRegion)}`;
             if (this.currentFilters.type) {
                 url += `&type=${encodeURIComponent(this.currentFilters.type)}`;
             }
@@ -707,8 +720,7 @@ class WineListApp {
             const description = this.getRegionDescription(region);
             
             // Add type parameter to URL if filtering by wine type
-            // Navigate to index.html with region and type filters
-            let url = `index.html?region=${encodeURIComponent(normalizedRegion)}`;
+            let url = `wines.html?region=${encodeURIComponent(normalizedRegion)}`;
             if (this.currentFilters.type) {
                 url += `&type=${encodeURIComponent(this.currentFilters.type)}`;
             }
@@ -884,25 +896,31 @@ class WineListApp {
 
     updateWinesBreadcrumb() {
         const breadcrumb = document.querySelector('.breadcrumb');
+        let regionUrl = 'regions.html';
+        if (this.currentFilters.type) {
+            regionUrl += `?type=${encodeURIComponent(this.currentFilters.type)}`;
+        }
+
+        // Keep back button synced with active wine type instead of hardcoded ROSSO
+        const backBtn = document.querySelector('.luxury-header .back-button');
+        if (backBtn) {
+            backBtn.setAttribute('href', `./${regionUrl}`);
+        }
+
         if (breadcrumb) {
-            // Navigate to index.html with type filter
-            let regionUrl = 'index.html';
-            if (this.currentFilters.type) {
-                regionUrl += `?type=${encodeURIComponent(this.currentFilters.type)}`;
-            }
-            
             breadcrumb.innerHTML = `
                 <a href="index.html">Home</a>
                 <span class="breadcrumb-separator">/</span>
                 <a href="${regionUrl}">Wine Regions</a>
                 <span class="breadcrumb-separator">/</span>
-                <span class="breadcrumb-current">${this.currentFilters.region}</span>
+                <span class="breadcrumb-current">${this.currentFilters.region || 'All Wines'}</span>
             `;
         }
         
         // Update mobile breadcrumb
+        const mobileBreadcrumbCurrent = document.getElementById('mobileBreadcrumbCurrent');
         if (mobileBreadcrumbCurrent) {
-            mobileBreadcrumbCurrent.textContent = this.currentFilters.region;
+            mobileBreadcrumbCurrent.textContent = this.currentFilters.region || 'All Wines';
         }
     }
 
@@ -991,6 +1009,20 @@ class WineListApp {
         
         if (wineId) {
             this.loadWineDetails(wineId);
+        } else {
+            this.showMissingWineState('Select a wine from the cellar to view its full sommelier profile.');
+        }
+    }
+
+    showMissingWineState(message) {
+        const wineName = document.getElementById('wineName');
+        const desc = document.getElementById('wineDescription');
+        const bottleIcon = document.getElementById('wineBottleIcon');
+        if (wineName) wineName.textContent = 'Wine Not Found';
+        if (bottleIcon) bottleIcon.style.display = 'flex';
+        if (desc) {
+            desc.style.display = 'block';
+            desc.innerHTML = `<p style="margin-bottom:1.25rem;">${message}</p><a href="./wine-map.html" class="gca-inline-cta">Explore the Wine Map</a>`;
         }
     }
 
@@ -1004,7 +1036,7 @@ class WineListApp {
         
         if (!wine) {
             console.error(`Wine not found with ID: ${wineId}`);
-            this.showError('Wine not found');
+            this.showMissingWineState(`We could not locate wine #${wineId} in our current cellar list.`);
             return;
         }
 
@@ -1169,28 +1201,36 @@ class WineListApp {
     updateWineImage(wine) {
         const wineBottleIcon = document.getElementById('wineBottleIcon');
         const wineBottleImage = document.getElementById('wineBottleImage');
+        const wineImageContainer = document.getElementById('wineImageContainer');
         
         if (!wineBottleIcon || !wineBottleImage) return;
+
+        if (wineImageContainer && wine) {
+            const fam = this.getWineFamily(wine.wine_type, wine.subcategory) || 'ROSSO';
+            wineImageContainer.dataset.wineFamily = fam;
+        }
         
         // Try to find a matching image for this wine
         const wineImageUrl = this.findWineImage(wine);
         
         if (wineImageUrl) {
-            // Show image and hide icon
+            wineBottleImage.onerror = () => {
+                wineBottleImage.removeAttribute('src');
+                wineBottleImage.style.display = 'none';
+                wineBottleIcon.style.display = 'flex';
+            };
+            wineBottleImage.onload = () => {
+                wineBottleImage.style.display = 'block';
+                wineBottleIcon.style.display = 'none';
+            };
+            wineBottleImage.alt = `${wine.wine_name || 'Wine'} bottle`;
             wineBottleImage.src = wineImageUrl;
             wineBottleImage.style.display = 'block';
             wineBottleIcon.style.display = 'none';
-            
-            // Add error handling for image loading
-            wineBottleImage.onerror = () => {
-                console.log('Failed to load wine image, falling back to icon');
-                wineBottleImage.style.display = 'none';
-                wineBottleIcon.style.display = 'block';
-            };
         } else {
-            // No image found, show icon
+            wineBottleImage.removeAttribute('src');
             wineBottleImage.style.display = 'none';
-            wineBottleIcon.style.display = 'block';
+            wineBottleIcon.style.display = 'flex';
         }
     }
 
@@ -2196,11 +2236,11 @@ class WineListApp {
                         // Go back to previous page
                         window.history.back();
                     } else {
-                        // Fallback: return to index.html if no valid referrer
+                        // Fallback: return to wine-map.html if no valid referrer
                         const urlParams = new URLSearchParams(window.location.search);
                         const type = urlParams.get('type');
                         
-                        let backUrl = `index.html`;
+                        let backUrl = `wine-map.html`;
                         const params = new URLSearchParams();
                         
                         if (wine.region) {
@@ -2406,9 +2446,8 @@ class WineListApp {
         const urlParams = new URLSearchParams(window.location.search);
         const wineType = urlParams.get('type');
         
-        // Build URL with proper parameters
-        // Navigate to index.html with region and type filters
-        let url = `index.html?region=${encodeURIComponent(regionName)}`;
+        // Build URL with proper parameters to wines list page
+        let url = `wines.html?region=${encodeURIComponent(regionName)}`;
         if (wineType) {
             url += `&type=${encodeURIComponent(wineType)}`;
         }
@@ -2720,13 +2759,25 @@ class WineListApp {
 
     updateWineCounts() {
         // Reset wine counts to original values
-        const wineTypes = ['ROSSO', 'BIANCO', 'ROSATO', 'BOLLICINE', 'NON ALCOLICO'];
+        const wineTypes = ['ROSSO', 'BIANCO', 'ROSATO', 'ARANCIONE', 'BOLLICINE', 'NON ALCOLICO'];
         const wineCards = document.querySelectorAll('.luxury-wine-card');
         
         wineCards.forEach((card, index) => {
-            if (wineTypes[index]) {
-                const count = this.wines.filter(wine => this.wineMatchesFamily(wine, wineTypes[index])).length;
+            const type = card.dataset.type || wineTypes[index];
+            if (type) {
+                const count = this.wines.filter(wine => this.wineMatchesFamily(wine, type)).length;
                 const countElement = card.querySelector('.wine-count');
+                if (countElement) {
+                    countElement.textContent = `${count} wines`;
+                }
+            }
+        });
+
+        document.querySelectorAll('.wine-card-sidebar').forEach(card => {
+            const type = card.dataset.type;
+            if (type) {
+                const count = this.wines.filter(wine => this.wineMatchesFamily(wine, type)).length;
+                const countElement = card.querySelector('.wine-card-count');
                 if (countElement) {
                     countElement.textContent = `${count} wines`;
                 }
@@ -3616,13 +3667,11 @@ function initWineTypeFilters() {
     // Only initialize on pages that have wine cards (index.html, wine-map.html)
     // Skip on wine-details.html and other pages
     const currentPage = window.location.pathname;
-    const isWineListPage = currentPage.includes('index.html') || 
-                          currentPage.includes('wine-map.html') || 
-                          currentPage === '/' || 
-                          currentPage.endsWith('/');
+    const isWineListPage = currentPage.includes('wine-map.html') ||
+                          document.querySelectorAll('.wine-card-sidebar').length > 0;
     
     if (!isWineListPage) {
-        // Silently skip initialization on pages without wine cards
+        // Silently skip initialization on pages without sidebar wine cards
         return;
     }
     
@@ -3630,18 +3679,12 @@ function initWineTypeFilters() {
     const initFilters = () => {
         const wineCards = document.querySelectorAll('.wine-card-sidebar');
         if (wineCards.length === 0) {
-            // Retry if elements not ready yet (max 10 attempts = 1 second)
             if (typeof initFilters.retryCount === 'undefined') {
                 initFilters.retryCount = 0;
             }
             initFilters.retryCount++;
             if (initFilters.retryCount < 10) {
                 setTimeout(initFilters, 100);
-            } else {
-                // Only warn if we're on a page that should have these elements
-                if (isWineListPage) {
-                    console.warn('⚠️ Wine type filter cards not found after 10 retries');
-                }
             }
             return;
         }
@@ -4082,6 +4125,13 @@ function updateMapColors(wineType) {
         mapElement.classList.add('map-animated');
     }
     
+    if (window.fallbackItalyMap && typeof window.fallbackItalyMap.updateWineType === 'function') {
+        window.fallbackItalyMap.updateWineType(wineType || 'ALL');
+    }
+    if (window.fallbackMobileItalyMap && typeof window.fallbackMobileItalyMap.updateWineType === 'function') {
+        window.fallbackMobileItalyMap.updateWineType(wineType || 'ALL');
+    }
+
     if (geoJsonLayer) {
         console.log('✅ Updating geoJsonLayer with', geoJsonLayer.getLayers().length, 'layers');
         geoJsonLayer.eachLayer(function(layer) {
@@ -4134,13 +4184,6 @@ function updateMapColors(wineType) {
                 layer.options.interactive = false;
             }
         });
-    } else {
-        console.warn('⚠️ geoJsonLayer is null, map may not be initialized yet');
-        // Try to wait for map initialization
-        const mapElement = document.getElementById('map');
-        if (mapElement && !mapElement._leaflet_id) {
-            console.log('⏳ Map not initialized yet, will retry after map loads');
-        }
     }
 }
 
@@ -4737,56 +4780,37 @@ function initInteractiveMap() {
             return;
         }
         // Initialize map with uniform touch/mouse interactions
-        // Limit max zoom to 5.8 (requested)
         const desktopMaxZoom = 5.8;
         const initialZoom = 5.8;
-        
-        // #region agent log
-        logData('E', 'map initialization config BEFORE creation', {
-            desktopMaxZoom: desktopMaxZoom,
-            initialZoom: initialZoom,
-            isTabletDevice: isTabletDevice,
-            mapContainerExists: !!mapContainer,
-            mapContainerId: mapContainer.id
-        });
-        // #endregion
-        
-        mapInstance = L.map('map', {
-            zoomControl: false,
-            zoomSnap: 0.1,
-            minZoom: 5,
-            maxZoom: desktopMaxZoom,
-            maxBounds: [[35.5, 5.0], [48.0, 20.0]],
-            maxBoundsViscosity: 0.5, // Reduced for smoother panning
-            tap: true, // Enable tap on touch devices
-            touchZoom: true, // Enable pinch zoom on touch devices
-            doubleClickZoom: true, // Enable double-click zoom
-            scrollWheelZoom: true, // Enable scroll wheel zoom on desktop
-            boxZoom: true, // Enable box zoom
-            dragging: true, // Enable dragging/panning
-            keyboard: true, // Enable keyboard navigation
-            inertia: true, // Enable inertia for smoother panning
-            inertiaDeceleration: 3000, // Deceleration rate for inertia
-            inertiaMaxSpeed: 1500, // Max speed for inertia
-            worldCopyJump: false // Prevent map from jumping when panning
-        }).setView([42.0, 12.5], initialZoom);
-        
-        // #region agent log
-        logData('E', 'map initialization config AFTER creation', {
-            mapInstanceExists: !!mapInstance,
-            currentZoom: mapInstance.getZoom(),
-            currentCenter: mapInstance.getCenter(),
-            maxZoom: mapInstance.getMaxZoom(),
-            minZoom: mapInstance.getMinZoom()
-        });
-        // #endregion
-        
-        // Add tile layer with HTTPS tiles - maxZoom 32+ for tablets
-        const tileMaxZoom = isTabletDevice ? 32 : 19;
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '© OpenStreetMap contributors',
-            maxZoom: tileMaxZoom
-        }).addTo(mapInstance);
+
+        if (typeof L !== 'undefined') {
+            mapInstance = L.map('map', {
+                zoomControl: false,
+                zoomSnap: 0.1,
+                minZoom: 5,
+                maxZoom: desktopMaxZoom,
+                maxBounds: [[35.5, 5.0], [48.0, 20.0]],
+                maxBoundsViscosity: 0.5, // Reduced for smoother panning
+                tap: true, // Enable tap on touch devices
+                touchZoom: true, // Enable pinch zoom on touch devices
+                doubleClickZoom: true, // Enable double-click zoom
+                scrollWheelZoom: true, // Enable scroll wheel zoom on desktop
+                boxZoom: true, // Enable box zoom
+                dragging: true, // Enable dragging/panning
+                keyboard: true, // Enable keyboard navigation
+                inertia: true, // Enable inertia for smoother panning
+                inertiaDeceleration: 3000, // Deceleration rate for inertia
+                inertiaMaxSpeed: 1500, // Max speed for inertia
+                worldCopyJump: false // Prevent map from jumping when panning
+            }).setView([42.0, 12.5], initialZoom);
+
+            // Add tile layer with HTTPS tiles - maxZoom 32+ for tablets
+            const tileMaxZoom = isTabletDevice ? 32 : 19;
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors',
+                maxZoom: tileMaxZoom
+            }).addTo(mapInstance);
+        }
         
         function updateMobileMapHeight() {
             const mobileContainer = document.getElementById('mobileMapWinesContainer');
@@ -5099,7 +5123,26 @@ function initInteractiveMap() {
             }, { passive: true });
         }
         
-        // Load GeoJSON with error handling and fallback
+        // Load GeoJSON with error handling and offline SVG fallback
+        const mountDesktopSvgFallback = () => {
+            if (!window.GCAItalySvgMap) return;
+            const renderNow = () => {
+                window.fallbackItalyMap = window.GCAItalySvgMap.render('map', {
+                    wineType: currentWineType || 'ALL',
+                    onSelectRegion: (regId) => {
+                        if (typeof showWinesListForRegion === 'function') {
+                            showWinesListForRegion(regId, currentWineType || null);
+                        }
+                    }
+                });
+                if (urlRegion && typeof showWinesListForRegion === 'function') {
+                    showWinesListForRegion(urlRegion, currentWineType || null);
+                }
+            };
+            waitForWineApp(renderNow);
+        };
+
+        if (typeof L !== 'undefined' && mapInstance) {
         fetch('https://raw.githubusercontent.com/openpolis/geojson-italy/master/geojson/limits_IT_regions.geojson')
             .then(response => {
                 if (!response.ok) {
@@ -5245,41 +5288,12 @@ function initInteractiveMap() {
                 }
             })
             .catch(error => {
-                console.error('❌ Error loading GeoJSON:', error);
-                console.error('📍 GeoJSON URL:', 'https://raw.githubusercontent.com/openpolis/geojson-italy/master/geojson/limits_IT_regions.geojson');
-                console.error('📍 Current URL:', window.location.href);
-                
-                // Show error message to user
-                mapContainer.innerHTML = `
-                            <div style="
-                                display: flex;
-                                align-items: center;
-                                justify-content: center;
-                                height: 100%;
-                                flex-direction: column;
-                                gap: 1rem;
-                                color: rgba(245, 245, 240, 0.7);
-                                text-align: center;
-                                padding: 2rem;
-                            ">
-                                <i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: var(--gold);"></i>
-                                <h3 style="font-family: 'Cinzel', serif; color: var(--gold); margin: 0;">Map Unavailable</h3>
-                                <p style="margin: 0;">Unable to load map data. Please check your internet connection and try refreshing the page.</p>
-                                <button onclick="location.reload()" style="
-                                    background: var(--gold);
-                                    color: var(--dark);
-                                    border: none;
-                                    padding: 0.75rem 1.5rem;
-                                    border-radius: 8px;
-                                    font-family: 'Cinzel', serif;
-                                    font-weight: 600;
-                                    cursor: pointer;
-                                    margin-top: 1rem;
-                                    transition: transform 0.2s ease;
-                                " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">Retry</button>
-                            </div>
-                        `;
+                console.warn('⚠️ GeoJSON unavailable, rendering interactive SVG Italy map:', error);
+                mountDesktopSvgFallback();
             });
+        } else {
+            mountDesktopSvgFallback();
+        }
         // Mobile Menu Management
         let currentMobileView = 'regions';
         let currentMobileWineType = null;
@@ -5997,6 +6011,23 @@ function initInteractiveMap() {
                     return;
                 }
                 try {
+                    if (typeof L === 'undefined') {
+                        if (window.GCAItalySvgMap) {
+                            waitForWineApp(() => {
+                                window.fallbackMobileItalyMap = window.GCAItalySvgMap.render('mobileMap', {
+                                    wineType: mobileCurrentWineType || 'ALL',
+                                    onSelectRegion: (regId) => {
+                                        if (typeof showMobileWinesCards === 'function') {
+                                            showMobileWinesCards(regId, mobileCurrentWineType || null);
+                                        } else if (typeof showWinesListForRegion === 'function') {
+                                            showWinesListForRegion(regId, mobileCurrentWineType || null);
+                                        }
+                                    }
+                                });
+                            });
+                        }
+                        return;
+                    }
                     const isReducedZoomPhone = DeviceDetector.isReducedZoomPhone();
                     const mobileDefaultZoom = isReducedZoomPhone ? 5.3 : 5.8;
                     const mobileMaxZoom = 5.8;
@@ -6221,9 +6252,21 @@ function initInteractiveMap() {
                             scheduleViewportRefresh();
                         })
                         .catch(error => {
-                            console.error('❌ Error loading mobile GeoJSON:', error);
-                            console.error('📍 GeoJSON URL:', 'https://raw.githubusercontent.com/openpolis/geojson-italy/master/geojson/limits_IT_regions.geojson');
-                            console.error('📍 Current URL:', window.location.href);
+                            console.warn('⚠️ Mobile GeoJSON unavailable, switching to SVG Italy map:', error);
+                            if (window.GCAItalySvgMap) {
+                                waitForWineApp(() => {
+                                    window.fallbackMobileItalyMap = window.GCAItalySvgMap.render('mobileMap', {
+                                        wineType: mobileCurrentWineType || 'ALL',
+                                        onSelectRegion: (regId) => {
+                                            if (typeof showMobileWinesCards === 'function') {
+                                                showMobileWinesCards(regId, mobileCurrentWineType || null);
+                                            } else if (typeof showWinesListForRegion === 'function') {
+                                                showWinesListForRegion(regId, mobileCurrentWineType || null);
+                                            }
+                                        }
+                                    });
+                                });
+                            }
                         });
                 } catch (error) {
                     console.error('❌ Error initializing mobile map:', error);

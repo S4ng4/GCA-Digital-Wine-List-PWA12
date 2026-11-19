@@ -3,19 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Wine Management | GCA Digital Wine List</title>
+    <title>Cellar Management — Gran Caffè L'Aquila</title>
+    <meta name="description" content="Internal wine cellar inventory manager for Gran Caffè L'Aquila Digital Wine List.">
+    <link rel="icon" type="image/png" href="./image/icon-96x96.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/luxury-polish.css">
     <style>
         :root {
             --gold: #D4AF37;
-            --gold-light: #F4CF67;
-            --bg: #0E0E0E;
-            --bg-card: #1a1a1a;
-            --ivory: #F5F5F0;
-            --border: rgba(212, 175, 55, 0.25);
-            --font-heading: 'Cinzel', serif;
-            --font-body: 'Cormorant', serif;
+            --gold-light: #E6CB78;
+            --bg: #0B0A09;
+            --bg-card: #141210;
+            --bg-elevated: #1C1916;
+            --ivory: #F5F0E6;
+            --muted: #B6ADA0;
+            --border: rgba(212, 175, 55, 0.22);
+            --font-heading: 'Cinzel', Georgia, serif;
+            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -24,6 +29,7 @@
             color: var(--ivory);
             min-height: 100vh;
             line-height: 1.5;
+            font-size: 14px;
         }
 
         /* Header */
@@ -31,9 +37,11 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            background: rgba(26, 26, 26, 0.95);
+            background: rgba(14, 12, 10, 0.96);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--border);
-            padding: 1rem 1.5rem;
+            padding: 0.9rem 1.5rem;
             display: flex;
             flex-wrap: wrap;
             align-items: center;
@@ -41,94 +49,102 @@
             gap: 1rem;
         }
         .gv-header h1 {
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
             font-family: var(--font-heading);
-            font-size: 1.5rem;
+            font-size: 1.25rem;
             font-weight: 600;
             color: var(--gold);
-            letter-spacing: 1px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
         }
         .gv-header-actions {
             display: flex;
             flex-wrap: wrap;
             align-items: center;
-            gap: 0.75rem;
+            gap: 0.65rem;
         }
         .gv-btn {
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
+            gap: 0.45rem;
+            padding: 0.52rem 0.95rem;
             border-radius: 8px;
             border: 1px solid var(--border);
-            background: var(--bg-card);
+            background: var(--bg-elevated);
             color: var(--ivory);
             font-family: var(--font-body);
-            font-size: 0.95rem;
+            font-size: 0.84rem;
             font-weight: 500;
             cursor: pointer;
             text-decoration: none;
-            transition: all 0.2s ease;
+            transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
         }
         .gv-btn:hover {
             border-color: var(--gold);
             color: var(--gold-light);
-            background: rgba(212, 175, 55, 0.08);
+            background: rgba(212, 175, 55, 0.1);
         }
         .gv-btn-primary {
-            background: rgba(212, 175, 55, 0.2);
-            border-color: var(--gold);
-            color: var(--gold);
+            background: rgba(212, 175, 55, 0.16);
+            border-color: rgba(212, 175, 55, 0.65);
+            color: var(--gold-light);
+            font-weight: 600;
         }
         .gv-btn-primary:hover {
-            background: rgba(212, 175, 55, 0.3);
-            color: var(--gold-light);
+            background: var(--gold);
+            color: var(--bg);
+            border-color: var(--gold);
         }
         .gv-btn-danger {
-            border-color: rgba(220, 53, 69, 0.5);
-            color: #f08a96;
+            border-color: rgba(220, 76, 92, 0.45);
+            color: #F29AA4;
+            background: rgba(220, 76, 92, 0.08);
         }
         .gv-btn-danger:hover {
-            border-color: #dc3545;
-            background: rgba(220, 53, 69, 0.15);
+            border-color: #DC4C5C;
+            background: rgba(220, 76, 92, 0.2);
+            color: #FFD1D6;
         }
-        .gv-btn i { font-size: 0.9em; }
 
         /* Toolbar */
         .gv-toolbar {
-            padding: 1rem 1.5rem;
-            background: rgba(26, 26, 26, 0.5);
-            border-bottom: 1px solid var(--border);
+            padding: 0.95rem 1.5rem;
+            background: rgba(20, 18, 16, 0.85);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.14);
             display: flex;
             flex-wrap: wrap;
             align-items: center;
-            gap: 1rem;
+            gap: 0.75rem;
         }
         .gv-search {
             flex: 1;
-            min-width: 200px;
-            max-width: 320px;
-            padding: 0.6rem 1rem;
+            min-width: 220px;
+            max-width: 340px;
+            padding: 0.58rem 0.9rem;
             border: 1px solid var(--border);
             border-radius: 8px;
-            background: var(--bg-card);
+            background: var(--bg);
             color: var(--ivory);
             font-family: var(--font-body);
-            font-size: 1rem;
+            font-size: 0.88rem;
         }
-        .gv-search::placeholder { color: rgba(245, 245, 240, 0.5); }
+        .gv-search::placeholder { color: rgba(245, 240, 230, 0.42); }
         .gv-search:focus {
             outline: none;
             border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
         }
         .gv-select {
-            padding: 0.6rem 1rem;
+            padding: 0.58rem 0.9rem;
             border: 1px solid var(--border);
             border-radius: 8px;
-            background: var(--bg-card);
+            background: var(--bg);
             color: var(--ivory);
             font-family: var(--font-body);
-            font-size: 1rem;
-            min-width: 180px;
+            font-size: 0.86rem;
+            min-width: 170px;
             cursor: pointer;
         }
         .gv-select:focus { outline: none; border-color: var(--gold); }
@@ -137,30 +153,36 @@
         .gv-stats {
             display: flex;
             flex-wrap: wrap;
-            gap: 1rem;
-            padding: 1rem 1.5rem;
+            gap: 0.85rem;
+            padding: 1.1rem 1.5rem 0.25rem;
+            max-width: 1600px;
+            margin: 0 auto;
         }
         .gv-stat {
             background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: 10px;
-            padding: 0.75rem 1.25rem;
-            min-width: 120px;
+            padding: 0.7rem 1.15rem;
+            min-width: 132px;
         }
         .gv-stat-num {
             font-family: var(--font-heading);
-            font-size: 1.5rem;
+            font-size: 1.4rem;
+            font-weight: 600;
             color: var(--gold);
+            line-height: 1.2;
         }
         .gv-stat-label {
-            font-size: 0.85rem;
-            color: rgba(245, 245, 240, 0.7);
-            margin-top: 0.25rem;
+            font-size: 0.74rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--muted);
+            margin-top: 0.2rem;
         }
 
         /* Main content */
         .gv-main {
-            padding: 1rem 1.5rem 2rem;
+            padding: 1rem 1.5rem 2.5rem;
             max-width: 1600px;
             margin: 0 auto;
         }
@@ -169,48 +191,66 @@
             border-radius: 12px;
             border: 1px solid var(--border);
             background: var(--bg-card);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
         }
         .gv-table {
             width: 100%;
             border-collapse: collapse;
         }
         .gv-table th {
-            font-family: var(--font-heading);
-            font-size: 0.8rem;
+            font-family: var(--font-body);
+            font-size: 0.72rem;
             font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
             text-align: left;
-            padding: 1rem;
-            color: var(--gold);
+            padding: 0.9rem 1rem;
+            color: var(--gold-light);
+            background: rgba(212, 175, 55, 0.08);
             border-bottom: 1px solid var(--border);
             white-space: nowrap;
         }
         .gv-table td {
-            padding: 0.75rem 1rem;
+            padding: 0.7rem 1rem;
             border-bottom: 1px solid rgba(212, 175, 55, 0.1);
             vertical-align: middle;
+            font-size: 0.86rem;
         }
         .gv-table tbody tr:hover {
-            background: rgba(212, 175, 55, 0.04);
+            background: rgba(212, 175, 55, 0.045);
         }
         .gv-table .gv-img {
-            width: 56px;
-            height: 84px;
+            width: 44px;
+            height: 66px;
             object-fit: contain;
             border-radius: 6px;
-            background: rgba(0,0,0,0.3);
+            background: rgba(0,0,0,0.35);
+            border: 1px solid rgba(212, 175, 55, 0.12);
         }
         .gv-table .gv-producer { font-weight: 600; color: var(--ivory); }
-        .gv-table .gv-name { color: rgba(245, 245, 240, 0.85); font-size: 0.95rem; }
+        .gv-table .gv-name { color: rgba(245, 240, 230, 0.86); }
+        .gv-table .gv-type-pill {
+            display: inline-block;
+            margin-top: 0.2rem;
+            font-size: 0.7rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--gold-light);
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.22);
+            border-radius: 999px;
+            padding: 0.1rem 0.5rem;
+        }
         .gv-table .gv-link-input {
             width: 100%;
-            min-width: 140px;
-            padding: 0.4rem 0.6rem;
-            border: 1px solid var(--border);
+            min-width: 150px;
+            padding: 0.42rem 0.6rem;
+            border: 1px solid rgba(212, 175, 55, 0.2);
             border-radius: 6px;
             background: var(--bg);
             color: var(--ivory);
-            font-size: 0.8rem;
-            font-family: monospace;
+            font-size: 0.76rem;
+            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
         }
         .gv-table .gv-link-input:focus {
             outline: none;
@@ -218,19 +258,19 @@
         }
         .gv-actions {
             display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
+            flex-wrap: nowrap;
+            gap: 0.45rem;
         }
         .gv-actions .gv-btn {
-            padding: 0.4rem 0.7rem;
-            font-size: 0.85rem;
+            padding: 0.36rem 0.68rem;
+            font-size: 0.78rem;
         }
 
         /* Loading / empty */
         .gv-loading, .gv-empty {
             text-align: center;
             padding: 3rem 2rem;
-            color: rgba(245, 245, 240, 0.7);
+            color: var(--muted);
         }
         .gv-loading.hidden, .gv-empty.hidden { display: none; }
         .gv-table-wrap.hidden { display: none; }
@@ -241,7 +281,8 @@
             position: fixed;
             inset: 0;
             z-index: 1000;
-            background: rgba(0,0,0,0.7);
+            background: rgba(0,0,0,0.75);
+            backdrop-filter: blur(4px);
             align-items: center;
             justify-content: center;
             padding: 1rem;
@@ -250,39 +291,45 @@
         .gv-modal.open { display: flex; }
         .gv-modal-box {
             background: var(--bg-card);
-            border: 1px solid var(--border);
+            border: 1px solid rgba(212, 175, 55, 0.35);
             border-radius: 14px;
-            max-width: 580px;
+            max-width: 640px;
             width: 100%;
             max-height: 90vh;
             overflow-y: auto;
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.65);
         }
         .gv-modal-title {
             font-family: var(--font-heading);
-            font-size: 1.25rem;
+            font-size: 1.15rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
             color: var(--gold);
-            padding: 1.25rem 1.5rem;
+            padding: 1.15rem 1.5rem;
             border-bottom: 1px solid var(--border);
         }
-        .gv-modal-body { padding: 1.5rem; }
-        .gv-form-group { margin-bottom: 1rem; }
+        .gv-modal-body { padding: 1.35rem 1.5rem; }
+        .gv-form-group { margin-bottom: 0.9rem; }
         .gv-form-group label {
             display: block;
-            font-size: 0.9rem;
-            color: rgba(245, 245, 240, 0.9);
-            margin-bottom: 0.4rem;
+            font-size: 0.76rem;
+            font-weight: 500;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 0.35rem;
         }
         .gv-form-group input,
         .gv-form-group textarea,
         .gv-form-group select {
             width: 100%;
-            padding: 0.6rem 0.75rem;
+            padding: 0.56rem 0.75rem;
             border: 1px solid var(--border);
             border-radius: 8px;
             background: var(--bg);
             color: var(--ivory);
             font-family: var(--font-body);
-            font-size: 1rem;
+            font-size: 0.88rem;
         }
         .gv-form-group select {
             cursor: pointer;
@@ -293,25 +340,30 @@
             padding-right: 2rem;
         }
         .gv-form-group input:focus,
-        .gv-form-group textarea:focus {
+        .gv-form-group textarea:focus,
+        .gv-form-group select:focus {
             outline: none;
             border-color: var(--gold);
         }
-        .gv-form-group textarea { min-height: 70px; resize: vertical; }
-        .gv-form-row { display: flex; gap: 1rem; flex-wrap: wrap; }
-        .gv-form-row .gv-form-group { flex: 1; min-width: 140px; }
+        .gv-form-group textarea { min-height: 68px; resize: vertical; }
+        .gv-form-row { display: flex; gap: 0.85rem; flex-wrap: wrap; }
+        .gv-form-row .gv-form-group { flex: 1; min-width: 130px; }
         .gv-modal-footer {
-            padding: 1rem 1.5rem;
+            padding: 0.95rem 1.5rem;
             border-top: 1px solid var(--border);
             display: flex;
-            gap: 0.75rem;
+            gap: 0.65rem;
             justify-content: flex-end;
         }
         .gv-section-label {
             font-family: var(--font-heading);
-            font-size: 0.9rem;
+            font-size: 0.82rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
             color: var(--gold);
-            margin: 1rem 0 0.5rem;
+            margin: 1.1rem 0 0.6rem;
+            padding-top: 0.85rem;
+            border-top: 1px solid rgba(212, 175, 55, 0.14);
         }
 
         /* Error */
@@ -330,61 +382,75 @@
             left: 50%;
             bottom: 18px;
             transform: translateX(-50%);
-            background: rgba(26, 26, 26, 0.95);
-            border: 1px solid var(--border);
+            background: rgba(20, 18, 16, 0.96);
+            border: 1px solid rgba(212, 175, 55, 0.45);
             border-radius: 12px;
-            padding: 12px 14px;
-            box-shadow: 0 10px 35px rgba(0,0,0,0.5);
+            padding: 12px 16px;
+            box-shadow: 0 12px 35px rgba(0,0,0,0.55);
             z-index: 1200;
-            min-width: min(520px, calc(100vw - 24px));
+            min-width: min(460px, calc(100vw - 24px));
             display: none;
         }
         .gv-toast.show { display: block; }
         .gv-toast-title {
             font-family: var(--font-heading);
             color: var(--gold);
-            font-size: 0.9rem;
-            letter-spacing: 0.5px;
+            font-size: 0.84rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
             margin-bottom: 2px;
         }
         .gv-toast-body {
-            color: rgba(245, 245, 240, 0.85);
-            font-size: 0.95rem;
+            color: var(--ivory);
+            font-size: 0.86rem;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 1024px) {
             .gv-table th:nth-child(6), .gv-table td:nth-child(6) { display: none; }
-            .gv-table th:nth-child(5)::after { content: ' / Actions'; }
-        }
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .gv-table th:nth-child(6), .gv-table td:nth-child(6) { display: none; }
-            .gv-table th:nth-child(5)::after { content: ' / Actions'; }
         }
     </style>
 </head>
 <body>
     <header class="gv-header">
-        <h1><i class="fas fa-wine-bottle"></i> Wine Management</h1>
+        <h1>
+            <svg class="gca-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 22h8"></path><path d="M12 15v7"></path><path d="M7 2h10l-1 8a4 4 0 0 1-8 0L7 2z"></path></svg>
+            Cellar Management
+        </h1>
         <div class="gv-header-actions">
-            <a href="./index.html" class="gv-btn"><i class="fas fa-home"></i> Home</a>
-            <button type="button" class="gv-btn gv-btn-primary" onclick="openEditModal(null)"><i class="fas fa-plus"></i> Add wine</button>
+            <a href="./index.html" class="gv-btn">
+                <svg class="gca-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5L12 3l9 7.5"></path><path d="M5 9.5V20a1 1 0 0 0 1 1h4.5v-6h3v6H18a1 1 0 0 0 1-1V9.5"></path></svg>
+                Home
+            </a>
+            <a href="./wine-map.html" class="gv-btn">
+                <svg class="gca-ico" viewBox="0 0 24 24" aria-hidden="true"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon></svg>
+                Wine Atlas
+            </a>
+            <button type="button" class="gv-btn gv-btn-primary" onclick="openEditModal(null)">
+                <svg class="gca-ico" viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                Add Wine
+            </button>
         </div>
     </header>
 
     <div class="gv-toolbar">
-        <input type="text" class="gv-search" id="gvSearch" placeholder="Search wine, producer, number...">
-        <select class="gv-select" id="gvRegion">
+        <input type="text" class="gv-search" id="gvSearch" placeholder="Search wine, producer, varietal, number...">
+        <select class="gv-select" id="gvRegion" aria-label="Filter by region">
             <option value="">All regions</option>
         </select>
+        <select class="gv-select" id="gvType" aria-label="Filter by wine type">
+            <option value="">All styles</option>
+        </select>
         <button type="button" class="gv-btn gv-btn-primary" onclick="persistToWinesJson()" title="Write current list to data/wines.json (use server) or download file">
-            <i class="fas fa-save"></i> Save to wines.json
+            <svg class="gca-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+            Save to wines.json
         </button>
     </div>
 
     <div class="gv-stats" id="gvStats" style="display:none">
         <div class="gv-stat"><div class="gv-stat-num" id="gvTotal">0</div><div class="gv-stat-label">Total wines</div></div>
+        <div class="gv-stat"><div class="gv-stat-num" id="gvShown">0</div><div class="gv-stat-label">Showing</div></div>
         <div class="gv-stat"><div class="gv-stat-num" id="gvLinks">0</div><div class="gv-stat-label">Links updated</div></div>
-        <div class="gv-stat"><div class="gv-stat-num" id="gvMods">0</div><div class="gv-stat-label">Changes</div></div>
+        <div class="gv-stat"><div class="gv-stat-num" id="gvMods">0</div><div class="gv-stat-label">Unsaved edits</div></div>
     </div>
 
     <div id="gvError" class="gv-error"></div>
@@ -453,11 +519,15 @@
                     </div>
                     <div class="gv-form-group">
                         <label>Glass price</label>
-                        <input type="text" id="m_wine_price_glass" placeholder="15.9">
+                        <input type="text" id="m_wine_price_glass" placeholder="15.90">
                     </div>
                     <div class="gv-form-group">
                         <label>Bottle price</label>
                         <input type="text" id="m_wine_price_bottle" placeholder="115">
+                    </div>
+                    <div class="gv-form-group">
+                        <label>Split price</label>
+                        <input type="text" id="m_wine_price_split" placeholder="Optional">
                     </div>
                 </div>
                 <div class="gv-form-row">
@@ -507,13 +577,27 @@
                 </div>
                 <div class="gv-form-row">
                     <div class="gv-form-group">
+                        <label>Alcohol</label>
+                        <input type="text" id="m_alcohol" placeholder="e.g. 13.5%">
+                    </div>
+                    <div class="gv-form-group">
+                        <label>Soil</label>
+                        <input type="text" id="m_soil" placeholder="e.g. Limestone, clay">
+                    </div>
+                    <div class="gv-form-group">
+                        <label>Elevation</label>
+                        <input type="text" id="m_elevation" placeholder="e.g. 350m">
+                    </div>
+                </div>
+                <div class="gv-form-row">
+                    <div class="gv-form-group">
                         <label>Body</label>
                         <select id="m_body">
                             <option value="">— None —</option>
                         </select>
                     </div>
-                    <div class="gv-form-group" style="display:flex;align-items:center;padding-top:1.8rem;">
-                        <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;">
+                    <div class="gv-form-group" style="display:flex;align-items:center;padding-top:1.5rem;">
+                        <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;text-transform:none;font-size:0.88rem;color:var(--ivory);">
                             <input type="checkbox" id="m_organic" style="width:1rem;height:1rem;">
                             Organic
                         </label>
@@ -552,6 +636,9 @@
         document.getElementById('gvRegion').addEventListener('change', function() {
             filterRows();
         });
+        document.getElementById('gvType').addEventListener('change', function() {
+            filterRows();
+        });
 
         // Propagate table Image URL edits to jsonData (blur = leave field, Enter = apply)
         document.getElementById('gvTbody').addEventListener('blur', function(e) {
@@ -577,6 +664,7 @@
                 link: w.bottle_image_url || '',
                 producer: w.wine_producer || 'N/A',
                 region: w.region || 'N/A',
+                wineType: w.wine_type || '',
                 jsonWine: w
             }));
         }
@@ -601,9 +689,20 @@
             wrap.classList.remove('hidden');
             document.getElementById('gvStats').style.display = 'flex';
 
+            const prevRegion = document.getElementById('gvRegion').value;
+            const prevType = document.getElementById('gvType').value;
+
             const regions = [...new Set(wines.map(w => w.region).filter(Boolean))].sort();
             const regionSelect = document.getElementById('gvRegion');
             regionSelect.innerHTML = '<option value="">All regions</option>' + regions.map(r => `<option value="${r}">${r}</option>`).join('');
+            if (prevRegion && regions.includes(prevRegion)) regionSelect.value = prevRegion;
+
+            const types = [...new Set(wines.map(w => w.wineType).filter(Boolean))].sort();
+            const typeSelect = document.getElementById('gvType');
+            if (typeSelect) {
+                typeSelect.innerHTML = '<option value="">All styles</option>' + types.map(t => `<option value="${t}">${t}</option>`).join('');
+                if (prevType && types.includes(prevType)) typeSelect.value = prevType;
+            }
 
             const dl = document.getElementById('gvRegionsList');
             if (dl) dl.innerHTML = regions.map(r => `<option value="${r}">`).join('');
@@ -612,10 +711,13 @@
                 const esc = s => String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/'/g,'&#39;').replace(/"/g,'&quot;');
                 const q = s => "'" + String(s||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'") + "'";
                 const src = (w.link || '').replace(/"/g, '&quot;');
-                return `<tr data-wine-number="${esc(w.wineNumber)}" data-region="${esc(w.region)}">
-                    <td><img class="gv-img" src="${src}" alt="" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2256%22 height=%2284%22%3E%3Crect fill=%22%23333%22 width=%2256%22 height=%2284%22/%3E%3Ctext x=%2228%22 y=%2242%22 fill=%22%23666%22 text-anchor=%22middle%22 dy=%22.3em%22 font-size=%2210%22%3ENo img%3C/text%3E%3C/svg%3E'"></td>
+                return `<tr data-wine-number="${esc(w.wineNumber)}" data-region="${esc(w.region)}" data-type="${esc(w.wineType)}">
+                    <td><img class="gv-img" src="${src}" alt="" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2244%22 height=%2266%22%3E%3Crect fill=%22%231c1916%22 width=%2244%22 height=%2266%22/%3E%3Ctext x=%2222%22 y=%2233%22 fill=%22%238c8275%22 text-anchor=%22middle%22 dy=%22.3em%22 font-size=%229%22%3ENo img%3C/text%3E%3C/svg%3E'"></td>
                     <td><span class="gv-producer">${esc(w.producer)}</span></td>
-                    <td><span class="gv-name">${esc(w.wineName)}</span></td>
+                    <td>
+                        <div class="gv-name">${esc(w.wineName)}</div>
+                        ${w.wineType ? `<span class="gv-type-pill">${esc(w.wineType)}</span>` : ''}
+                    </td>
                     <td>${esc(w.region)}</td>
                     <td>${esc(w.wineNumber)}</td>
                     <td><input type="text" class="gv-link-input" value="${esc(w.link)}" data-wine-number="${esc(w.wineNumber)}" placeholder="Image URL"></td>
@@ -633,14 +735,21 @@
         function filterRows() {
             const search = (document.getElementById('gvSearch').value || '').toLowerCase();
             const region = (document.getElementById('gvRegion').value || '').trim();
+            const type = (document.getElementById('gvType') ? document.getElementById('gvType').value : '').trim();
+            let shown = 0;
             document.querySelectorAll('#gvTbody tr').forEach(tr => {
-                const num = (tr.dataset.wineNumber || '').toLowerCase();
                 const reg = (tr.dataset.region || '').trim();
+                const rowType = (tr.dataset.type || '').trim();
                 const text = tr.textContent.toLowerCase();
                 const matchSearch = !search || text.includes(search);
                 const matchRegion = !region || reg === region;
-                tr.style.display = matchSearch && matchRegion ? '' : 'none';
+                const matchType = !type || rowType === type;
+                const visible = matchSearch && matchRegion && matchType;
+                tr.style.display = visible ? '' : 'none';
+                if (visible) shown++;
             });
+            const elShown = document.getElementById('gvShown');
+            if (elShown) elShown.textContent = shown;
         }
 
         function updateStats(total) {
@@ -667,7 +776,7 @@
                 updatedLinks.add(wineNumber);
             }
             const img = input.closest('tr').querySelector('.gv-img');
-            if (img) img.src = url || "data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2256%22 height=%2284%22%3E%3Crect fill=%22%23333%22 width=%2256%22 height=%2284%22/%3E%3Ctext x=%2228%22 y=%2242%22 fill=%22%23666%22 text-anchor=%22middle%22 dy=%22.3em%22 font-size=%2210%22%3ENo img%3C/text%3E%3C/svg%3E";
+            if (img) img.src = url || "data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2244%22 height=%2266%22%3E%3Crect fill=%22%231c1916%22 width=%2244%22 height=%2266%22/%3E%3Ctext x=%2222%22 y=%2233%22 fill=%22%238c8275%22 text-anchor=%22middle%22 dy=%22.3em%22 font-size=%229%22%3ENo img%3C/text%3E%3C/svg%3E";
             saveToStorage();
             updateStats();
             showToast('Saved', 'Image URL updated.');
@@ -738,6 +847,7 @@
             document.getElementById('m_wine_producer').value = w.wine_producer || '';
             document.getElementById('m_wine_vintage').value = (w.wine_vintage != null && String(w.wine_vintage).trim() !== '') ? String(w.wine_vintage).trim() : '';
             document.getElementById('m_wine_price').value = w.wine_price || '';
+            document.getElementById('m_wine_price_split').value = w.wine_price_split || '';
             document.getElementById('m_wine_price_glass').value = w.wine_price_glass || '';
             document.getElementById('m_wine_price_bottle').value = w.wine_price_bottle || '';
             document.getElementById('m_region').value = w.region || '';
@@ -748,6 +858,9 @@
             document.getElementById('m_bottle_image_url').value = w.bottle_image_url || '';
             document.getElementById('m_varietals').value = w.varietals || '';
             document.getElementById('m_aging').value = w.aging || '';
+            document.getElementById('m_alcohol').value = w.alcohol || '';
+            document.getElementById('m_soil').value = w.soil || '';
+            document.getElementById('m_elevation').value = w.elevation || '';
             document.getElementById('m_body').value = (w.body != null && String(w.body).trim() !== '') ? String(w.body).trim() : '';
             document.getElementById('m_organic').checked = !!w.organic;
             const tn = w.tasting_notes || {};
@@ -776,17 +889,19 @@
 
             const editingNum = document.getElementById('gvModal').dataset.editingWineNumber;
             const isNew = !editingNum;
+            const existing = isNew ? {} : (jsonData.wines.find(w => w.wine_number === editingNum) || {});
 
             const sel = id => document.getElementById(id);
             const selVal = id => (sel(id) && sel(id).value) ? String(sel(id).value).trim() : '';
             const selValOrNull = id => { const v = selVal(id); return v === '' ? null : v; };
             const wine = {
+                ...existing,
                 wine_number: num,
                 wine_name: name,
                 wine_producer: producer,
                 wine_vintage: selValOrNull('m_wine_vintage'),
                 wine_price: document.getElementById('m_wine_price').value.trim() || '',
-                wine_price_split: null,
+                wine_price_split: document.getElementById('m_wine_price_split').value.trim() || null,
                 wine_price_glass: document.getElementById('m_wine_price_glass').value.trim() || null,
                 wine_price_bottle: document.getElementById('m_wine_price_bottle').value.trim() || null,
                 wine_description: document.getElementById('m_wine_description').value.trim() || '',
@@ -794,14 +909,15 @@
                 wine_type: selVal('m_wine_type'),
                 category: selVal('m_category'),
                 organic: document.getElementById('m_organic').checked,
-                alcohol: null,
+                alcohol: document.getElementById('m_alcohol').value.trim() || null,
                 aging: document.getElementById('m_aging').value.trim() || null,
                 varietals: document.getElementById('m_varietals').value.trim() || null,
-                soil: null,
-                elevation: null,
+                soil: document.getElementById('m_soil').value.trim() || null,
+                elevation: document.getElementById('m_elevation').value.trim() || null,
                 bottle_image_url: document.getElementById('m_bottle_image_url').value.trim() || '',
                 subcategory: selValOrNull('m_subcategory'),
                 tasting_notes: {
+                    ...(existing.tasting_notes || {}),
                     visual: document.getElementById('m_tasting_visual').value.trim() || '',
                     olfactory: document.getElementById('m_tasting_olfactory').value.trim() || '',
                     gustatory: document.getElementById('m_tasting_gustatory').value.trim() || ''

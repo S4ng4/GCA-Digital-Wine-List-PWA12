@@ -1,0 +1,863 @@
+/**
+ * Gran Caffè L'Aquila — Luxury Editorial Design Polish & Offline Map Styles
+ * Cohesive warm obsidian, antique gold, and parchment ivory hospitality theme.
+ */
+
+:root {
+    --gca-bg: #0B0A09;
+    --gca-surface: #141210;
+    --gca-surface-elevated: #1C1916;
+    --gca-surface-hover: #24201C;
+    --gca-gold: #D4AF37;
+    --gca-gold-soft: #E6CB78;
+    --gca-gold-deep: #A88424;
+    --gca-burgundy: #7A2331;
+    --gca-ivory: #F5F0E6;
+    --gca-muted: #B6ADA0;
+    --gca-subtle: #8C8275;
+    --gca-border: rgba(212, 175, 55, 0.22);
+    --gca-border-strong: rgba(212, 175, 55, 0.45);
+    --gca-shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.35);
+    --gca-shadow-md: 0 12px 34px rgba(0, 0, 0, 0.48);
+    --gca-shadow-lg: 0 22px 54px rgba(0, 0, 0, 0.62);
+    --gca-font-display: 'Cinzel', 'Palatino Linotype', 'Book Antiqua', Georgia, serif;
+    --gca-font-editorial: 'Cormorant', Garamond, Georgia, serif;
+    --gca-font-ui: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Hide legacy pre-alpha badge globally */
+.pre-alfa-badge {
+    display: none !important;
+}
+
+/* Base smoothing & selection */
+body {
+    background-color: var(--gca-bg);
+    color: var(--gca-ivory);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+    background: rgba(212, 175, 55, 0.28);
+    color: var(--gca-ivory);
+}
+
+/* Focus accessibility */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 2px solid var(--gca-gold);
+    outline-offset: 2px;
+}
+
+/* ==========================================================================
+   Refined Floating Home Button (Inline SVG safe, high-craft glassmorphic)
+   ========================================================================== */
+.fixed-home-btn {
+    position: fixed !important;
+    top: 0.9rem !important;
+    right: 1.15rem !important;
+    z-index: 1050 !important;
+    width: 44px !important;
+    height: 44px !important;
+    border-radius: 50% !important;
+    background: rgba(20, 18, 16, 0.88) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    border: 1px solid var(--gca-border-strong) !important;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45) !important;
+    color: var(--gca-gold) !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-decoration: none !important;
+    transition: transform 0.22s ease, background-color 0.22s ease, border-color 0.22s ease, color 0.22s ease !important;
+}
+
+.fixed-home-btn svg {
+    width: 19px;
+    height: 19px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 1.85;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.fixed-home-btn i {
+    color: currentColor !important;
+    font-size: 1rem !important;
+}
+
+.fixed-home-btn:hover {
+    background: var(--gca-gold) !important;
+    color: var(--gca-bg) !important;
+    border-color: var(--gca-gold-soft) !important;
+    transform: translateY(-2px) !important;
+}
+
+/* Inline SVG helper for crisp icons regardless of Font Awesome CDN */
+.gca-ico {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.125em;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 1.85;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    flex-shrink: 0;
+}
+
+/* ==========================================================================
+   Wine Map Top Navigation & Quick Links
+   ========================================================================== */
+.home-page .top-nav {
+    background: linear-gradient(180deg, rgba(16, 14, 12, 0.98) 0%, rgba(12, 11, 9, 0.95) 100%) !important;
+    border-bottom: 1px solid var(--gca-border) !important;
+    padding: 0.65rem 1.4rem !important;
+    min-height: 68px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 1rem !important;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.45) !important;
+}
+
+.home-page .top-nav .logo {
+    width: 46px !important;
+    height: 46px !important;
+    min-width: 46px !important;
+    border-radius: 50% !important;
+    border: 1px solid var(--gca-border) !important;
+    background: rgba(212, 175, 55, 0.06) !important;
+    padding: 4px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    transition: border-color 0.25s ease, transform 0.25s ease !important;
+}
+
+.home-page .top-nav .logo:hover {
+    border-color: var(--gca-gold) !important;
+    transform: scale(1.04) !important;
+}
+
+.home-page .top-nav .logo-image {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+}
+
+.home-page .nav-title-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.1rem;
+}
+
+.home-page .nav-title {
+    font-family: var(--gca-font-display) !important;
+    font-size: clamp(1.05rem, 1.5vw, 1.35rem) !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.12em !important;
+    color: var(--gca-gold) !important;
+    text-transform: uppercase !important;
+    margin: 0 !important;
+    line-height: 1.15 !important;
+}
+
+.home-page .nav-subtitle {
+    font-family: var(--gca-font-ui) !important;
+    font-size: 0.72rem !important;
+    letter-spacing: 0.2em !important;
+    text-transform: uppercase !important;
+    color: var(--gca-muted) !important;
+    margin: 0 !important;
+}
+
+.gca-top-nav-links {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.gca-nav-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.45rem 0.9rem;
+    border-radius: 999px;
+    border: 1px solid rgba(212, 175, 55, 0.24);
+    background: rgba(28, 25, 22, 0.72);
+    color: var(--gca-ivory);
+    font-family: var(--gca-font-ui);
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    white-space: nowrap;
+}
+
+.gca-nav-pill:hover {
+    border-color: var(--gca-gold);
+    background: rgba(212, 175, 55, 0.14);
+    color: var(--gca-gold-soft);
+    transform: translateY(-1px);
+}
+
+@media (max-width: 960px) {
+    .gca-top-nav-links {
+        display: none;
+    }
+}
+
+/* ==========================================================================
+   Wine Map Sidebar & Search Bar Polish
+   ========================================================================== */
+.home-page .sidebar {
+    background: linear-gradient(180deg, #13110F 0%, #0E0C0A 100%) !important;
+    border-right: 1px solid var(--gca-border) !important;
+    padding: 1.15rem 1rem !important;
+}
+
+.home-page .sidebar-title {
+    font-family: var(--gca-font-display) !important;
+    font-size: 0.82rem !important;
+    letter-spacing: 0.22em !important;
+    text-transform: uppercase !important;
+    color: var(--gca-gold) !important;
+    padding-bottom: 0.65rem !important;
+    margin-bottom: 0.9rem !important;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.18) !important;
+}
+
+.home-page .wine-card-sidebar {
+    background: linear-gradient(145deg, rgba(28, 25, 22, 0.92), rgba(18, 16, 14, 0.95)) !important;
+    border: 1px solid rgba(212, 175, 55, 0.18) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3) !important;
+    transition: transform 0.22s ease, border-color 0.22s ease, background-color 0.22s ease, box-shadow 0.22s ease !important;
+}
+
+.home-page .wine-card-sidebar:hover {
+    border-color: rgba(212, 175, 55, 0.55) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.45) !important;
+}
+
+.home-page .wine-card-sidebar.active {
+    background: linear-gradient(145deg, rgba(212, 175, 55, 0.18), rgba(28, 25, 22, 0.96)) !important;
+    border-color: var(--gca-gold) !important;
+    box-shadow: 0 0 0 1px rgba(212, 175, 55, 0.35), 0 10px 26px rgba(0, 0, 0, 0.5) !important;
+}
+
+.home-page .wine-card-title {
+    font-family: var(--gca-font-display) !important;
+    color: var(--gca-ivory) !important;
+    letter-spacing: 0.04em !important;
+}
+
+.home-page .wine-card-sidebar.active .wine-card-title {
+    color: var(--gca-gold-soft) !important;
+}
+
+.home-page .wine-card-subtitle {
+    font-family: var(--gca-font-ui) !important;
+    font-size: 0.74rem !important;
+    color: var(--gca-muted) !important;
+}
+
+.home-page .wine-card-count {
+    font-family: var(--gca-font-ui) !important;
+    font-size: 0.72rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.06em !important;
+    text-transform: uppercase !important;
+    color: var(--gca-gold) !important;
+    margin-top: 0.2rem !important;
+}
+
+/* Remove harsh white glow on search input */
+.home-page .search-bar-container {
+    background: rgba(15, 13, 11, 0.96) !important;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.16) !important;
+    padding: 0.85rem 1.4rem !important;
+}
+
+.home-page #desktopSearchInput,
+.home-page .search-input,
+.luxury-search-input {
+    background: #171411 !important;
+    color: var(--gca-ivory) !important;
+    border: 1px solid rgba(212, 175, 55, 0.26) !important;
+    border-radius: 10px !important;
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.45) !important;
+    font-family: var(--gca-font-ui) !important;
+    font-size: 0.92rem !important;
+    padding: 0.7rem 1.05rem !important;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease !important;
+}
+
+.home-page #desktopSearchInput::placeholder,
+.home-page .search-input::placeholder,
+.luxury-search-input::placeholder {
+    color: var(--gca-subtle) !important;
+}
+
+.home-page #desktopSearchInput:focus,
+.home-page .search-input:focus,
+.luxury-search-input:focus {
+    background: #1C1915 !important;
+    border-color: var(--gca-gold) !important;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.16), inset 0 2px 4px rgba(0, 0, 0, 0.35) !important;
+    outline: none !important;
+}
+
+.home-page .btn-filter,
+.luxury-filter-btn {
+    background: rgba(28, 25, 22, 0.92) !important;
+    color: var(--gca-ivory) !important;
+    border: 1px solid rgba(212, 175, 55, 0.32) !important;
+    border-radius: 10px !important;
+    font-family: var(--gca-font-ui) !important;
+    font-size: 0.82rem !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.04em !important;
+    padding: 0.68rem 1.1rem !important;
+    box-shadow: none !important;
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease !important;
+}
+
+.home-page .btn-filter:hover,
+.luxury-filter-btn:hover {
+    background: rgba(212, 175, 55, 0.16) !important;
+    border-color: var(--gca-gold) !important;
+    color: var(--gca-gold-soft) !important;
+    transform: translateY(-1px) !important;
+}
+
+.luxury-select {
+    background: #171411 !important;
+    color: var(--gca-ivory) !important;
+    border: 1px solid rgba(212, 175, 55, 0.32) !important;
+    border-radius: 10px !important;
+    font-family: var(--gca-font-ui) !important;
+    font-size: 0.86rem !important;
+    padding: 0.65rem 1rem !important;
+}
+
+/* ==========================================================================
+   Offline-Resilient Interactive SVG Wine Map of Italy (GCAItalySvgMap)
+   ========================================================================== */
+.gca-svg-map-host {
+    background: radial-gradient(ellipse at 40% 45%, #1A1612 0%, #0E0C0A 68%, #090807 100%) !important;
+    display: flex !important;
+    align-items: stretch !important;
+    justify-content: stretch !important;
+    width: 100% !important;
+    height: 100% !important;
+    overflow: hidden !important;
+}
+
+.gca-svg-map-wrapper {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 270px;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+}
+
+.gca-svg-map-stage {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 1.5rem 1.25rem;
+    min-height: 0;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.gca-svg-map-header {
+    width: 100%;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0 0.25rem 0.65rem;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.14);
+    margin-bottom: 0.5rem;
+    flex-shrink: 0;
+}
+
+.gca-svg-map-kicker {
+    font-family: var(--gca-font-display);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gca-gold);
+}
+
+.gca-svg-map-status {
+    font-family: var(--gca-font-ui);
+    font-size: 0.8rem;
+    color: var(--gca-muted);
+    text-align: right;
+}
+
+.gca-italy-svg {
+    width: 100%;
+    height: calc(100% - 2.5rem);
+    max-height: 100%;
+    max-width: 580px;
+    display: block;
+    user-select: none;
+}
+
+.gca-svg-region {
+    stroke-width: 1.5;
+    stroke-linejoin: round;
+    transition: fill-opacity 0.2s ease, stroke 0.2s ease, stroke-width 0.2s ease, transform 0.2s ease;
+}
+
+.gca-svg-region.has-wines {
+    cursor: pointer;
+}
+
+.gca-svg-region.has-wines:hover,
+.gca-svg-region.has-wines.is-hovered,
+.gca-svg-region.has-wines:focus {
+    fill-opacity: 0.98 !important;
+    stroke: #FFF3CC !important;
+    stroke-width: 2.4;
+    outline: none;
+}
+
+.gca-svg-region.no-wines {
+    cursor: default;
+}
+
+.gca-svg-region-label {
+    font-family: var(--gca-font-ui);
+    font-size: 8.5px;
+    font-weight: 600;
+    fill: #F9F5EB;
+    letter-spacing: 0.03em;
+    pointer-events: none;
+    paint-order: stroke;
+    stroke: rgba(11, 10, 9, 0.88);
+    stroke-width: 2.6px;
+    stroke-linejoin: round;
+}
+
+.gca-svg-region-count {
+    font-family: var(--gca-font-ui);
+    font-size: 8px;
+    font-weight: 700;
+    fill: #F4CF67;
+    pointer-events: none;
+    paint-order: stroke;
+    stroke: rgba(11, 10, 9, 0.9);
+    stroke-width: 2.2px;
+}
+
+.gca-svg-tooltip {
+    position: absolute;
+    pointer-events: none;
+    background: rgba(18, 16, 14, 0.96);
+    border: 1px solid var(--gca-border-strong);
+    border-radius: 10px;
+    padding: 0.55rem 0.85rem;
+    box-shadow: var(--gca-shadow-md);
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 0.16s ease, transform 0.16s ease;
+    z-index: 30;
+    min-width: 132px;
+}
+
+.gca-svg-tooltip.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.gca-tip-name {
+    font-family: var(--gca-font-display);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--gca-gold-soft);
+    letter-spacing: 0.04em;
+}
+
+.gca-tip-count {
+    font-family: var(--gca-font-ui);
+    font-size: 0.76rem;
+    color: var(--gca-ivory);
+    margin-top: 0.15rem;
+}
+
+/* Right-hand Region Directory Rail */
+.gca-region-quicklist {
+    display: flex;
+    flex-direction: column;
+    background: rgba(15, 13, 11, 0.86);
+    border-left: 1px solid rgba(212, 175, 55, 0.16);
+    padding: 1rem 0.9rem;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.gca-quicklist-title {
+    font-family: var(--gca-font-display);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gca-gold);
+    padding-bottom: 0.65rem;
+    margin-bottom: 0.7rem;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+    flex-shrink: 0;
+}
+
+.gca-quicklist-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0.42rem;
+    overflow-y: auto;
+    padding-right: 0.25rem;
+    min-height: 0;
+}
+
+.gca-quicklist-pill {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.52rem 0.75rem;
+    border-radius: 8px;
+    border: 1px solid rgba(212, 175, 55, 0.14);
+    background: rgba(28, 25, 22, 0.65);
+    color: var(--gca-ivory);
+    font-family: var(--gca-font-ui);
+    font-size: 0.82rem;
+    cursor: pointer;
+    text-align: left;
+    transition: background-color 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+}
+
+.gca-quicklist-pill:hover {
+    background: rgba(212, 175, 55, 0.16);
+    border-color: var(--gca-gold);
+    transform: translateX(2px);
+}
+
+.gca-pill-name {
+    font-weight: 500;
+    color: var(--gca-ivory);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.gca-pill-count {
+    font-size: 0.74rem;
+    font-weight: 600;
+    color: var(--gca-gold-soft);
+    background: rgba(212, 175, 55, 0.14);
+    border: 1px solid rgba(212, 175, 55, 0.26);
+    border-radius: 999px;
+    padding: 0.1rem 0.5rem;
+    flex-shrink: 0;
+}
+
+/* Mobile / narrow map layout */
+@media (max-width: 1024px) {
+    .gca-svg-map-wrapper {
+        grid-template-columns: 1fr;
+        grid-template-rows: minmax(280px, 1fr) auto;
+    }
+
+    .gca-svg-map-stage {
+        padding: 0.65rem 0.75rem;
+    }
+
+    .gca-svg-map-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.15rem;
+    }
+
+    .gca-svg-map-status {
+        text-align: left;
+        font-size: 0.74rem;
+    }
+
+    .gca-region-quicklist {
+        border-left: none;
+        border-top: 1px solid rgba(212, 175, 55, 0.16);
+        padding: 0.65rem 0.75rem;
+        max-height: 145px;
+    }
+
+    .gca-quicklist-items {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+    }
+
+    .gca-quicklist-pill {
+        width: auto;
+        padding: 0.36rem 0.65rem;
+        font-size: 0.76rem;
+    }
+}
+
+/* ==========================================================================
+   Wines.html & Regions.html Polish (Fixes unreadable dark-on-dark .view-btn,
+   cramped header counts, and elevates card & table legibility)
+   ========================================================================== */
+.luxury-container {
+    background: radial-gradient(ellipse at top, #1A1612 0%, #0C0B0A 55%, #080706 100%) !important;
+    min-height: 100vh;
+}
+
+/* Remove legacy dark backdrop scrim that accidentally dimmed .view-toggle and .comparison-container */
+.luxury-container::after {
+    display: none !important;
+}
+
+.luxury-header {
+    background: linear-gradient(180deg, rgba(20, 18, 15, 0.96), rgba(13, 11, 9, 0.94)) !important;
+    border-bottom: 1px solid var(--gca-border) !important;
+    padding: 1.5rem 1.5rem 1.75rem !important;
+}
+
+.hero-enhanced .luxury-header {
+    padding: 1.5rem 1.5rem 1.65rem !important;
+}
+
+.hero-enhanced .logo-container .luxury-logo {
+    width: 88px !important;
+    height: 88px !important;
+    margin-bottom: 0.35rem !important;
+}
+
+.hero-enhanced .luxury-title {
+    font-size: clamp(1.75rem, 3vw, 2.45rem) !important;
+    letter-spacing: 0.14em !important;
+    text-shadow: none !important;
+    margin-top: 0.25rem !important;
+}
+
+.hero-enhanced .luxury-subtitle {
+    margin-bottom: 0.95rem !important;
+    letter-spacing: 0.22em !important;
+    font-size: 0.92rem !important;
+}
+
+.hero-enhanced .luxury-search-container {
+    margin: 0.5rem auto 0.25rem !important;
+}
+
+.luxury-header .back-button {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    padding: 0.55rem 1.05rem !important;
+    border-radius: 999px !important;
+    border: 1px solid var(--gca-border-strong) !important;
+    background: rgba(24, 21, 18, 0.85) !important;
+    color: var(--gca-gold-soft) !important;
+    font-family: var(--gca-font-ui) !important;
+    font-size: 0.82rem !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.04em !important;
+    text-decoration: none !important;
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease !important;
+}
+
+.luxury-header .back-button:hover {
+    background: rgba(212, 175, 55, 0.16) !important;
+    border-color: var(--gca-gold) !important;
+    transform: translateX(-2px) !important;
+}
+
+.view-toggle {
+    position: relative !important;
+    z-index: 3 !important;
+    display: flex !important;
+    justify-content: center !important;
+    gap: 0.6rem !important;
+    margin: 1.25rem auto 0.25rem !important;
+    padding: 0.35rem !important;
+    width: fit-content !important;
+    background: rgba(20, 18, 15, 0.96) !important;
+    border: 1px solid var(--gca-border) !important;
+    border-radius: 12px !important;
+}
+
+.view-toggle .view-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    padding: 0.58rem 1.25rem !important;
+    border-radius: 8px !important;
+    border: 1px solid transparent !important;
+    background: transparent !important;
+    color: var(--gca-ivory) !important;
+    font-family: var(--gca-font-ui) !important;
+    font-size: 0.84rem !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.04em !important;
+    opacity: 1 !important;
+    cursor: pointer !important;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease !important;
+}
+
+.view-toggle .view-btn:hover {
+    background: rgba(212, 175, 55, 0.14) !important;
+    color: var(--gca-gold-soft) !important;
+}
+
+.view-toggle .view-btn.active {
+    background: var(--gca-gold) !important;
+    color: var(--gca-bg) !important;
+    font-weight: 600 !important;
+    box-shadow: 0 4px 14px rgba(212, 175, 55, 0.25) !important;
+}
+
+.wines-header,
+.regions-header {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-wrap: wrap !important;
+    gap: 0.85rem 1.15rem !important;
+    margin: 1rem auto 1.6rem !important;
+    padding-bottom: 1rem !important;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.18) !important;
+}
+
+.wines-title,
+.regions-title {
+    font-family: var(--gca-font-display) !important;
+    font-size: clamp(1.35rem, 2.4vw, 2rem) !important;
+    color: var(--gca-gold) !important;
+    letter-spacing: 0.1em !important;
+    margin: 0 !important;
+}
+
+.wines-count,
+.regions-count {
+    font-family: var(--gca-font-ui) !important;
+    font-size: 0.8rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.08em !important;
+    text-transform: uppercase !important;
+    color: var(--gca-gold-soft) !important;
+    background: rgba(212, 175, 55, 0.12) !important;
+    border: 1px solid rgba(212, 175, 55, 0.28) !important;
+    border-radius: 999px !important;
+    padding: 0.3rem 0.85rem !important;
+    margin: 0 !important;
+}
+
+.wines-grid,
+.regions-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)) !important;
+    gap: 1.4rem !important;
+    width: 100% !important;
+}
+
+/* Cards in wines.html / regions.html / wine-map.html */
+.wine-card,
+.region-card,
+.wine-grid-card {
+    background: linear-gradient(155deg, rgba(28, 25, 22, 0.94), rgba(18, 16, 14, 0.97)) !important;
+    border: 1px solid rgba(212, 175, 55, 0.22) !important;
+    border-radius: 14px !important;
+    box-shadow: var(--gca-shadow-sm) !important;
+    margin-bottom: 0 !important;
+    transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease !important;
+}
+
+.wine-card::after {
+    display: none !important;
+}
+
+.wine-card:hover,
+.region-card:hover,
+.wine-grid-card:hover {
+    border-color: var(--gca-gold) !important;
+    transform: translateY(-4px) !important;
+    box-shadow: var(--gca-shadow-md) !important;
+}
+
+/* Tables in wines.html & regions.html */
+.wine-table,
+.regions-table {
+    background: rgba(20, 18, 16, 0.94) !important;
+    border: 1px solid var(--gca-border) !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+    font-family: var(--gca-font-ui) !important;
+}
+
+.wine-table th,
+.regions-table th {
+    background: rgba(212, 175, 55, 0.1) !important;
+    color: var(--gca-gold-soft) !important;
+    font-family: var(--gca-font-display) !important;
+    font-size: 0.8rem !important;
+    letter-spacing: 0.08em !important;
+    text-transform: uppercase !important;
+    border-bottom: 1px solid var(--gca-border) !important;
+}
+
+.wine-table td,
+.regions-table td {
+    color: var(--gca-ivory) !important;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.1) !important;
+}
+
+/* Luxury Footer */
+.luxury-footer {
+    background: #090807 !important;
+    border-top: 1px solid rgba(212, 175, 55, 0.18) !important;
+    margin-top: auto;
+}
+
+/* Empty/Missing State Card (e.g. wine-details.html without ?id=) */
+.gca-inline-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1.25rem;
+    padding: 0.7rem 1.4rem;
+    border-radius: 10px;
+    background: var(--gca-gold);
+    color: var(--gca-bg) !important;
+    font-family: var(--gca-font-ui);
+    font-size: 0.86rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.gca-inline-cta:hover {
+    background: var(--gca-gold-soft);
+    transform: translateY(-2px);
+}

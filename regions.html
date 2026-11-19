@@ -3,28 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Wine Regions - Gran Caffè L'Aquila</title>
+    <title>Italian Wine Regions — Gran Caffè L'Aquila</title>
+    <meta name="description" content="Explore Italian wine regions represented in Gran Caffè L'Aquila's Philadelphia wine cellar.">
+    <link rel="icon" type="image/png" href="./image/icon-96x96.png">
     <!-- Bootstrap 5.3 CSS (HTTPS CDN) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <!-- Font Awesome (HTTPS CDN) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <!-- Google Fonts (HTTPS) -->
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant:wght@300;400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/luxury-polish.css">
 </head>
 <body class="hero-enhanced">
     <!-- Fixed Home Button -->
-    <a href="./index.html" class="fixed-home-btn" aria-label="Back to Home">
-        <i class="fas fa-home"></i>
+    <a href="./index.html" class="fixed-home-btn" aria-label="Back to Home" title="Back to Home">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5L12 3l9 7.5"></path><path d="M5 9.5V20a1 1 0 0 0 1 1h4.5v-6h3v6H18a1 1 0 0 0 1-1V9.5"></path></svg>
     </a>
 
     <div class="luxury-container">
         <header class="luxury-header">
             <div class="header-content">
-                <a href="./index.html" class="back-button">
-                    <i class="fas fa-chevron-left"></i>
-                    Back to Main
+                <a href="./wine-map.html" class="back-button">
+                    <svg class="gca-ico" viewBox="0 0 24 24" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                    Back to Wine Atlas
                 </a>
                 <div class="logo-container">
                     <div class="luxury-logo small has-image">
@@ -34,25 +37,26 @@
                         </picture>
                     </div>
                     <h1 class="luxury-title medium">GRAN CAFFÈ L'AQUILA</h1>
-                    <p class="luxury-subtitle medium">present</p>
-                    <p class="luxury-subtitle medium">WINE REGIONS</p>
+                    <p class="luxury-subtitle medium">Italian Wine Regions</p>
                 </div>
                 <div class="luxury-search-container">
                     <div class="luxury-search-bar">
                         <input type="text" id="regionsSearchInput" name="search" class="luxury-search-input" placeholder="Search regions...">
-                        <button class="luxury-filter-btn">Filter by Region</button>
-                        <button class="luxury-filter-btn">Filter by Varietal</button>
+                        <button class="luxury-filter-btn" type="button">Filter by Region</button>
+                        <button class="luxury-filter-btn" type="button">Filter by Varietal</button>
                     </div>
                 </div>
             </div>
         </header>
 
-        <div class="view-toggle">
-            <button class="view-btn active" id="gridViewBtn">
-                <i class="fas fa-th-large"></i> Grid View
+        <div class="view-toggle" role="group" aria-label="View mode">
+            <button class="view-btn active" id="gridViewBtn" type="button">
+                <svg class="gca-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="3" width="7" height="7" rx="1"></rect><rect x="3" y="14" width="7" height="7" rx="1"></rect><rect x="14" y="14" width="7" height="7" rx="1"></rect></svg>
+                Grid View
             </button>
-            <button class="view-btn" id="tableViewBtn">
-                <i class="fas fa-table"></i> Table View
+            <button class="view-btn" id="tableViewBtn" type="button">
+                <svg class="gca-ico" viewBox="0 0 24 24" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                Table View
             </button>
         </div>
 
@@ -91,17 +95,12 @@
             <div class="footer-content">
                 <div class="footer-logo">GRAN CAFFÈ L'AQUILA</div>
                 <div class="footer-info">
-                    <p><i class="fas fa-map-marker-alt"></i> 1716 Chestnut St, Philadelphia, PA</p>
-                    <p><i class="fas fa-phone"></i> +1 (215) 568-5600</p>
-                    <p><i class="fas fa-envelope"></i> info@grancaffelaquila.com</p>
-                </div>
-                <div class="social-icons">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <p>1716 Chestnut St, Philadelphia, PA 19103</p>
+                    <p>+1 (215) 568-5600</p>
+                    <p>info@grancaffelaquila.com</p>
                 </div>
                 <div class="copyright">
-                    <p>&copy; 2023 Gran Caffè L'Aquila. All rights reserved.</p>
+                    <p>&copy; 2025 Gran Caffè L'Aquila. All rights reserved.</p>
                 </div>
             </div>
         </footer>

@@ -3,16 +3,18 @@
  * Handles caching for offline functionality
  */
 
-const CACHE_NAME = 'gca-wine-list-v5';
-const CACHE_VERSION = 'v1.2.2';
+const CACHE_NAME = 'gca-wine-list-v7';
+const CACHE_VERSION = 'v1.4.0';
 
 // Core assets to cache immediately on install
 const CORE_ASSETS = [
   'index.html',
   'css/style.css',
+  'css/luxury-polish.css',
   'js/main.js',
   'js/subcategory-helper.js',
   'js/wineries.js',
+  'js/italy-svg-map.js',
   'manifest.json'
 ];
 
@@ -28,6 +30,7 @@ const PAGE_ASSETS = [
   'SparklingWineDoc.html',
   'wine-comparison.html',
   'wine_manager.html',
+  'gestione-vini.html',
   '404.html'
 ];
 
@@ -70,7 +73,10 @@ const DATA_ASSETS = [
 const CDN_RESOURCES = [
   'https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css',
   'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
-  'https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant:wght@300;400;500;600&display=swap'
+  'https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant:wght@300;400;500;600&display=swap',
+  'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css',
+  'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js',
+  'https://cdn.jsdelivr.net/npm/chart.js'
 ];
 
 // Combine all local assets
@@ -226,16 +232,6 @@ async function networkFirst(request) {
     if (cachedResponse) {
       return cachedResponse;
     }
-    // #region agent log
-    var u = new URL(request.url);
-    if (u.pathname.includes('/data/wines.json')) {
-      (function(){
-        var p = {location:'sw.js:networkFirst:createOffline',message:'SW returning 503 for wines.json',data:{url:request.url,hadCache:!!cachedResponse},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'h1'};
-        try { console.log('[DEBUG]', JSON.stringify(p)); } catch(e) {}
-        fetch('http://127.0.0.1:7247/ingest/fe36653c-3e53-480d-b7e2-efd99bb3957a',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(p)}).catch(function(){});
-      })();
-    }
-    // #endregion
     return createOfflineResponse(request);
   }
 }
@@ -349,7 +345,7 @@ function isStaticAsset(url) {
  * Helper: Check if URL is a CDN resource
  */
 function isCDNResource(url) {
-  const cdnHosts = ['cdn.jsdelivr.net', 'cdnjs.cloudflare.com', 'fonts.googleapis.com', 'fonts.gstatic.com'];
+  const cdnHosts = ['cdn.jsdelivr.net', 'cdnjs.cloudflare.com', 'fonts.googleapis.com', 'fonts.gstatic.com', 'unpkg.com'];
   return cdnHosts.some(host => url.hostname.includes(host));
 }
 

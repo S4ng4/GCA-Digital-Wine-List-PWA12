@@ -1,648 +1,602 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en" data-theme="night">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Gran Caffè L'Aquila - Wine By The Glass</title>
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <title>Wine by the Glass — Gran Caffè L'Aquila</title>
+    <meta name="description" content="Explore today's curated Italian wines poured by the glass at Gran Caffè L'Aquila in Philadelphia.">
+    <link rel="icon" type="image/png" href="./image/icon-96x96.png">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/luxury-polish.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant:wght@300;400;500;600&display=swap');
-
-        :root {
-            --bg-paper: #FDFBF7;
-            --text-dark: #1a1a1a;
-            --brand-red: #8B0000;
-            --gold: #C5A059;
-            --font-head: 'Cinzel', serif;
-            --font-body: 'Cormorant', serif;
-        }
-
-        /* Day/Night Theme Support */
-        :root[data-theme="night"] {
-            --bg-paper: #1a1a1a;
-            --text-dark: #F5F5F0;
-            --brand-red: #C5A059;
-            --gold: #D4AF37;
-        }
-
-        :root[data-theme="day"] {
-            --bg-paper: #FDFBF7;
-            --text-dark: #1a1a1a;
-            --brand-red: #8B0000;
-            --gold: #C5A059;
-        }
-
-        /* Night Theme Styles */
-        :root[data-theme="night"] body {
-            background-color: #0a0a0a;
-        }
-
-        :root[data-theme="night"] .menu-sheet {
-            background-color: var(--bg-paper);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-
-        :root[data-theme="night"] .menu-sheet::before {
-            border-color: var(--gold);
-        }
-
-        :root[data-theme="night"] header {
-            border-bottom-color: rgba(212, 175, 55, 0.3);
-        }
-
-        :root[data-theme="night"] h1,
-        :root[data-theme="night"] .cat-title {
-            color: var(--gold);
-        }
-
-        :root[data-theme="night"] .subhead,
-        :root[data-theme="night"] .d-desc {
-            color: rgba(245, 245, 240, 0.8);
-        }
-
-        :root[data-theme="night"] .d-price {
-            color: var(--gold);
-        }
-
-        /* Day Theme Styles */
-        :root[data-theme="day"] body {
-            background-color: #e0e0e0;
-        }
-
-        :root[data-theme="day"] .menu-sheet {
-            background-color: var(--bg-paper);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-        }
-
-        :root[data-theme="day"] .menu-sheet::before {
-            border-color: var(--brand-red);
-        }
-
-        :root[data-theme="day"] header {
-            border-bottom-color: #ccc;
-        }
-
-        :root[data-theme="day"] h1,
-        :root[data-theme="day"] .cat-title {
-            color: var(--brand-red);
-        }
-
-        :root[data-theme="day"] .subhead {
-            color: #555;
-        }
-
-        :root[data-theme="day"] .d-desc {
-            color: #555;
-        }
-
-        :root[data-theme="day"] .d-price {
-            color: var(--brand-red);
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            background-color: #e0e0e0;
-            font-family: var(--font-body);
-            margin: 0;
-            padding: 20px;
-            color: var(--text-dark);
-            transition: background-color 0.3s ease, color 0.3s ease;
+            background: radial-gradient(ellipse at 50% 0%, #1C1712 0%, #0C0B0A 52%, #080706 100%);
+            color: var(--gca-ivory);
+            font-family: var(--gca-font-editorial);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Sticky Top Bar */
+        .page-topbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 0.85rem clamp(1rem, 4vw, 2.5rem);
+            background: rgba(12, 11, 9, 0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--gca-border);
+        }
+
+        .topbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--gca-gold);
+            font-family: var(--gca-font-display);
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+        }
+
+        .topbar-brand img {
+            width: 34px;
+            height: 34px;
+            object-fit: contain;
+        }
+
+        .topbar-nav {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        /* Framed Menu Sheet */
+        .sheet-wrapper {
+            width: 100%;
+            max-width: 1120px;
+            margin: clamp(1.5rem, 3.5vw, 2.75rem) auto 3.5rem;
+            padding: 0 clamp(0.9rem, 3vw, 1.5rem);
+            flex: 1;
         }
 
         .menu-sheet {
-            background-color: var(--bg-paper);
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 50px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
             position: relative;
+            background: linear-gradient(170deg, rgba(24, 21, 18, 0.96) 0%, rgba(15, 13, 11, 0.98) 100%);
+            border: 1px solid rgba(212, 175, 55, 0.28);
+            border-radius: 18px;
+            padding: clamp(1.75rem, 4.5vw, 3.5rem);
+            box-shadow: 0 22px 58px rgba(0, 0, 0, 0.58);
         }
 
-        /* Bordo decorativo */
         .menu-sheet::before {
             content: "";
             position: absolute;
-            top: 10px; left: 10px; right: 10px; bottom: 10px;
-            border: 2px solid var(--brand-red);
+            inset: 10px;
+            border: 1px solid rgba(212, 175, 55, 0.14);
+            border-radius: 12px;
             pointer-events: none;
         }
 
-        /* Header */
-        header {
+        .sheet-header {
             text-align: center;
-            margin-bottom: 40px;
-            border-bottom: 1px solid #ccc;
-            padding-bottom: 20px;
+            padding-bottom: 1.75rem;
+            margin-bottom: 1.75rem;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
         }
 
-        h1 {
-            font-family: var(--font-head);
-            color: var(--brand-red);
-            font-size: clamp(2.5rem, 4vw, 3.5rem);
-            margin: 0;
+        .sheet-kicker {
+            font-family: var(--gca-font-ui);
+            font-size: 0.74rem;
+            font-weight: 500;
+            letter-spacing: 0.26em;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: 700;
+            color: var(--gca-gold-soft);
+            margin-bottom: 0.55rem;
         }
 
-        .subhead {
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            font-size: clamp(0.8rem, 1.2vw, 0.9rem);
-            color: #555;
-            margin-top: 5px;
-            font-family: 'Cormorant', serif;
-            font-weight: 400;
-        }
-
-        /* Wine List Button Glow Animation */
-        @keyframes glow-border-button {
-            0%, 100% {
-                border-color: rgba(212, 175, 55, 0.2);
-                box-shadow: 0 0 0 0 rgba(212, 175, 55, 0),
-                            0 2px 8px rgba(0, 0, 0, 0.3);
-            }
-            50% {
-                border-color: rgba(212, 175, 55, 0.8);
-                box-shadow: 0 0 10px 2px rgba(212, 175, 55, 0.8),
-                            0 0 20px 4px rgba(212, 175, 55, 0.4),
-                            0 2px 8px rgba(0, 0, 0, 0.3);
-            }
-        }
-
-        /* Wine List Button */
-        .wine-list-button {
-            display: inline-block;
-            padding: 1.25rem 2rem;
-            background: linear-gradient(145deg, rgba(26, 26, 26, 0.7), rgba(10, 10, 10, 0.9));
-            color: var(--gold);
-            text-decoration: none;
-            font-family: 'Cinzel', serif;
-            font-size: clamp(0.95rem, 1.3vw, 1.1rem);
+        .sheet-header h1 {
+            font-family: var(--gca-font-display);
+            font-size: clamp(1.9rem, 3.8vw, 2.85rem);
             font-weight: 600;
-            letter-spacing: 1px;
+            letter-spacing: 0.12em;
             text-transform: uppercase;
-            border: 2px solid rgba(212, 175, 55, 0.2);
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-            transition: background 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-            animation: glow-border-button 7s ease-in-out infinite;
+            color: var(--gca-ivory);
+            margin-bottom: 0.6rem;
         }
 
-        .wine-list-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, transparent, rgba(212, 175, 55, 0.05), transparent);
-            transition: left 0.6s ease;
+        .sheet-sub {
+            font-family: var(--gca-font-editorial);
+            font-size: 1.12rem;
+            color: var(--gca-muted);
+            font-style: italic;
         }
 
-        .wine-list-button:hover {
-            transform: translateX(5px);
-            background: linear-gradient(145deg, rgba(212, 175, 55, 0.1), rgba(212, 175, 55, 0.05));
+        /* Category Filter Pills */
+        .filter-bar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 2.25rem;
         }
 
-        .wine-list-button:hover::before {
-            left: 100%;
+        .filter-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.48rem 0.95rem;
+            border-radius: 999px;
+            border: 1px solid rgba(212, 175, 55, 0.24);
+            background: rgba(16, 14, 12, 0.8);
+            color: var(--gca-ivory);
+            font-family: var(--gca-font-ui);
+            font-size: 0.78rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
         }
 
-        :root[data-theme="day"] .wine-list-button {
-            background: linear-gradient(145deg, rgba(245, 245, 240, 0.9), rgba(250, 250, 245, 0.95));
-            border-color: rgba(212, 175, 55, 0.3);
-            color: var(--brand-red);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        .filter-pill:hover {
+            border-color: var(--gca-gold);
+            color: var(--gca-gold-soft);
         }
 
-        :root[data-theme="day"] .wine-list-button:hover {
-            background: linear-gradient(145deg, rgba(212, 175, 55, 0.1), rgba(212, 175, 55, 0.05));
-            border-color: var(--gold);
-            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.15);
+        .filter-pill.active {
+            background: var(--gca-gold);
+            border-color: var(--gca-gold);
+            color: var(--gca-bg);
+            font-weight: 600;
         }
 
-        /* --- LAYOUT COLONNE --- */
+        .filter-pill-count {
+            font-size: 0.7rem;
+            opacity: 0.78;
+        }
+
+        /* Two-Column Menu Grid */
         .main-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 2.5rem 3.25rem;
         }
 
-        /* Sezioni */
+        .main-grid.single-col {
+            grid-template-columns: minmax(0, 720px);
+            justify-content: center;
+        }
+
         .section-group {
-            margin-bottom: 40px;
+            margin-bottom: 2.25rem;
+        }
+
+        .section-group:last-child {
+            margin-bottom: 0;
         }
 
         .cat-title {
-            font-family: var(--font-head);
-            font-size: clamp(1.2rem, 1.8vw, 1.4rem);
-            color: var(--brand-red);
-            border-bottom: 1px solid var(--gold);
-            padding-bottom: 5px;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
+            font-family: var(--gca-font-display);
+            font-size: 1.15rem;
             font-weight: 600;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--gca-gold);
+            padding-bottom: 0.55rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.32);
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
         }
 
-        /* Piatti/Vini */
-        .dish {
-            margin-bottom: 14px;
+        .cat-count {
+            font-family: var(--gca-font-ui);
+            font-size: 0.72rem;
+            letter-spacing: 0.08em;
+            color: var(--gca-muted);
+            font-weight: 500;
         }
 
-        .dish.wine-item {
-            cursor: pointer;
-            transition: all 0.3s ease;
-            padding: 5px;
-            border-radius: 4px;
+        /* Wine Entry */
+        .wine-item {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+            padding: 0.85rem 0.9rem;
+            margin: 0 -0.9rem 0.45rem;
+            border-radius: 10px;
+            border: 1px solid transparent;
+            transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
         }
 
-        .dish.wine-item:hover {
-            background-color: rgba(212, 175, 55, 0.1);
+        .wine-item:hover {
+            background: rgba(212, 175, 55, 0.07);
+            border-color: rgba(212, 175, 55, 0.22);
             transform: translateX(3px);
         }
 
         .d-header {
             display: flex;
+            align-items: baseline;
             justify-content: space-between;
-            font-weight: 600;
-            font-size: clamp(0.9rem, 1.2vw, 1rem);
-            font-family: var(--font-head);
-            color: #222;
-            letter-spacing: 0.5px;
+            gap: 1rem;
         }
 
-        :root[data-theme="night"] .d-header {
-            color: rgba(245, 245, 240, 0.9);
+        .d-name {
+            font-family: var(--gca-font-display);
+            font-size: 0.98rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            color: var(--gca-ivory);
+            line-height: 1.35;
+        }
+
+        .wine-item:hover .d-name {
+            color: var(--gca-gold-soft);
+        }
+
+        .d-vintage {
+            font-family: var(--gca-font-ui);
+            font-size: 0.76rem;
+            font-weight: 500;
+            color: var(--gca-muted);
+            margin-left: 0.35rem;
         }
 
         .d-price {
-            color: var(--brand-red);
+            font-family: var(--gca-font-ui);
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: var(--gca-gold);
             white-space: nowrap;
-            margin-left: 10px;
+            flex-shrink: 0;
+        }
+
+        .d-submeta {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.45rem;
+            margin-top: 0.25rem;
+            font-family: var(--gca-font-ui);
+            font-size: 0.74rem;
+            color: var(--gca-muted);
+            letter-spacing: 0.03em;
+        }
+
+        .d-dot {
+            opacity: 0.45;
         }
 
         .d-desc {
-            font-size: clamp(0.8rem, 1.1vw, 0.85rem);
-            color: #555;
+            font-family: var(--gca-font-editorial);
+            font-size: 1rem;
             line-height: 1.5;
-            margin-top: 2px;
-            font-family: 'Cormorant', serif;
-            font-weight: 400;
+            color: rgba(245, 240, 230, 0.78);
+            margin-top: 0.4rem;
         }
 
-        .wine-producer {
-            font-style: italic;
-            color: rgba(85, 85, 85, 0.8);
-            font-size: clamp(0.75rem, 1vw, 0.8rem);
-        }
-
-        :root[data-theme="night"] .wine-producer {
-            color: rgba(245, 245, 240, 0.6);
-        }
-
-        /* Loading state */
         .loading {
             text-align: center;
-            padding: 2rem;
-            color: var(--text-dark);
+            padding: 2.5rem 1rem;
+            color: var(--gca-muted);
             font-style: italic;
+            font-size: 1.1rem;
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
+        .sheet-footer-cta {
+            text-align: center;
+            margin-top: 2.75rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(212, 175, 55, 0.18);
+        }
+
+        .wine-list-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.65rem;
+            padding: 0.95rem 2rem;
+            border-radius: 10px;
+            background: var(--gca-gold);
+            color: var(--gca-bg);
+            text-decoration: none;
+            font-family: var(--gca-font-display);
+            font-size: 0.92rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            transition: background-color 0.22s ease, transform 0.22s ease, box-shadow 0.22s ease;
+        }
+
+        .wine-list-button:hover {
+            background: var(--gca-gold-soft);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 26px rgba(212, 175, 55, 0.28);
+        }
+
+        @media (max-width: 820px) {
             .main-grid {
                 grid-template-columns: 1fr;
+                gap: 2rem;
             }
-            .menu-sheet {
-                padding: 20px;
+            .topbar-brand span {
+                display: none;
             }
-            h1 {
-                font-size: clamp(2rem, 5vw, 2.5rem);
-            }
-        }
-
-        /* Fixed Home Button */
-        .fixed-home-btn {
-            position: fixed;
-            top: 1rem;
-            right: 1rem;
-            z-index: 1000;
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, rgba(212, 175, 55, 0.9) 0%, rgba(184, 134, 11, 0.9) 100%);
-            border: 2px solid rgba(212, 175, 55, 0.6);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3), 0 0 20px rgba(212, 175, 55, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-        .fixed-home-btn i {
-            font-size: 1.25rem;
-            color: #0a0a0a;
-        }
-        .fixed-home-btn:hover {
-            transform: scale(1.1);
-            background: linear-gradient(135deg, rgba(212, 175, 55, 1) 0%, rgba(184, 134, 11, 1) 100%);
-        }
-        /* Pre Alfa badge - discrete but visible */
-        .pre-alfa-badge {
-            position: fixed;
-            bottom: 0.75rem;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 999;
-            font-family: var(--font-head, 'Cinzel', serif);
-            font-size: 0.7rem;
-            font-weight: 500;
-            letter-spacing: 0.12em;
-            color: rgba(242, 242, 242, 0.55);
-            text-transform: uppercase;
-            pointer-events: none;
-            padding: 0.25rem 0.6rem;
-            border: 1px solid rgba(212, 175, 55, 0.25);
-            border-radius: 4px;
-            background: rgba(14, 14, 14, 0.4);
-            backdrop-filter: blur(6px);
-        }
-        @media (min-width: 768px) {
-            .pre-alfa-badge { left: auto; right: 1rem; bottom: 1rem; transform: none; }
-        }
-        @media (max-width: 767px) {
-            .pre-alfa-badge { bottom: calc(0.75rem + env(safe-area-inset-bottom)); }
         }
     </style>
 </head>
 <body>
-    <!-- Fixed Home Button -->
-    <a href="./index.html" class="fixed-home-btn" aria-label="Back to Home">
-        <i class="fas fa-home"></i>
-    </a>
-    <span class="pre-alfa-badge" aria-label="Versione pre alfa, non ufficiale">Pre Alfa</span>
+    <header class="page-topbar">
+        <a href="./index.html" class="topbar-brand">
+            <img src="./image/gcaLogo.png" alt="Gran Caffè L'Aquila" decoding="async">
+            <span>Gran Caffè L'Aquila</span>
+        </a>
+        <nav class="topbar-nav" aria-label="Navigation">
+            <a href="./index.html" class="gca-nav-pill">
+                <svg class="gca-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5L12 3l9 7.5"></path><path d="M5 9.5V20a1 1 0 0 0 1 1h4.5v-6h3v6H18a1 1 0 0 0 1-1V9.5"></path></svg>
+                Home
+            </a>
+            <a href="./wine-map.html" class="gca-nav-pill">
+                <svg class="gca-ico" viewBox="0 0 24 24" aria-hidden="true"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon></svg>
+                Wine Atlas
+            </a>
+            <a href="./OurStory.html" class="gca-nav-pill">Our Story</a>
+        </nav>
+    </header>
 
-    <div class="menu-sheet">
-        <header>
-            <h1>Gran Caffè L'Aquila</h1>
-            <div class="subhead">Wine By The Glass</div>
-        </header>
+    <main class="sheet-wrapper">
+        <div class="menu-sheet">
+            <div class="sheet-header">
+                <p class="sheet-kicker">Gran Caffè L'Aquila &middot; Philadelphia</p>
+                <h1>Wine by the Glass</h1>
+                <p class="sheet-sub">Today's curated Italian pours &mdash; tap any selection for full tasting notes</p>
+            </div>
 
-        <div id="winesContainer" class="loading">
-            Loading wines...
+            <div class="filter-bar" id="glassFilterBar" role="tablist" aria-label="Filter wines by style"></div>
+
+            <div id="winesContainer" class="loading">
+                Loading today's wine selection...
+            </div>
+
+            <div class="sheet-footer-cta">
+                <a href="./wine-map.html" class="wine-list-button">
+                    Explore Full Bottle Atlas
+                    <svg class="gca-ico" viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </a>
+            </div>
         </div>
-
-        <div style="text-align: center; margin: 40px 0 30px 0;">
-            <a href="./wine-map.html" class="wine-list-button">Explore Wine List</a>
-        </div>
-    </div>
+    </main>
 
     <script>
-        // Theme fixed to dark mode (day/night toggle disabled)
-        function applyTheme() {
-            document.documentElement.setAttribute('data-theme', 'night');
-            localStorage.setItem('dayMode', 'false');
+        const TYPE_META = [
+            { key: 'BIANCO', label: 'White Wines', col: 'left' },
+            { key: 'ROSATO', label: 'Rosé Wines', col: 'left' },
+            { key: 'ARANCIONE', label: 'Orange Wines', col: 'left' },
+            { key: 'ROSSO', label: 'Red Wines', col: 'right' },
+            { key: 'BOLLICINE', label: 'Sparkling', col: 'right' },
+            { key: 'NON ALCOLICO', label: 'Non-Alcoholic', col: 'right' }
+        ];
+
+        let groupedWines = {};
+        let activeFilter = 'ALL';
+
+        function escapeHtml(str) {
+            return String(str || '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;');
         }
 
-        // Applica il tema all'avvio
-        applyTheme();
-
-        // Ascolta i cambiamenti del tema
-        window.addEventListener('storage', function(e) {
-            if (e.key === 'dayMode') {
-                applyTheme();
+        function formatPrice(raw) {
+            if (raw == null) return '';
+            const cleaned = String(raw).trim().replace(/^\$/, '');
+            if (!cleaned) return '';
+            const num = Number(cleaned);
+            if (Number.isFinite(num)) {
+                return '$' + num.toFixed(2);
             }
-        });
+            return '$' + cleaned;
+        }
 
-        // Re-apply theme when returning to the page (lighter than polling)
-        document.addEventListener('visibilitychange', () => {
-            if (!document.hidden) {
-                applyTheme();
+        function normalizeDescription(text) {
+            if (!text) return '';
+            const trimmed = String(text).trim();
+            if (!trimmed) return '';
+            // If mostly uppercase (>70% letters uppercase), convert to clean sentence case
+            const letters = trimmed.replace(/[^A-Za-zÀ-ÖØ-öø-ÿ]/g, '');
+            const uppers = trimmed.replace(/[^A-ZÀ-ÖØ-Þ]/g, '');
+            if (letters.length > 10 && uppers.length / letters.length > 0.7) {
+                let lower = trimmed.toLowerCase();
+                lower = lower.replace(/(^\s*[a-zà-öø-ÿ]|[.!?]\s+[a-zà-öø-ÿ])/g, m => m.toUpperCase());
+                lower = lower.replace(/\b(docg|doc|igt|dop|abv|usa|pa)\b/gi, m => m.toUpperCase());
+                return lower;
             }
-        });
-        window.addEventListener('pageshow', applyTheme);
+            return trimmed;
+        }
 
-        // Carica i vini
+        function classifyWine(wine) {
+            const type = (wine.wine_type || '').toUpperCase();
+            const subcat = (wine.subcategory || '').toUpperCase();
+
+            if (type.includes('BOLLICINE') || type.includes('SPARKLING') ||
+                subcat.includes('BOLLICINE') || subcat.includes('SPARKLING') ||
+                subcat.includes('METODO CLASSICO') || subcat.includes('CHARMAT') ||
+                subcat.includes('ANCESTRAL') || subcat.includes('MARTINOTTI')) {
+                return 'BOLLICINE';
+            }
+            if (type.includes('NON ALCOLICO') || type.includes('NON-ALCOHOLIC') || type.includes('0.0')) {
+                return 'NON ALCOLICO';
+            }
+            if (type.includes('ROSATO') || type.includes('ROSE') || type.includes('ROSY') ||
+                subcat.includes('ROSATO') || subcat === 'ROSE' || subcat === 'ROSY') {
+                return 'ROSATO';
+            }
+            if (type.includes('ARANCIONE') || type.includes('ORANGE') ||
+                subcat.includes('ARANCIONE') || subcat === 'ORANGE') {
+                return 'ARANCIONE';
+            }
+            if (type.includes('ROSSO') || type.includes('RED') ||
+                type.includes('AMARONE') || type.includes('BAROLO') ||
+                type.includes('SUPERTUSCAN') || type.includes('SUPERIORE') ||
+                type.includes('RIPASSO') || subcat.includes('ROSSO') || subcat === 'RED') {
+                return 'ROSSO';
+            }
+            if (type.includes('BIANCO') || type.includes('WHITE') ||
+                subcat.includes('BIANCO') || subcat === 'WHITE') {
+                return 'BIANCO';
+            }
+            return null;
+        }
+
+        function createWineItem(wine) {
+            const wineName = escapeHtml(wine.wine_name || 'Unknown Wine');
+            const producer = escapeHtml(wine.wine_producer || '');
+            const region = escapeHtml(wine.region || '');
+            const glassPrice = formatPrice(wine.wine_price_glass);
+            const bottlePrice = formatPrice(wine.wine_price_bottle || wine.wine_price);
+            const description = escapeHtml(normalizeDescription(wine.wine_description || ''));
+            const vintageMatch = wine.wine_vintage ? String(wine.wine_vintage).match(/\b(19|20)\d{2}\b/) : null;
+            const vintage = vintageMatch ? vintageMatch[0] : '';
+
+            const metaParts = [];
+            if (producer) metaParts.push(producer);
+            if (region) metaParts.push(region);
+            if (bottlePrice && bottlePrice !== glassPrice) metaParts.push(`Bottle ${bottlePrice}`);
+
+            return `
+                <a class="wine-item" href="wine-details.html?id=${encodeURIComponent(wine.wine_number)}">
+                    <div class="d-header">
+                        <span class="d-name">${wineName}${vintage ? `<span class="d-vintage">${escapeHtml(vintage)}</span>` : ''}</span>
+                        <span class="d-price">${escapeHtml(glassPrice || 'MP')}</span>
+                    </div>
+                    ${metaParts.length ? `<div class="d-submeta">${metaParts.join('<span class="d-dot">&middot;</span>')}</div>` : ''}
+                    ${description ? `<div class="d-desc">${description}</div>` : ''}
+                </a>
+            `;
+        }
+
+        function renderFilterBar(totalCount) {
+            const bar = document.getElementById('glassFilterBar');
+            if (!bar) return;
+
+            const pills = [
+                `<button type="button" class="filter-pill ${activeFilter === 'ALL' ? 'active' : ''}" data-filter="ALL">All <span class="filter-pill-count">${totalCount}</span></button>`
+            ];
+
+            TYPE_META.forEach(t => {
+                const count = (groupedWines[t.key] || []).length;
+                if (count > 0) {
+                    pills.push(`<button type="button" class="filter-pill ${activeFilter === t.key ? 'active' : ''}" data-filter="${t.key}">${t.label.replace(' Wines', '')} <span class="filter-pill-count">${count}</span></button>`);
+                }
+            });
+
+            bar.innerHTML = pills.join('');
+            bar.querySelectorAll('.filter-pill').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    activeFilter = btn.dataset.filter;
+                    renderFilterBar(totalCount);
+                    renderWines();
+                });
+            });
+        }
+
+        function renderSection(meta) {
+            const list = groupedWines[meta.key] || [];
+            if (list.length === 0) return '';
+            return `
+                <section class="section-group">
+                    <h2 class="cat-title">
+                        <span>${meta.label}</span>
+                        <span class="cat-count">${list.length} ${list.length === 1 ? 'pour' : 'pours'}</span>
+                    </h2>
+                    ${list.map(createWineItem).join('')}
+                </section>
+            `;
+        }
+
+        function renderWines() {
+            const container = document.getElementById('winesContainer');
+            if (!container) return;
+
+            if (activeFilter !== 'ALL') {
+                const meta = TYPE_META.find(t => t.key === activeFilter);
+                container.className = '';
+                container.innerHTML = `<div class="main-grid single-col">${meta ? renderSection(meta) : ''}</div>`;
+                return;
+            }
+
+            const leftHtml = TYPE_META.filter(t => t.col === 'left').map(renderSection).join('');
+            const rightHtml = TYPE_META.filter(t => t.col === 'right').map(renderSection).join('');
+
+            container.className = '';
+            container.innerHTML = `
+                <div class="main-grid">
+                    <div class="col-left">${leftHtml}</div>
+                    <div class="col-right">${rightHtml}</div>
+                </div>
+            `;
+        }
+
         async function loadWinesByTheGlass() {
             try {
                 const response = await fetch('./data/wines.json');
                 const data = await response.json();
-                
-                // Filtra i vini che hanno wine_price_glass ed escludi i cocktail
-                const winesByGlass = data.wines.filter(wine => 
-                    wine.wine_price_glass && 
-                    wine.wine_price_glass !== null && 
-                    wine.wine_price_glass !== '' &&
-                    wine.wine_type && 
-                    !wine.wine_type.toUpperCase().includes('COCKTAIL') &&
-                    wine.wine_producer && 
-                    !wine.wine_producer.toUpperCase().includes('HOUSE COCKTAIL')
+
+                const winesByGlass = (data.wines || []).filter(wine =>
+                    wine.wine_price_glass &&
+                    String(wine.wine_price_glass).trim() !== '' &&
+                    wine.wine_type &&
+                    !String(wine.wine_type).toUpperCase().includes('COCKTAIL') &&
+                    wine.wine_producer &&
+                    !String(wine.wine_producer).toUpperCase().includes('HOUSE COCKTAIL')
                 );
 
                 if (winesByGlass.length === 0) {
-                    document.getElementById('winesContainer').innerHTML = 
-                        '<div class="loading">No wines available by the glass.</div>';
+                    document.getElementById('winesContainer').innerHTML =
+                        '<div class="loading">No wines available by the glass at the moment.</div>';
                     return;
                 }
 
-                // Organizza i vini per tipo
-                const winesByType = {
-                    'ROSSO': [],
-                    'BIANCO': [],
-                    'ROSATO': [],
-                    'ARANCIONE': [],
-                    'BOLLICINE': [],
-                    'NON ALCOLICO': []
-                };
+                groupedWines = {};
+                TYPE_META.forEach(t => { groupedWines[t.key] = []; });
 
+                let matchedCount = 0;
                 winesByGlass.forEach(wine => {
-                    // Check both wine_type and subcategory for better matching
-                    const type = (wine.wine_type || '').toUpperCase();
-                    const subcat = (wine.subcategory || '').toUpperCase();
-                    
-                    // Match wine type - check in priority order to avoid misclassification
-                    let category = null;
-                    
-                    // Priority 1: Check for sparkling wines first (to avoid conflicts)
-                    if (type.includes('BOLLICINE') || type.includes('SPARKLING') || 
-                        subcat.includes('BOLLICINE') || subcat.includes('SPARKLING') || 
-                        subcat.includes('METODO CLASSICO') || subcat.includes('CHARMAT') || 
-                        subcat.includes('ANCESTRAL') || subcat.includes('MARTINOTTI')) {
-                        category = 'BOLLICINE';
-                    }
-                    // Priority 2: Check for non-alcoholic
-                    else if (type.includes('NON ALCOLICO') || type.includes('NON-ALCOHOLIC') || type.includes("0.0")) {
-                        category = 'NON ALCOLICO';
-                    }
-                    // Priority 3: Check for rosé wines
-                    else if (type.includes('ROSATO') || type.includes('ROSE') || type.includes('ROSY') ||
-                             subcat.includes('ROSATO') || subcat === 'ROSE' || subcat === 'ROSY') {
-                        category = 'ROSATO';
-                    }
-                    // Priority 4: Check for orange wines
-                    else if (type.includes('ARANCIONE') || type.includes('ORANGE') ||
-                             subcat.includes('ARANCIONE') || subcat === 'ORANGE') {
-                        category = 'ARANCIONE';
-                    }
-                    // Priority 5: Check for red wines (before white to avoid misclassification)
-                    else if (type.includes('ROSSO') || type.includes('RED') || 
-                             type.includes('AMARONE') || type.includes('BAROLO') || 
-                             type.includes('SUPERTUSCAN') || type.includes('SUPERIORE') || 
-                             type.includes('RIPASSO') ||
-                             subcat.includes('ROSSO') || subcat === 'RED') {
-                        category = 'ROSSO';
-                    }
-                    // Priority 6: Check for white wines
-                    else if (type.includes('BIANCO') || type.includes('WHITE') ||
-                             subcat.includes('BIANCO') || subcat === 'WHITE') {
-                        category = 'BIANCO';
-                    }
-                    // Priority 7: Check subcategory if wine_type is not clear
-                    else if (subcat.includes('ROSSO') || subcat === 'RED') {
-                        category = 'ROSSO';
-                    }
-                    else if (subcat.includes('BIANCO') || subcat === 'WHITE') {
-                        category = 'BIANCO';
-                    }
-                    // Default: skip if cannot determine (don't add to any category)
-                    
-                    if (category && winesByType[category]) {
-                        winesByType[category].push(wine);
+                    const cat = classifyWine(wine);
+                    if (cat && groupedWines[cat]) {
+                        groupedWines[cat].push(wine);
+                        matchedCount++;
                     }
                 });
 
-                // Nomi dei tipi di vino
-                const wineTypeNames = {
-                    'ROSSO': 'Red Wines',
-                    'BIANCO': 'White Wines',
-                    'ROSATO': 'Rosé Wines',
-                    'ARANCIONE': 'Orange Wines',
-                    'BOLLICINE': 'Sparkling',
-                    'NON ALCOLICO': 'Non-Alcoholic'
-                };
-
-                // Genera HTML
-                let html = '<div class="main-grid">';
-                
-                // Colonna sinistra
-                html += '<div class="col-left">';
-                
-                // Bianco
-                if (winesByType['BIANCO'].length > 0) {
-                    html += '<div class="section-group">';
-                    html += `<div class="cat-title">${wineTypeNames['BIANCO']}</div>`;
-                    winesByType['BIANCO'].forEach(wine => {
-                        html += createWineItem(wine);
-                    });
-                    html += '</div>';
-                }
-
-                // Rosato
-                if (winesByType['ROSATO'].length > 0) {
-                    html += '<div class="section-group">';
-                    html += `<div class="cat-title">${wineTypeNames['ROSATO']}</div>`;
-                    winesByType['ROSATO'].forEach(wine => {
-                        html += createWineItem(wine);
-                    });
-                    html += '</div>';
-                }
-
-                // Arancione
-                if (winesByType['ARANCIONE'].length > 0) {
-                    html += '<div class="section-group">';
-                    html += `<div class="cat-title">${wineTypeNames['ARANCIONE']}</div>`;
-                    winesByType['ARANCIONE'].forEach(wine => {
-                        html += createWineItem(wine);
-                    });
-                    html += '</div>';
-                }
-
-                html += '</div>'; // Fine colonna sinistra
-
-                // Colonna destra
-                html += '<div class="col-right">';
-
-                // Rosso
-                if (winesByType['ROSSO'].length > 0) {
-                    html += '<div class="section-group">';
-                    html += `<div class="cat-title">${wineTypeNames['ROSSO']}</div>`;
-                    winesByType['ROSSO'].forEach(wine => {
-                        html += createWineItem(wine);
-                    });
-                    html += '</div>';
-                }
-
-                // Bollicine
-                if (winesByType['BOLLICINE'].length > 0) {
-                    html += '<div class="section-group">';
-                    html += `<div class="cat-title">${wineTypeNames['BOLLICINE']}</div>`;
-                    winesByType['BOLLICINE'].forEach(wine => {
-                        html += createWineItem(wine);
-                    });
-                    html += '</div>';
-                }
-
-                // Non Alcolico
-                if (winesByType['NON ALCOLICO'].length > 0) {
-                    html += '<div class="section-group">';
-                    html += `<div class="cat-title">${wineTypeNames['NON ALCOLICO']}</div>`;
-                    winesByType['NON ALCOLICO'].forEach(wine => {
-                        html += createWineItem(wine);
-                    });
-                    html += '</div>';
-                }
-
-                html += '</div>'; // Fine colonna destra
-                html += '</div>'; // Fine main-grid
-
-                document.getElementById('winesContainer').innerHTML = html;
-
-                // Aggiungi event listeners ai vini
-                document.querySelectorAll('.wine-item').forEach(item => {
-                    item.addEventListener('click', function() {
-                        const wineId = this.dataset.wineId;
-                        window.location.href = `wine-details.html?id=${wineId}`;
-                    });
-                });
-
+                renderFilterBar(matchedCount);
+                renderWines();
             } catch (error) {
                 console.error('Error loading wines:', error);
-                document.getElementById('winesContainer').innerHTML = 
-                    '<div class="loading">Error loading wines. Please try again later.</div>';
+                document.getElementById('winesContainer').innerHTML =
+                    '<div class="loading">Unable to load wines right now. Please try again.</div>';
             }
         }
 
-        function createWineItem(wine) {
-            const wineName = wine.wine_name || 'Unknown Wine';
-            const producer = wine.wine_producer || '';
-            const price = wine.wine_price_glass || 'N/A';
-            const description = wine.wine_description || '';
-            const vintage = wine.wine_vintage ? wine.wine_vintage.match(/\b(19|20)\d{2}\b/)?.[0] : '';
-
-            let html = `<div class="dish wine-item" data-wine-id="${wine.wine_number}">`;
-            html += '<div class="d-header">';
-            html += `<span>${wineName}${vintage ? ' ' + vintage : ''}${producer ? ' <span class="wine-producer">- ' + producer + '</span>' : ''}</span>`;
-            html += `<span class="d-price">$${price}</span>`;
-            html += '</div>';
-            if (description) {
-                html += `<div class="d-desc">${description}</div>`;
-            }
-            html += '</div>';
-
-            return html;
-        }
-
-        // Carica i vini al caricamento della pagina
         loadWinesByTheGlass();
     </script>
-
 </body>
 </html>
-

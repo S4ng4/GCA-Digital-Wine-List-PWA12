@@ -3,17 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0, viewport-fit=cover, user-scalable=yes">
-    <title>Gran Caffè L'Aquila - Wine Collection</title>
+    <title>Interactive Italian Wine Atlas — Gran Caffè L'Aquila</title>
+    <meta name="description" content="Explore Gran Caffè L'Aquila's Italian wine cellar across all 20 wine regions by style, grape varietal, and producer.">
+    <link rel="icon" type="image/png" href="./image/icon-96x96.png">
     <!-- Bootstrap 5.3 CSS (HTTPS CDN) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <!-- Font Awesome (HTTPS CDN) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <!-- Google Fonts (HTTPS) -->
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant:wght@300;400;500;600&family=Kalam:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant:wght@300;400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <!-- Leaflet CSS (HTTPS CDN) -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
     <!-- Custom CSS -->
     <link rel="stylesheet" href="./css/style.css?v=20250124">
+    <link rel="stylesheet" href="./css/luxury-polish.css">
     <style>
         /* Floating search container with project colors */
         #floating-controls {
@@ -348,14 +351,6 @@
         </div>
     </div>
 
-    <!-- Fixed Home Button -->
-    <a href="./index.html" class="fixed-home-btn" aria-label="Back to Home">
-        <i class="fas fa-home"></i>
-    </a>
-
-    <!-- Pre Alfa badge (discrete, non-official) -->
-    <span class="pre-alfa-badge" aria-label="Versione pre alfa, non ufficiale">Pre Alfa</span>
-
     <div class="main-layout">
         <!-- Top Navigation -->
         <nav class="top-nav">
@@ -366,7 +361,7 @@
                 <span class="burger-line"></span>
             </button>
             
-            <div class="logo" onclick="window.location.href='./index.html'">
+            <div class="logo" onclick="window.location.href='./index.html'" title="Back to Home">
                 <picture>
                     <source srcset="./image/gcaLogo.webp" type="image/webp">
                     <img src="./image/gcaLogo.png" alt="Gran Caffè L'Aquila Logo" class="logo-image" decoding="async">
@@ -374,12 +369,31 @@
             </div>
             <div class="nav-title-section">
                 <h1 class="nav-title">Gran Caffè L'Aquila</h1>
-                <p class="nav-subtitle">Fine Wine Collection</p>
+                <p class="nav-subtitle">Italian Wine Cellar Atlas</p>
+            </div>
+
+            <div class="gca-top-nav-links" aria-label="Quick links">
+                <a href="./index.html" class="gca-nav-pill">
+                    <svg class="gca-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5L12 3l9 7.5"></path><path d="M5 9.5V20a1 1 0 0 0 1 1h4.5v-6h3v6H18a1 1 0 0 0 1-1V9.5"></path></svg>
+                    Home
+                </a>
+                <a href="./WineByTheGlass.html" class="gca-nav-pill">
+                    <svg class="gca-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 22h8"></path><path d="M12 15v7"></path><path d="M7 2h10l-1 8a4 4 0 0 1-8 0L7 2z"></path></svg>
+                    By the Glass
+                </a>
+                <a href="./SparklingWineDoc.html" class="gca-nav-pill">
+                    <svg class="gca-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                    Sparkling Guide
+                </a>
+                <a href="./wine-comparison.html" class="gca-nav-pill">
+                    <svg class="gca-ico" viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="3" x2="12" y2="21"></line><path d="M5 7h14"></path><path d="M3 14l2-7 2 7a2 2 0 0 1-4 0z"></path><path d="M17 14l2-7 2 7a2 2 0 0 1-4 0z"></path></svg>
+                    Compare
+                </a>
             </div>
             
             <!-- Mobile Search Button (visible on mobile only) -->
             <button class="mobile-search-btn" id="mobileSearchBtn" aria-label="Search">
-                <i class="fas fa-search"></i>
+                <svg class="gca-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
             </button>
         </nav>
 
@@ -607,8 +621,8 @@
                         <div class="wine-card-title">Sparkling</div>
                         <div class="wine-card-subtitle">Celebratory & Vibrant</div>
                         <div class="wine-card-count">Loading...</div>
-                        <button class="wine-card-info-btn" onclick="window.location.href='./SparklingWineDoc.html'" title="Sparkling Wine Guide">
-                            <i class="fas fa-info-circle"></i>
+                        <button type="button" class="wine-card-info-btn" onclick="event.stopPropagation(); window.location.href='./SparklingWineDoc.html'" title="Sparkling Wine Guide" aria-label="Sparkling Wine Guide">
+                            <svg class="gca-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
                         </button>
                     </div>
 
@@ -706,8 +720,9 @@
                 <!-- Wines List Container (replaces map when region is clicked) -->
                 <div class="wines-list-container" id="winesListContainer" style="display: none;">
                     <div class="wines-list-header">
-                        <button class="btn-back-to-map" id="backToMapBtn">
-                            <i class="fas fa-arrow-left"></i> Back to Map
+                        <button class="btn-back-to-map" id="backToMapBtn" type="button">
+                            <svg class="gca-ico" viewBox="0 0 24 24" aria-hidden="true"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                            Back to Map
                         </button>
                         <div class="wines-list-title-section">
                             <h2 class="wines-list-title" id="winesListTitle">Wines</h2>
@@ -748,16 +763,14 @@
     <!-- Custom JS -->
     <script src="./js/wineries.js"></script>
     <script src="./js/subcategory-helper.js"></script>
+    <script src="./js/italy-svg-map.js"></script>
     <script src="./js/main.js"></script>
     <script>
-        // Function to check if device is tablet
         function isTablet() {
             return /Mobi/i.test(navigator.userAgent) && window.innerWidth > 768 && window.innerWidth < 1024;
         }
 
-        // Function to handle region button clicks
         function goToRegion(region) {
-            // Region coordinates for Italy
             var regions = {
                 'Lazio': [41.9028, 12.4964, 8],
                 'Toscana': [43.769, 11.2558, 8],
@@ -781,25 +794,22 @@
                     animate: true,
                     duration: 1.0
                 });
+            } else if (typeof window.showWinesListForRegion === 'function') {
+                window.showWinesListForRegion(region.toUpperCase(), null);
             }
         }
 
-        // Handle filter button
         function handleFilter() {
-            // Trigger existing filter functionality
             const filterBtn = document.querySelector('.btn-filter');
             if (filterBtn) {
                 filterBtn.click();
             }
         }
 
-        // Handle sort button
         function handleSort() {
-            // Add sort functionality if needed
             console.log('Sort clicked');
         }
 
-        // Handle reset button
         function handleReset() {
             var isReducedZoomPhone = /iPhone|Samsung|SM-[A-Z]|Galaxy/i.test(navigator.userAgent);
             var resetZoom = isReducedZoomPhone ? 5.3 : 5.8;
@@ -809,13 +819,12 @@
             if (window.mobileMapInstance) {
                 window.mobileMapInstance.setView([42.0, 12.5], resetZoom);
             }
-            
-            // Clear search
+
             const searchInput = document.getElementById('floating-search-input');
             if (searchInput) {
                 searchInput.value = '';
             }
-            
+
             const desktopSearch = document.getElementById('desktopSearchInput');
             if (desktopSearch) {
                 desktopSearch.value = '';
@@ -824,219 +833,15 @@
 
         // Sync floating search with desktop search
         document.addEventListener('DOMContentLoaded', function() {
-            // #region agent log
-            // Disabled logging to avoid console errors when server is not available
-            const logData = (hypothesisId, message, data) => {
-                // Logging disabled - no-op function to prevent errors
-                // Uncomment below to enable logging when server is available:
-                /*
-                const logEndpoint = 'http://127.0.0.1:7247/ingest/fe36653c-3e53-480d-b7e2-efd99bb3957a';
-                fetch(logEndpoint, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        location: 'wine-map.html:DOMContentLoaded',
-                        message: message,
-                        data: data,
-                        timestamp: Date.now(),
-                        sessionId: 'debug-session',
-                        runId: 'run1',
-                        hypothesisId: hypothesisId
-                    })
-                }).catch(() => {});
-                */
-            };
-            
-            // Check if CSS was loaded from cache or network
-            const styleLink = document.querySelector('link[href*="style.css"]');
-            if (styleLink) {
-                // Try to detect if loaded from cache by checking response headers
-                fetch(styleLink.href, { method: 'HEAD', cache: 'no-cache' })
-                    .then(response => {
-                        logData('A', 'CSS file fetch response headers', {
-                            url: styleLink.href,
-                            status: response.status,
-                            statusText: response.statusText,
-                            cacheControl: response.headers.get('cache-control'),
-                            etag: response.headers.get('etag'),
-                            lastModified: response.headers.get('last-modified'),
-                            date: response.headers.get('date'),
-                            fromServiceWorker: response.headers.get('sw-cache') || 'unknown'
-                        });
-                    })
-                    .catch(err => {
-                        logData('A', 'CSS file fetch error', { url: styleLink.href, error: err.message });
-                    });
-            }
-            
-            // Check service worker cache status
-            if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.getRegistration().then(reg => {
-                    if (reg) {
-                        logData('A', 'service worker registration status', {
-                            active: !!reg.active,
-                            installing: !!reg.installing,
-                            waiting: !!reg.waiting,
-                            scope: reg.scope,
-                            updateViaCache: reg.updateViaCache
-                        });
-                        
-                        // Check cache version
-                        if (reg.active) {
-                            reg.active.postMessage({ type: 'GET_VERSION' });
-                        }
-                    } else {
-                        logData('A', 'no service worker registration found', {});
-                    }
-                });
-            }
-            // #endregion
-            
             const floatingSearch = document.getElementById('floating-search-input');
             const desktopSearch = document.getElementById('desktopSearchInput');
-            
+
             if (floatingSearch && desktopSearch) {
                 floatingSearch.addEventListener('input', function(e) {
                     desktopSearch.value = e.target.value;
-                    // Trigger search event
-                    const event = new Event('input', { bubbles: true });
-                    desktopSearch.dispatchEvent(event);
+                    desktopSearch.dispatchEvent(new Event('input', { bubbles: true }));
                 });
             }
-
-            // Debug: Check map positioning and padding-top
-                setTimeout(function() {
-                const mapWrapper = document.querySelector('.map-wrapper');
-                const map = document.getElementById('map');
-                const searchBar = document.querySelector('.search-bar-container');
-                const mainContent = document.querySelector('.main-content-desktop');
-                const contentWrapper = document.querySelector('.content-wrapper');
-                
-                if (mapWrapper) {
-                    const rect = mapWrapper.getBoundingClientRect();
-                    const styles = window.getComputedStyle(mapWrapper);
-                    // #region agent log
-                    logData('A', 'map-wrapper dimensions and CSS conflicts', {
-                        height: rect.height,
-                        width: rect.width,
-                        top: rect.top,
-                        paddingTop: styles.paddingTop,
-                        marginTop: styles.marginTop,
-                        position: styles.position,
-                        flex: styles.flex,
-                        heightStyle: styles.height,
-                        widthStyle: styles.width,
-                        minHeight: styles.minHeight,
-                        maxHeight: styles.maxHeight,
-                        display: styles.display
-                    });
-                    // #endregion
-                }
-                
-                if (map) {
-                    const rect = map.getBoundingClientRect();
-                    const styles = window.getComputedStyle(map);
-                    // Get all CSS rules that apply to #map
-                    const allRules = [];
-                    for (let sheet of document.styleSheets) {
-                        try {
-                            for (let rule of sheet.cssRules || sheet.rules || []) {
-                                if (rule.selectorText && (rule.selectorText.includes('#map') || rule.selectorText.includes('.map-wrapper'))) {
-                                    allRules.push({
-                                        selector: rule.selectorText,
-                                        media: rule.parentRule ? rule.parentRule.media.mediaText : 'none',
-                                        cssText: rule.cssText
-                                    });
-                                }
-                            }
-                        } catch (e) {}
-                    }
-                    // #region agent log
-                    logData('B', 'map dimensions and CSS conflicts', {
-                        height: rect.height,
-                        width: rect.width,
-                        top: rect.top,
-                        bottom: rect.bottom,
-                        paddingTop: styles.paddingTop,
-                        marginTop: styles.marginTop,
-                        position: styles.position,
-                        topStyle: styles.top,
-                        bottomStyle: styles.bottom,
-                        heightStyle: styles.height,
-                        widthStyle: styles.width,
-                        minHeight: styles.minHeight,
-                        maxHeight: styles.maxHeight,
-                        flex: styles.flex,
-                        display: styles.display,
-                        allRules: allRules.slice(0, 10) // Limit to first 10 rules
-                    });
-                    // #endregion
-                }
-                
-                if (searchBar) {
-                    const rect = searchBar.getBoundingClientRect();
-                    const styles = window.getComputedStyle(searchBar);
-                    // #region agent log
-                    logData('C', 'search-bar dimensions', {
-                        height: rect.height,
-                        top: rect.top,
-                        bottom: rect.bottom,
-                        paddingTop: styles.paddingTop,
-                        marginTop: styles.marginTop
-                    });
-                    // #endregion
-                }
-                
-                if (mainContent) {
-                    const rect = mainContent.getBoundingClientRect();
-                    const styles = window.getComputedStyle(mainContent);
-                    // #region agent log
-                    logData('D', 'main-content dimensions', {
-                        height: rect.height,
-                        top: rect.top,
-                        paddingTop: styles.paddingTop,
-                        marginTop: styles.marginTop,
-                        display: styles.display,
-                        flexDirection: styles.flexDirection,
-                        flex: styles.flex
-                    });
-                    // #endregion
-                }
-                
-                if (contentWrapper) {
-                    const rect = contentWrapper.getBoundingClientRect();
-                    const styles = window.getComputedStyle(contentWrapper);
-                    // #region agent log
-                    logData('F', 'content-wrapper dimensions', {
-                        height: rect.height,
-                        top: rect.top,
-                        paddingTop: styles.paddingTop,
-                        marginTop: styles.marginTop,
-                        display: styles.display
-                    });
-                    // #endregion
-                }
-                
-                // Calculate available space
-                if (mainContent && searchBar && mapWrapper) {
-                    const mainRect = mainContent.getBoundingClientRect();
-                    const searchRect = searchBar.getBoundingClientRect();
-                    const availableHeight = mainRect.height - searchRect.height;
-                    // #region agent log
-                    logData('E', 'available space calculation', {
-                        mainContentHeight: mainRect.height,
-                        searchBarHeight: searchRect.height,
-                        availableHeight: availableHeight,
-                        mapWrapperHeight: mapWrapper.getBoundingClientRect().height,
-                        mapWrapperTop: mapWrapper.getBoundingClientRect().top,
-                        searchBarBottom: searchRect.bottom,
-                        gap: mapWrapper.getBoundingClientRect().top - searchRect.bottom
-                    });
-                    // #endregion
-                }
-            }, 1000);
-
-            // Zoom is set to 6 for all devices (removed tablet-specific zoom)
         });
     </script>
 </body>

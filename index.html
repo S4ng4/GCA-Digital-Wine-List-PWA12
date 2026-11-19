@@ -1,419 +1,428 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Gran Caffè L'Aquila Philadelphia - Wine Collection</title>
-    
+    <title>Gran Caffè L'Aquila Philadelphia — Digital Wine Collection</title>
+    <meta name="description" content="Explore the curated Italian wine cellar of Gran Caffè L'Aquila in Philadelphia across all 20 wine regions, wines by the glass, and our heritage from L'Aquila.">
+
     <!-- PWA Meta Tags -->
-    <meta name="theme-color" content="#D4AF37">
+    <meta name="theme-color" content="#0B0A09">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="GCA Wines">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="application-name" content="GCA Wines">
-    <meta name="msapplication-TileColor" content="#0E0E0E">
+    <meta name="msapplication-TileColor" content="#0B0A09">
     <meta name="msapplication-TileImage" content="./image/icon-144x144.png">
-    
+
     <!-- PWA Manifest -->
     <link rel="manifest" href="./manifest.json">
-    
-    <!-- Apple Touch Icons -->
+
+    <!-- Apple Touch Icons & Favicons -->
     <link rel="apple-touch-icon" href="./image/icon-152x152.png">
     <link rel="apple-touch-icon" sizes="152x152" href="./image/icon-152x152.png">
     <link rel="apple-touch-icon" sizes="180x180" href="./image/icon-192x192.png">
     <link rel="apple-touch-icon" sizes="167x167" href="./image/icon-152x152.png">
-    
-    <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="32x32" href="./image/icon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="./image/icon-72x72.png">
-    
-    <!-- Bootstrap 5.3 CSS (HTTPS CDN) -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <!-- Font Awesome (HTTPS CDN) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
-    <!-- Google Fonts (HTTPS) - 2 fonts max for readability/perf -->
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="./css/style.css">
+
+    <!-- Google Fonts (optional online enhancement; refined serif/sans fallbacks built in) -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/luxury-polish.css">
+
     <style>
-        /* Landing Page Specific Styles - MOBILE FIRST */
-        :root {
-            --gold: #D4AF37;
-            --gold-light: #F4CF67;
-            --ivory: #F5F5F0;
-            --font-heading: 'Cinzel', serif;
-            --font-body: 'Cormorant', serif;
-            --transition-slow: 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-medium: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
-        body.landing-page {
-            background-color: #0E0E0E;
-            color: var(--ivory);
+        html, body {
+            min-height: 100%;
+            background-color: var(--gca-bg);
+            color: var(--gca-ivory);
+            font-family: var(--gca-font-editorial);
             overflow-x: hidden;
-            font-family: var(--font-body);
         }
 
-        /* Header - Logo rimosso, header minimale */
-        .landing-header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
-            padding: 1rem;
-            display: none; /* Header nascosto - logo spostato nel pulsante Our Story */
-            align-items: center;
-            justify-content: center;
-            animation: slideDown 0.6s ease-out;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        /* Header sempre visibile su tablet - rimosso .hidden */
-
-        @keyframes slideDown {
-            from {
-                transform: translateY(-100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .landing-logo-section {
+        .landing-shell {
+            position: relative;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            backdrop-filter: blur(10px);
-            background: rgba(10, 10, 10, 0.3);
-            border-radius: 12px;
-            padding: 0.5rem 1rem;
+            isolation: isolate;
         }
 
-        .landing-logo-image {
-            max-width: 200px;
-            width: 100%;
-            height: auto;
-            object-fit: contain;
-            transition: transform 0.3s ease;
-        }
-
-        .landing-logo-image:hover {
-            transform: scale(1.05);
-        }
-
-        /* Hero Section - Mobile First */
-        .landing-hero {
-            position: relative;
-            width: 100%;
-            min-height: 100vh;
-            margin: 0;
+        /* Atmospheric dining room backdrop */
+        .landing-backdrop {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
             overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            pointer-events: none;
         }
 
-        .hero-background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-        }
-
-        .hero-background::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(to bottom, 
-                rgba(10, 10, 10, 0.2) 0%,
-                rgba(10, 10, 10, 0.4) 30%,
-                rgba(10, 10, 10, 0.8) 70%,
-                rgba(10, 10, 10, 0.95) 100%);
-            z-index: 2;
-        }
-
-        .hero-background-image {
+        .landing-backdrop img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: center;
-            filter: brightness(0.7) contrast(1.1);
+            object-position: center 42%;
+            filter: brightness(0.42) saturate(0.85) contrast(1.06);
+            transform: scale(1.03);
         }
 
-        /* Contenuto Hero */
-        .landing-hero-content {
-            position: relative;
-            z-index: 3;
-            width: 90%;
-            max-width: 1200px;
-            padding: 2rem 1rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 2rem;
-            text-align: center;
-            padding-top: 40px; /* Ridotto spazio header (logo rimosso) */
-        }
-
-        /* Titolo principale con animazione */
-        .landing-hero-text {
-            font-family: var(--font-heading);
-            font-size: 2rem;
-            font-weight: 600;
-            color: var(--gold);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin: 0;
-            line-height: 1.2;
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeInUp 1s 0.5s forwards;
-        }
-
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Sottotitolo con animazione a scaglioni */
-        .landing-subtitle {
-            font-family: var(--font-body);
-            font-size: 1.1rem;
-            color: rgba(245, 245, 240, 0.8);
-            max-width: 600px;
-            line-height: 1.6;
-            margin: 0;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 1s 0.8s forwards;
-        }
-
-        /* Domanda principale */
-        .landing-question {
-            font-family: var(--font-heading);
-            font-size: 1.5rem;
-            font-weight: 500;
-            color: var(--ivory);
-            text-align: center;
-            margin: 1.5rem 0;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 1s 1s forwards;
-            letter-spacing: 1px;
-        }
-
-        /* Pulsanti principali - Card Style */
-        .landing-buttons-section {
-            display: flex;
-            flex-direction: column;
-            gap: 1.25rem;
-            width: 100%;
-            max-width: 500px;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 1s 1.2s forwards;
-        }
-
-        .landing-button {
-            position: relative;
-            background: rgba(26, 26, 26, 0.85);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            border-radius: 15px;
-            color: var(--ivory);
-            font-family: var(--font-heading);
-            font-size: 1rem;
-            font-weight: 600;
-            letter-spacing: 1px;
-            text-transform: none;
-            padding: 1.5rem 1.75rem;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 1.25rem;
-            overflow: hidden;
-            text-align: left;
-            min-height: 80px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        .landing-button::before {
+        .landing-backdrop::after {
             content: '';
             position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            background: rgba(212, 175, 55, 0.1);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            transition: width 0.6s ease, height 0.6s ease;
+            inset: 0;
+            background:
+                radial-gradient(ellipse at 50% 22%, rgba(212, 175, 55, 0.11) 0%, transparent 56%),
+                linear-gradient(180deg, rgba(11, 10, 9, 0.72) 0%, rgba(11, 10, 9, 0.84) 55%, rgba(11, 10, 9, 0.96) 100%);
         }
 
-        .landing-button:hover::before,
-        .landing-button:active::before {
-            width: 300px;
-            height: 300px;
+        /* Subtle top utility bar */
+        .landing-topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.15rem clamp(1.25rem, 4vw, 3rem);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.12);
+            background: rgba(11, 10, 9, 0.45);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
 
-        .landing-button:hover,
-        .landing-button:active {
-            border-color: var(--gold);
-            transform: translateY(-4px);
-            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.35);
-            background: rgba(26, 26, 26, 0.95);
+        .topbar-location {
+            font-family: var(--gca-font-ui);
+            font-size: 0.74rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--gca-muted);
         }
 
-        .landing-button-icon {
-            font-size: 2rem;
-            color: var(--gold);
-            transition: transform 0.3s ease, color 0.3s ease;
-            flex-shrink: 0;
-            width: 50px;
+        .topbar-links {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+        }
+
+        .topbar-link {
+            font-family: var(--gca-font-ui);
+            font-size: 0.76rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--gca-muted);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .topbar-link:hover {
+            color: var(--gca-gold-soft);
+        }
+
+        /* Hero section */
+        .landing-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: clamp(2.25rem, 5vh, 4rem) clamp(1.25rem, 4vw, 2.5rem) 2.5rem;
+            width: 100%;
+            max-width: 1120px;
+            margin: 0 auto;
+        }
+
+        .brand-crest-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin-bottom: clamp(2rem, 4.5vh, 3.25rem);
+            animation: gcaReveal 0.75s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+
+        .brand-crest {
+            height: clamp(64px, 8vw, 88px);
+            width: auto;
+            margin-bottom: 1.35rem;
+            filter: brightness(0) saturate(100%) invert(76%) sepia(38%) saturate(580%) hue-rotate(6deg) brightness(1.02);
+            opacity: 0.96;
+        }
+
+        .brand-kicker {
+            font-family: var(--gca-font-ui);
+            font-size: 0.74rem;
+            font-weight: 500;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: var(--gca-gold-soft);
+            margin-bottom: 0.75rem;
+        }
+
+        .brand-heading {
+            font-family: var(--gca-font-display);
+            font-size: clamp(2rem, 4.4vw, 3.35rem);
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--gca-ivory);
+            line-height: 1.12;
+            margin-bottom: 1rem;
+        }
+
+        .gold-divider {
             display: flex;
             align-items: center;
             justify-content: center;
+            gap: 0.85rem;
+            width: 220px;
+            margin: 0 auto 1.15rem;
         }
 
-        .landing-button:hover .landing-button-icon,
-        .landing-button:active .landing-button-icon {
-            transform: scale(1.1);
-            color: var(--gold-light);
+        .gold-divider::before,
+        .gold-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.65), transparent);
         }
 
-        /* Logo nel pulsante Our Story */
-        .landing-button-icon.logo-icon {
-            width: auto;
-            height: 50px;
-            max-width: 120px;
+        .gold-diamond {
+            width: 6px;
+            height: 6px;
+            background: var(--gca-gold);
+            transform: rotate(45deg);
+            flex-shrink: 0;
         }
 
-        .landing-button-icon.logo-icon img {
+        .brand-lead {
+            font-family: var(--gca-font-editorial);
+            font-size: clamp(1.12rem, 1.7vw, 1.32rem);
+            color: rgba(245, 240, 230, 0.86);
+            max-width: 600px;
+            line-height: 1.55;
+            font-weight: 400;
+        }
+
+        /* Primary Navigation Grid */
+        .experience-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1.35rem;
             width: 100%;
-            height: 100%;
-            object-fit: contain;
-            filter: brightness(0) saturate(100%) invert(75%) sepia(50%) saturate(500%) hue-rotate(5deg) brightness(1.1);
-            transition: transform 0.3s ease, filter 0.3s ease;
+            margin-bottom: 2.25rem;
+            animation: gcaReveal 0.85s 0.12s cubic-bezier(0.22, 1, 0.36, 1) both;
         }
 
-        .landing-button:hover .landing-button-icon.logo-icon img,
-        .landing-button:active .landing-button-icon.logo-icon img {
-            transform: scale(1.1);
-            filter: brightness(0) saturate(100%) invert(80%) sepia(50%) saturate(500%) hue-rotate(5deg) brightness(1.2);
-        }
-
-
-        .landing-button-content {
+        .experience-card {
+            position: relative;
             display: flex;
             flex-direction: column;
-            gap: 0.5rem;
-            flex: 1;
+            justify-content: space-between;
+            gap: 1.25rem;
+            padding: 1.85rem 1.7rem;
+            border-radius: 16px;
+            background: linear-gradient(160deg, rgba(26, 23, 20, 0.9) 0%, rgba(16, 14, 12, 0.94) 100%);
+            border: 1px solid rgba(212, 175, 55, 0.22);
+            box-shadow: 0 14px 36px rgba(0, 0, 0, 0.45);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            text-decoration: none;
+            color: var(--gca-ivory);
+            transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.28s ease, box-shadow 0.28s ease, background-color 0.28s ease;
         }
 
-        .landing-button-title {
-            font-family: var(--font-heading);
-            font-size: 1.2rem;
+        .experience-card.is-featured {
+            background: linear-gradient(160deg, rgba(42, 34, 22, 0.92) 0%, rgba(20, 17, 13, 0.95) 100%);
+            border-color: rgba(212, 175, 55, 0.46);
+        }
+
+        .experience-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--gca-gold);
+            box-shadow: 0 22px 48px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(212, 175, 55, 0.25);
+        }
+
+        .card-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .card-icon-box {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.26);
+            color: var(--gca-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: background-color 0.25s ease, transform 0.25s ease;
+        }
+
+        .experience-card:hover .card-icon-box {
+            background: rgba(212, 175, 55, 0.2);
+            transform: scale(1.06);
+        }
+
+        .card-icon-box svg {
+            width: 24px;
+            height: 24px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 1.65;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .card-metric {
+            font-family: var(--gca-font-ui);
+            font-size: 0.72rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--gca-gold-soft);
+            padding: 0.3rem 0.65rem;
+            border-radius: 999px;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.22);
+            white-space: nowrap;
+        }
+
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            gap: 0.55rem;
+        }
+
+        .card-title {
+            font-family: var(--gca-font-display);
+            font-size: 1.28rem;
             font-weight: 600;
-            color: var(--gold);
-            letter-spacing: 0.5px;
-            margin: 0;
+            letter-spacing: 0.06em;
+            color: var(--gca-ivory);
+            transition: color 0.22s ease;
         }
 
-        .landing-button-description {
-            font-family: var(--font-body);
-            font-size: 0.9rem;
-            color: rgba(245, 245, 240, 0.8);
-            line-height: 1.4;
-            margin: 0;
+        .experience-card:hover .card-title {
+            color: var(--gca-gold-soft);
         }
 
-        /* Bottone speciale Explore - più grande */
-        .landing-button.explore {
-            background: linear-gradient(135deg, 
-                rgba(212, 175, 55, 0.12), 
-                rgba(212, 175, 55, 0.06));
-            border-width: 2px;
-            border-color: rgba(212, 175, 55, 0.4);
-            min-height: 90px;
+        .card-desc {
+            font-family: var(--gca-font-editorial);
+            font-size: 1.05rem;
+            line-height: 1.5;
+            color: var(--gca-muted);
         }
 
-        .landing-button.explore:hover {
-            background: linear-gradient(135deg, 
-                rgba(212, 175, 55, 0.18), 
-                rgba(212, 175, 55, 0.1));
-            border-color: var(--gold);
+        .card-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--gca-font-ui);
+            font-size: 0.76rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--gca-gold);
+            padding-top: 0.85rem;
+            border-top: 1px solid rgba(212, 175, 55, 0.14);
         }
 
-        /* Bottone Storia - più piccolo */
-        .landing-button.story {
-            min-height: 70px;
-            padding: 1.25rem 1.75rem;
+        .card-cta svg {
+            width: 15px;
+            height: 15px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: transform 0.22s ease;
+        }
+
+        .experience-card:hover .card-cta svg {
+            transform: translateX(4px);
+        }
+
+        /* Secondary Utility Strip */
+        .secondary-strip {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            width: 100%;
+            animation: gcaReveal 0.9s 0.22s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+
+        .secondary-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            padding: 0.62rem 1.15rem;
+            border-radius: 999px;
+            background: rgba(20, 18, 16, 0.76);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            color: var(--gca-ivory);
+            font-family: var(--gca-font-ui);
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.04em;
+            text-decoration: none;
+            transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+        }
+
+        .secondary-link svg {
+            width: 15px;
+            height: 15px;
+            stroke: var(--gca-gold);
+            fill: none;
+            stroke-width: 1.8;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .secondary-link:hover {
+            border-color: var(--gca-gold);
+            background: rgba(212, 175, 55, 0.12);
+            color: var(--gca-gold-soft);
+            transform: translateY(-2px);
         }
 
         /* Footer */
         .landing-footer {
-            background: rgba(10, 10, 10, 0.95);
-            padding: 1.5rem 1rem;
+            border-top: 1px solid rgba(212, 175, 55, 0.14);
+            background: rgba(9, 8, 7, 0.88);
+            padding: 1.4rem clamp(1.25rem, 4vw, 3rem);
             text-align: center;
-            border-top: 1px solid rgba(212, 175, 55, 0.1);
-            position: relative;
-            z-index: 2;
         }
 
-        .landing-footer-text {
-            font-family: var(--font-body);
-            font-size: 0.85rem;
-            color: rgba(245, 245, 240, 0.7);
-            letter-spacing: 1px;
-            margin: 0 auto;
-            max-width: 600px;
-            line-height: 1.5;
+        .footer-tagline {
+            font-family: var(--gca-font-display);
+            font-size: 0.78rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--gca-gold);
+            margin-bottom: 0.45rem;
         }
 
-        .landing-footer-ala-carte {
-            font-family: var(--font-body);
-            font-size: 0.8rem;
-            color: rgba(245, 245, 240, 0.55);
-            margin: 1rem auto 0;
-            max-width: 600px;
-            line-height: 1.4;
+        .footer-address {
+            font-family: var(--gca-font-ui);
+            font-size: 0.76rem;
+            color: var(--gca-muted);
+            letter-spacing: 0.04em;
         }
 
-        .landing-footer-ala-carte-link {
-            color: var(--gold, #D4AF37);
-            text-decoration: none;
-            letter-spacing: 0.5px;
-        }
-
-        .landing-footer-ala-carte-link:hover {
-            text-decoration: underline;
-        }
-
-        .landing-footer-ala-carte-header {
-            font-style: italic;
-        }
-
-        /* Animazioni scroll */
-        @keyframes fadeIn {
+        @keyframes gcaReveal {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(18px);
             }
             to {
                 opacity: 1;
@@ -421,319 +430,213 @@
             }
         }
 
-        .animate-on-scroll {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-
-        .animate-on-scroll.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* TABLET - Media Queries */
-        @media (min-width: 768px) {
-            .landing-header {
-                padding: 1rem 2rem;
+        @media (max-width: 900px) {
+            .experience-grid {
+                grid-template-columns: 1fr;
+                max-width: 560px;
             }
-
-            .landing-logo-image {
-                max-width: 300px;
+            .topbar-links {
+                display: none;
             }
-
-            .landing-hero-content {
-                padding: 3rem 2rem;
-                gap: 2.5rem;
-                padding-top: 60px; /* Ridotto (header nascosto) */
-            }
-
-            .landing-hero-text {
-                font-size: 3rem;
-                letter-spacing: 3px;
-            }
-
-            .landing-subtitle {
-                font-size: 1.2rem;
-            }
-
-            .landing-question {
-                font-size: 1.8rem;
-                margin: 2rem 0;
-            }
-
-            .landing-buttons-section {
-                max-width: 650px;
-                gap: 1.5rem;
-            }
-
-            .landing-button {
-                padding: 1.75rem 2rem;
-                min-height: 90px;
-            }
-
-            .landing-button-icon {
-                font-size: 2.5rem;
-                width: 60px;
-            }
-
-            .landing-button-icon.logo-icon {
-                height: 60px;
-                max-width: 150px;
-            }
-
-            .landing-button-title {
-                font-size: 1.4rem;
-            }
-
-            .landing-button-description {
-                font-size: 1rem;
-            }
-
-            .landing-button.explore {
-                min-height: 100px;
-            }
-
-            .landing-button.story {
-                min-height: 80px;
-            }
-
-            .landing-footer {
-                padding: 2rem;
-            }
-
-            .landing-footer-text {
-                font-size: 1rem;
+            .landing-topbar {
+                justify-content: center;
             }
         }
 
-        @media (min-width: 1024px) {
-            .landing-hero-text {
-                font-size: 4rem;
-            }
-
-            .landing-question {
-                font-size: 2rem;
-            }
-
-            .landing-buttons-section {
-                max-width: 700px;
-            }
-        }
-
-        /* Dark mode support */
-        @media (prefers-color-scheme: dark) {
-            .landing-hero-text {
-                text-shadow: 0 2px 12px rgba(0, 0, 0, 0.9);
-            }
-        }
-
-        /* Prefers reduced motion */
         @media (prefers-reduced-motion: reduce) {
-            *,
-            *::before,
-            *::after {
+            *, *::before, *::after {
                 animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
                 transition-duration: 0.01ms !important;
-            }
-        }
-
-        /* Touch devices: subtle tap feedback without hover lift */
-        @media (hover: none) and (pointer: coarse) {
-            .landing-button:hover,
-            .landing-button:active {
-                transform: scale(0.98);
-                box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
             }
         }
     </style>
 </head>
 <body class="landing-page">
-    <!-- Header - Logo rimosso, spostato nel pulsante Our Story -->
-    <header class="landing-header" id="mainHeader">
-        <!-- Logo rimosso dall'header -->
-    </header>
-
-    <!-- Hero Section -->
-    <section class="landing-hero">
-        <!-- Contenuto -->
-        <div class="landing-hero-content">
-            <h2 class="landing-hero-text">THE JOURNEY STARTS HERE</h2>
-            
-            <p class="landing-subtitle">
-                Discover the authentic taste of Italy through our curated wine selection and traditional Italian hospitality
-            </p>
-            
-            <!-- Domanda principale -->
-            <h3 class="landing-question">How would you like to explore our wines?</h3>
-            
-            <!-- Bottoni principali - Riordinati -->
-            <div class="landing-buttons-section">
-                <!-- 1. Explore by Region -->
-                <a href="./wine-map.html" class="landing-button explore">
-                    <div class="landing-button-icon">
-                        <i class="fas fa-map-marked-alt"></i>
-                    </div>
-                    <div class="landing-button-content">
-                        <div class="landing-button-title">Explore by Region</div>
-                        <div class="landing-button-description">Discover wines through our interactive map of Italy</div>
-                    </div>
-                </a>
-                
-                <!-- 2. Wine by the Glass -->
-                <a href="./WineByTheGlass.html" class="landing-button">
-                    <div class="landing-button-icon">
-                        <i class="fas fa-wine-glass-alt"></i>
-                    </div>
-                    <div class="landing-button-content">
-                        <div class="landing-button-title">Wine by the Glass</div>
-                        <div class="landing-button-description">See today's selection, ready to enjoy</div>
-                    </div>
-                </a>
-                
-                <!-- 3. Our Story -->
-                <a href="./OurStory.html" class="landing-button story">
-                    <div class="landing-button-icon logo-icon">
-                        <img src="./image/logoFull.svg" alt="Gran Caffè L'Aquila Logo" loading="lazy" decoding="async">
-                    </div>
-                    <div class="landing-button-content">
-                        <div class="landing-button-title">Our Story</div>
-                        <div class="landing-button-description">From L'Aquila to Philadelphia</div>
-                    </div>
-                </a>
-                
-
-            </div>
+    <div class="landing-shell">
+        <div class="landing-backdrop" aria-hidden="true">
+            <picture>
+                <source srcset="./image/secondFloor.webp" type="image/webp">
+                <img src="./image/secondFloor.png" alt="" decoding="async">
+            </picture>
         </div>
-    </section>
 
-    <!-- Pre Alfa badge (discrete, non-official) -->
-    <span class="pre-alfa-badge" aria-label="Versione pre alfa, non ufficiale">Pre Alfa</span>
+        <header class="landing-topbar">
+            <span class="topbar-location">1716 Chestnut St &middot; Philadelphia</span>
+            <nav class="topbar-links" aria-label="Quick navigation">
+                <a href="./wine-map.html" class="topbar-link">Cellar Atlas</a>
+                <a href="./WineByTheGlass.html" class="topbar-link">By the Glass</a>
+                <a href="./SparklingWineDoc.html" class="topbar-link">Sparkling Guide</a>
+                <a href="./OurStory.html" class="topbar-link">Heritage</a>
+            </nav>
+        </header>
 
-    <!-- Footer -->
-    <footer class="landing-footer">
-        <p class="landing-footer-text">
-            DISCOVER THE FULL WINE LIST SELECTING THE REGION AND THE STYLE<br>
-            <span style="font-size: 0.8rem; color: rgba(245, 245, 240, 0.5); margin-top: 0.5rem; display: block;">
-                Experience the renaissance of authentic Italian culture in Philadelphia
-            </span>
-        </p>
-        <p class="landing-footer-ala-carte">
-            <a href="./Ala%20Carte%2011-23-25.html" class="landing-footer-ala-carte-link">À la Carte</a>: <span class="landing-footer-ala-carte-header">Gran Caffè L'Aquila — Ristorante • Torrefazione • Gelateria • Cultura</span>
-        </p>
-    </footer>
+        <main class="landing-main">
+            <section class="brand-crest-wrap">
+                <img src="./image/logoFull.svg" alt="Gran Caffè L'Aquila Crest" class="brand-crest" decoding="async">
+                <p class="brand-kicker">Ristorante &middot; Enoteca &middot; Torrefazione</p>
+                <h1 class="brand-heading">Gran Caffè L'Aquila</h1>
+                <div class="gold-divider" aria-hidden="true"><span class="gold-diamond"></span></div>
+                <p class="brand-lead">
+                    An authentic cellar journey across Italy's twenty wine regions — curated bottle by bottle for our guests in Philadelphia.
+                </p>
+            </section>
 
-    <!-- Scripts -->
-    <script src="./js/main.js"></script>
+            <section class="experience-grid" aria-label="Primary wine experiences">
+                <!-- 1. Explore by Region -->
+                <a href="./wine-map.html" class="experience-card is-featured">
+                    <div>
+                        <div class="card-top">
+                            <div class="card-icon-box" aria-hidden="true">
+                                <svg viewBox="0 0 24 24">
+                                    <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon>
+                                    <line x1="8" y1="2" x2="8" y2="18"></line>
+                                    <line x1="16" y1="6" x2="16" y2="22"></line>
+                                </svg>
+                            </div>
+                            <span class="card-metric" id="metricCellarCount">Italian Cellar</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h2 class="card-title">Explore by Region</h2>
+                        <p class="card-desc">Navigate our interactive wine atlas of Italy by region, style, grape varietal, or vintage.</p>
+                    </div>
+                    <span class="card-cta">
+                        Open Wine Atlas
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </span>
+                </a>
+
+                <!-- 2. Wine by the Glass -->
+                <a href="./WineByTheGlass.html" class="experience-card">
+                    <div>
+                        <div class="card-top">
+                            <div class="card-icon-box" aria-hidden="true">
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M8 22h8"></path>
+                                    <path d="M12 15v7"></path>
+                                    <path d="M7 2h10l-1 8a4 4 0 0 1-8 0L7 2z"></path>
+                                    <path d="M7.5 7h9"></path>
+                                </svg>
+                            </div>
+                            <span class="card-metric" id="metricGlassCount">Daily Pours</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h2 class="card-title">Wine by the Glass</h2>
+                        <p class="card-desc">Discover today's curated reds, whites, rosés, skin-contact, and sparkling pours ready at the bar.</p>
+                    </div>
+                    <span class="card-cta">
+                        View Today's Pours
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </span>
+                </a>
+
+                <!-- 3. Our Story -->
+                <a href="./OurStory.html" class="experience-card">
+                    <div>
+                        <div class="card-top">
+                            <div class="card-icon-box" aria-hidden="true">
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M3 21h18"></path>
+                                    <path d="M5 21V7l7-4 7 4v14"></path>
+                                    <path d="M9 21v-6h6v6"></path>
+                                    <path d="M9 10h.01"></path>
+                                    <path d="M15 10h.01"></path>
+                                </svg>
+                            </div>
+                            <span class="card-metric">Est. L'Aquila</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h2 class="card-title">Our Story</h2>
+                        <p class="card-desc">From Piazza Duomo in Abruzzo to Chestnut Street — the craft, people, and rebirth of Gran Caffè L'Aquila.</p>
+                    </div>
+                    <span class="card-cta">
+                        Read Our Heritage
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </span>
+                </a>
+            </section>
+
+            <nav class="secondary-strip" aria-label="Sommelier tools and menus">
+                <a href="./SparklingWineDoc.html" class="secondary-link">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                    Sparkling Wine Guide
+                </a>
+                <a href="./wine-comparison.html" class="secondary-link">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="3" x2="12" y2="21"></line><path d="M5 7h14"></path><path d="M3 14l2-7 2 7a2 2 0 0 1-4 0z"></path><path d="M17 14l2-7 2 7a2 2 0 0 1-4 0z"></path></svg>
+                    Compare Wines
+                </a>
+                <a href="./Ala%20Carte%2011-23-25.html" class="secondary-link">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"></path><path d="M7 2v20"></path><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"></path></svg>
+                    À la Carte Menu
+                </a>
+                <a href="./gestione-vini.html" class="secondary-link">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                    Cellar Manager
+                </a>
+            </nav>
+        </main>
+
+        <footer class="landing-footer">
+            <p class="footer-tagline">Gran Caffè L'Aquila &mdash; Ristorante &bull; Torrefazione &bull; Gelateria &bull; Cultura</p>
+            <p class="footer-address">1716 Chestnut St, Philadelphia, PA 19103 &middot; +1 (215) 568-5600</p>
+        </footer>
+    </div>
+
+    <!-- Lightweight live cellar metrics + Service Worker registration -->
     <script>
-        // Landing page: keep JS minimal to avoid reflows on tablet hardware.
-    </script>
-    
-    <!-- Service Worker Registration -->
-    <script>
-        // Register Service Worker for PWA functionality
+        (async function loadLandingMetrics() {
+            try {
+                const res = await fetch('./data/wines.json');
+                if (!res.ok) return;
+                const data = await res.json();
+                const wines = Array.isArray(data.wines) ? data.wines : [];
+                const validWines = wines.filter(w => w.wine_type && !String(w.wine_type).toUpperCase().includes('COCKTAIL'));
+                const glassWines = validWines.filter(w => w.wine_price_glass && String(w.wine_price_glass).trim() !== '');
+                const cellarEl = document.getElementById('metricCellarCount');
+                const glassEl = document.getElementById('metricGlassCount');
+                if (cellarEl && validWines.length > 0) {
+                    cellarEl.textContent = `${validWines.length} Selections`;
+                }
+                if (glassEl && glassWines.length > 0) {
+                    glassEl.textContent = `${glassWines.length} By the Glass`;
+                }
+            } catch (_) {
+                // Keep graceful default labels when offline without cache
+            }
+        })();
+
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', async () => {
                 try {
-                    const registration = await navigator.serviceWorker.register('./sw.js', {
-                        scope: './'
-                    });
-                    
-                    console.log('[PWA] Service Worker registered successfully:', registration.scope);
-                    
-                    // Handle updates
+                    const registration = await navigator.serviceWorker.register('./sw.js', { scope: './' });
                     registration.addEventListener('updatefound', () => {
                         const newWorker = registration.installing;
-                        console.log('[PWA] New Service Worker installing...');
-                        
+                        if (!newWorker) return;
                         newWorker.addEventListener('statechange', () => {
                             if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                                // New content available, show update notification
-                                console.log('[PWA] New content available, refresh to update');
                                 showUpdateNotification();
                             }
                         });
                     });
-                    
                 } catch (error) {
-                    console.error('[PWA] Service Worker registration failed:', error);
+                    console.warn('[PWA] Service Worker registration failed:', error);
                 }
             });
-            
-            // Handle controller change (when new SW takes over)
-            navigator.serviceWorker.addEventListener('controllerchange', () => {
-                console.log('[PWA] Controller changed, page will reload for updates');
-            });
         }
-        
-        // Show update notification (optional UI enhancement)
+
         function showUpdateNotification() {
-            // You can customize this to show a toast/banner
-            const updateBanner = document.createElement('div');
-            updateBanner.id = 'pwa-update-banner';
-            updateBanner.innerHTML = `
-                <style>
-                    #pwa-update-banner {
-                        position: fixed;
-                        bottom: 20px;
-                        left: 50%;
-                        transform: translateX(-50%);
-                        background: linear-gradient(135deg, #1a1a1a, #0a0a0a);
-                        border: 1px solid #D4AF37;
-                        border-radius: 12px;
-                        padding: 16px 24px;
-                        z-index: 10000;
-                        display: flex;
-                        align-items: center;
-                        gap: 16px;
-                        box-shadow: 0 8px 32px rgba(0,0,0,0.5);
-                        font-family: 'Cormorant', serif;
-                        animation: slideUp 0.3s ease-out;
-                    }
-                    #pwa-update-banner span {
-                        color: #F5F5F0;
-                        font-size: 0.95rem;
-                    }
-                    #pwa-update-banner button {
-                        background: #D4AF37;
-                        color: #0a0a0a;
-                        border: none;
-                        padding: 8px 16px;
-                        border-radius: 6px;
-                        cursor: pointer;
-                        font-family: 'Cinzel', serif;
-                        font-weight: 600;
-                        font-size: 0.85rem;
-                        transition: all 0.2s ease;
-                    }
-                    #pwa-update-banner button:hover {
-                        background: #F4CF67;
-                        transform: scale(1.05);
-                    }
-                    @keyframes slideUp {
-                        from { transform: translateX(-50%) translateY(100px); opacity: 0; }
-                        to { transform: translateX(-50%) translateY(0); opacity: 1; }
-                    }
-                </style>
-                <span>New version available!</span>
-                <button onclick="location.reload()">Update</button>
-            `;
-            document.body.appendChild(updateBanner);
-            
-            // Auto-hide after 10 seconds
-            setTimeout(() => {
-                if (updateBanner.parentNode) {
-                    updateBanner.style.animation = 'slideUp 0.3s ease-out reverse';
-                    setTimeout(() => updateBanner.remove(), 300);
-                }
-            }, 10000);
+            if (document.getElementById('pwa-update-banner')) return;
+            const banner = document.createElement('div');
+            banner.id = 'pwa-update-banner';
+            banner.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#141210;border:1px solid #D4AF37;border-radius:12px;padding:14px 22px;z-index:10000;display:flex;align-items:center;gap:16px;box-shadow:0 12px 32px rgba(0,0,0,0.55);font-family:var(--gca-font-ui);font-size:0.88rem;color:#F5F0E6;';
+            banner.innerHTML = '<span>A fresh cellar list update is ready.</span><button type="button" style="background:#D4AF37;color:#0B0A09;border:none;padding:7px 14px;border-radius:8px;cursor:pointer;font-weight:600;font-size:0.8rem;" onclick="location.reload()">Refresh</button>';
+            document.body.appendChild(banner);
+            setTimeout(() => banner.remove(), 10000);
         }
-        
-        // Detect if running as installed PWA
-        if (window.matchMedia('(display-mode: standalone)').matches || 
-            window.navigator.standalone === true) {
-            console.log('[PWA] Running in standalone mode (installed)');
+
+        if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
             document.body.classList.add('pwa-standalone');
         }
     </script>
