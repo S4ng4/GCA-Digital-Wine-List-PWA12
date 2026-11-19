@@ -3,8 +3,8 @@
  * Handles caching for offline functionality
  */
 
-const CACHE_NAME = 'gca-wine-list-v7';
-const CACHE_VERSION = 'v1.4.0';
+const CACHE_NAME = 'gca-wine-list-v8';
+const CACHE_VERSION = 'v1.5.0';
 
 // Core assets to cache immediately on install
 const CORE_ASSETS = [
